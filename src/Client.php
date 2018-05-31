@@ -7,6 +7,7 @@ use JMS\Serializer\SerializerInterface;
 use PokeAPI\Exception\NetworkException;
 use PokeAPI\JMS\Serializer\PokeApiJmsSerializerBuilder;
 use PokeAPI\Pokemon\Ability;
+use PokeAPI\Pokemon\Area;
 use PokeAPI\Pokemon\Berry;
 use PokeAPI\Pokemon\BerryFirmness;
 use PokeAPI\Pokemon\BerryFlavor;
