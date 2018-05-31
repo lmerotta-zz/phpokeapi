@@ -1,0 +1,8 @@
+PokeAPI\Pokemon\PokemonEncounter:
+  exclusion_policy: ALL
+  properties:
+    pokemon:
+      type: PokeProxy<'PokeAPI\Pokemon\Pokemon'>
+    versionEncounters:
+      type: ArrayCollection<PokeAPI\Pokemon\VersionEncounter>
+      serialized_name: version_details

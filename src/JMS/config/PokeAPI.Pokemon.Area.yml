@@ -1,0 +1,18 @@
+PokeAPI\Pokemon\Area:
+  exclusion_policy: ALL
+  properties:
+    id:
+      type: integer
+    name:
+      type: string
+    gameIndex:
+      type: integer
+    encounterMethodRates:
+      type: ArrayCollection<PokeAPI\Pokemon\EncounterMethodRate>
+    location:
+      type: PokeProxy<'PokeAPI\Pokemon\Location'>
+    names:
+      type: PokeTranslation<'name'>
+    encounters:
+      type: ArrayCollection<PokeAPI\Pokemon\PokemonEncounter>
+      serialized_name: pokemon_encounters

@@ -1,0 +1,13 @@
+PokeAPI\Pokemon\MoveLearnMethod:
+  exclusion_policy: ALL
+  properties:
+    id:
+      type: integer
+    name:
+      type: string
+    descriptions:
+      type: PokeTranslation<'description'>
+    names:
+      type: PokeTranslation<'name'>
+    versionGroups:
+      type: ArrayCollection<PokeProxy<'PokeAPI\Pokemon\VersionGroup'>>

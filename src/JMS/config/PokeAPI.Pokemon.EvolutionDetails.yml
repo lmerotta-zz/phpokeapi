@@ -1,0 +1,42 @@
+PokeAPI\Pokemon\EvolutionDetails:
+  exclusion_policy: ALL
+  properties:
+    item:
+      type: PokeProxy<'PokeAPI\Pokemon\Item'>
+    trigger:
+      type: PokeProxy<'PokeAPI\Pokemon\EvolutionTrigger'>
+    gender:
+      type: PokeProxy<'PokeAPI\Pokemon\Gender'>
+    heldItem:
+      type: PokeProxy<'PokeAPI\Pokemon\Item'>
+    knownMove:
+      type: PokeProxy<'PokeAPI\Pokemon\Move'>
+    knownMoveType:
+      type: PokeProxy<'PokeAPI\Pokemon\Type'>
+    location:
+      type: PokeProxy<'PokeAPI\Pokemon\Location'>
+    minLevel:
+      type: integer
+    minHappiness:
+      type: integer
+    minBeauty:
+      type: integer
+    minAffection:
+      type: integer
+    needsRain:
+      type: boolean
+      serialized_name: needs_overworld_rain
+    partySpecies:
+      type: PokeProxy<'PokeAPI\Pokemon\Species'>
+    partyType:
+      type: PokeProxy<'PokeAPI\Pokemon\Type'>
+    physicalStats:
+      type: integer
+      serialized_name: relative_physical_stats
+    timeOfDay:
+      type: string
+    tradeSpecies:
+      type: PokeProxy<'PokeAPI\Pokemon\Species'>
+    upsideDown:
+      type: boolean
+      serialized_name: turn_upside_down

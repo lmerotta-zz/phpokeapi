@@ -1,0 +1,15 @@
+PokeAPI\Pokemon\Location:
+  exclusion_policy: ALL
+  properties:
+    id:
+      type: integer
+    name:
+      type: string
+    region:
+      type: PokeProxy<'PokeAPI\Pokemon\Region'>
+    names:
+      type: PokeTranslation<'name'>
+    gameIndices:
+      type: ArrayCollection<PokeAPI\Pokemon\GameIndex>
+    areas:
+      type: ArrayCollection<PokeProxy<'PokeAPI\Pokemon\Area'>>

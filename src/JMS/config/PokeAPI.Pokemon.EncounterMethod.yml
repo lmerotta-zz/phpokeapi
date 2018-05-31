@@ -1,0 +1,11 @@
+PokeAPI\Pokemon\EncounterMethod:
+  exclusion_policy: ALL
+  properties:
+    id:
+      type: integer
+    name:
+      type: string
+    order:
+      type: integer
+    names:
+      type: PokeTranslation<'name'>

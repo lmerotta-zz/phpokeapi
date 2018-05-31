@@ -1,0 +1,11 @@
+PokeAPI\Pokemon\Machine:
+  exclusion_policy: ALL
+  properties:
+    id:
+      type: integer
+    item:
+      type: PokeProxy<'PokeAPI\Pokemon\Item'>
+    move:
+      type: PokeProxy<'PokeAPI\Pokemon\Move'>
+    versionGroup:
+      type: PokeProxy<'PokeAPI\Pokemon\VersionGroup'>

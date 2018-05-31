@@ -1,0 +1,30 @@
+PokeAPI\Pokemon\MoveMetadata:
+  exclusion_policy: ALL
+  properties:
+    ailment:
+      type: PokeProxy<'PokeAPI\Pokemon\MoveAilment'>
+    category:
+      type: PokeProxy<'PokeAPI\Pokemon\Category'>
+    minHits:
+      type: integer
+    maxHits:
+      type: integer
+    minTurns:
+      type: integer
+    maxTurns:
+      type: integer
+    drainPercent:
+      type: integer
+      serialized_name: drain
+    healingPercent:
+      type: integer
+      serialized_name: healing
+    criticalRate:
+      type: integer
+      serialized_name: crit_rate
+    ailmentChance:
+      type: integer
+    flintChance:
+      type: integer
+    statChance:
+      type: integer

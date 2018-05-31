@@ -1,0 +1,21 @@
+PokeAPI\Pokemon\Pokedex:
+  exclusion_policy: ALL
+  properties:
+    id:
+      type: integer
+    name:
+      type: string
+    mainSeries:
+      type: boolean
+      serialized_name: is_main_series
+    descriptions:
+      type: PokeTranslation<'description'>
+    names:
+      type: PokeTranslation<'name'>
+    pokedexEntries:
+      type: ArrayCollection<PokeAPI\Pokemon\PokedexEntry>
+    region:
+      type: PokeProxy<'PokeAPI\Pokemon\Region'>
+    versionGroups:
+      type: ArrayCollection<PokeProxy<'PokeAPI\Pokemon\VersionGroup'>>
+

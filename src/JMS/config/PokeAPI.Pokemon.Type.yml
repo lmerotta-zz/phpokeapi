@@ -1,0 +1,22 @@
+PokeAPI\Pokemon\Type:
+  exclusion_policy: ALL
+  properties:
+    id:
+      type: integer
+    name:
+      type: string
+    damageRelations:
+      type: ArrayCollection<string, ArrayCollection<PokeProxy<'PokeAPI\Pokemon\Type'>>>
+    game_indices:
+      type: ArrayCollection<PokeAPI\Pokemon\GameIndex>
+    generation:
+      type: PokeProxy<'PokeAPI\Pokemon\Generation'>
+    moveDamageClass:
+      type: PokeProxy<'PokeAPI\Pokemon\MoveDamageClass'>
+    names:
+      type: PokeTranslation<'name'>
+    pokemons:
+      type: ArrayCollection<PokeAPI\Pokemon\PokemonType>
+      serialized_name: pokemon
+    moves:
+      type: ArrayCollection<PokeProxy<'PokeAPI\Pokemon\Move'>>

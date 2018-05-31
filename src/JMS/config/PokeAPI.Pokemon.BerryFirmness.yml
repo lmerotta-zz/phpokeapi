@@ -1,0 +1,11 @@
+PokeAPI\Pokemon\BerryFirmness:
+  exclusion_policy: ALL
+  properties:
+    id:
+      type: integer
+    name:
+      type: string
+    berries:
+      type: ArrayCollection<PokeProxy<'PokeAPI\Pokemon\Berry'>>
+    names:
+      type: PokeTranslation<'name'>

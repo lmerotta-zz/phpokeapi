@@ -1,0 +1,10 @@
+PokeAPI\Pokemon\VersionEncounter:
+  exclusion_policy: ALL
+  properties:
+    version:
+      type: PokeProxy<'PokeAPI\Pokemon\Version'>
+    maxChance:
+      type: integer
+    encounters:
+      type: ArrayCollection<PokeAPI\Pokemon\Encounter>
+      serialized_name: encounter_details

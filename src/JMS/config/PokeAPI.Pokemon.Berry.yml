@@ -1,0 +1,27 @@
+PokeAPI\Pokemon\Berry:
+  exclusion_policy: ALL
+  properties:
+    id:
+      type: integer
+    name:
+      type: string
+    growthTime:
+      type: integer
+    maxHarvest:
+      type: integer
+    naturalGiftPower:
+      type: integer
+    size:
+      type: integer
+    smoothness:
+      type: integer
+    soilDryneds:
+      type: integer
+    firmness:
+      type: PokeProxy<'PokeAPI\Pokemon\BerryFirmness'>
+    flavors:
+      type: ArrayCollection<PokeAPI\Pokemon\BerryFlavorMap>
+    item:
+      type: PokeProxy<'PokeAPI\Pokemon\Item>
+    naturalGiftType:
+      type: PokeProxy<'PokeAPI\Pokemon\Type>

@@ -1,0 +1,9 @@
+PokeAPI\Pokemon\MoveBattleStyle:
+  exclusion_policy: ALL
+  properties:
+    id:
+      type: integer
+    name:
+      type: string
+    names:
+      type: PokeTranslation<'name'>

@@ -1,0 +1,11 @@
+PokeAPI\Pokemon\ItemPocket:
+  exclusion_policy: ALL
+  properties:
+    id:
+      type: integer
+    name:
+      type: string
+    categories:
+      type: ArrayCollection<PokeProxy<'PokeAPI\Pokemon\ItemCategory'>>
+    names:
+      type: PokeTranslation<'name'>

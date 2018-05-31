@@ -1,0 +1,9 @@
+PokeAPI\Pokemon\MoveBattleStylePreference:
+  exclusion_policy: ALL
+  properties:
+    lowHpPreference:
+      type: integer
+    highHpPreference:
+      type: integer
+    moveBattleStyle:
+      type: PokeProxy<'PokeAPI\Pokemon\MoveBattleStyle'>

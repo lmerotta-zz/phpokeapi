@@ -1,0 +1,10 @@
+PokeAPI\Pokemon\VersionGroupPokemonMove:
+  exclusion_policy: ALL
+  properties:
+    moveLearnMethod:
+      type: PokeProxy<'PokeAPI\Pokemon\MoveLearnMethod'>
+    versionGroup:
+      type: PokeProxy<'PokeAPI\Pokemon\VersionGroup'>
+    learnLevel:
+      type: integer
+      serialized_name: level_learned_at

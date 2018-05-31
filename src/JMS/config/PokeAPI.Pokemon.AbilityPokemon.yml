@@ -1,0 +1,10 @@
+PokeAPI\Pokemon\AbilityPokemon:
+  exclusion_policy: ALL
+  properties:
+    hidden:
+      type: boolean
+      serialized_name: is_hidden
+    slot:
+      type: integer
+    pokemon:
+      type: PokeProxy<'PokeAPI\Pokemon\Pokemon'>

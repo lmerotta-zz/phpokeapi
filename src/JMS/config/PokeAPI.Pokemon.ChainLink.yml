@@ -1,0 +1,14 @@
+PokeAPI\Pokemon\ChainLink:
+  exclusion_policy: ALL
+  properties:
+    baby:
+      type: boolean
+      serialized_name: is_baby
+    species:
+      type: PokeProxy<'PokeAPI\Pokemon\Species'>
+    details:
+      type: ArrayCollection<PokeAPI\Pokemon\EvolutionDetails>
+      serialized_name: evolution_details
+    evolutions:
+      type: ArrayCollection<PokeAPI\Pokemon\ChainLink>
+      serialized_name: evolves_to

@@ -1,0 +1,20 @@
+PokeAPI\Pokemon\Generation:
+  exclusion_policy: ALL
+  properties:
+    id:
+      type: integer
+    name:
+      type: string
+    abilities:
+      type: ArrayCollection<PokeProxy<'PokeAPI\Pokemon\Ability'>>
+    names:
+      type: PokeTranslation<'name'>
+    region:
+      type: PokeProxy<'PokeAPI\Pokemon\Region'>
+    moves:
+      type: ArrayCollection<PokeProxy<'PokeAPI\Pokemon\Move'>>
+    species:
+      type: ArrayCollection<PokeProxy<'PokeAPI\Pokemon\Species'>>
+      serialized_name: pokemon_species
+    versionGroups:
+      type: ArrayCollection<PokeProxy<'PokeAPI\Pokemon\VersionGroup'>>

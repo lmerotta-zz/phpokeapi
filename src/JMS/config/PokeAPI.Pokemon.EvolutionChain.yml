@@ -1,0 +1,9 @@
+PokeAPI\Pokemon\EvolutionChain:
+  exclusion_policy: ALL
+  properties:
+    id:
+      type: integer
+    babyTriggerItem:
+      type: PokeProxy<'PokeAPI\Pokemon\Item'>
+    chain:
+      type: PokeAPI\Pokemon\ChainLink

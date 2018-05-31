@@ -1,0 +1,7 @@
+PokeAPI\Pokemon\SpeciesPokedexEntry:
+  exclusion_policy: ALL
+  properties:
+    number:
+      type: integer
+    pokedex:
+      type: PokeProxy<'PokeAPI\Pokemon\Pokedex'>

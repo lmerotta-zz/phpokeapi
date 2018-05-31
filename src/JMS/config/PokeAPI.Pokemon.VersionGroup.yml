@@ -1,0 +1,19 @@
+PokeAPI\Pokemon\VersionGroup:
+  exclusion_policy: ALL
+  properties:
+    id:
+      type: integer
+    name:
+      type: string
+    order:
+      type: integer
+    generation:
+      type: PokeProxy<'PokeAPI\Pokemon\Generation'>
+    moveLearnMethods:
+      type: ArrayCollection<PokeProxy<'PokeAPI\Pokemon\MoveLearnMethod'>>
+    pokedexes:
+      type: ArrayCollection<PokeProxy<'PokeAPI\Pokemon\Pokedex'>>
+    regions:
+      type: ArrayCollection<PokeProxy<'PokeAPI\Pokemon\Region'>>
+    versions:
+      type: ArrayCollection<PokeProxy<'PokeAPI\Pokemon\Version'>>

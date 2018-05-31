@@ -1,0 +1,21 @@
+PokeAPI\Pokemon\PastMoveStatValue:
+  exclusion_policy: ALL
+  properties:
+    accuracy:
+      type: integer
+    effectChance:
+      type: integer
+    power:
+      type: integer
+    pp:
+      type: integer
+    effects:
+      type: PokeTranslation<'effect'>
+      serialized_name: effect_entries
+    shortEffects:
+      type: PokeTranslation<'short_effect'>
+      serialized_name: effect_entries
+    type:
+      type: PokeProxy<'PokeAPI\Pokemon\Type'>
+    versionGroup:
+      type: PokeProxy<'PokeAPI\Pokemon\VersionGroup'>

@@ -1,0 +1,12 @@
+PokeAPI\Pokemon\PalParkArea:
+  exclusion_policy: ALL
+  properties:
+    id:
+      type: integer
+    name:
+      type: string
+    names:
+      type: PokeTranslation<'name'>
+    encounters:
+      type: ArrayCollection<PokeAPI\Pokemon\PalParkEncounterSpecies>
+      serialized_name: pokemon_encounters

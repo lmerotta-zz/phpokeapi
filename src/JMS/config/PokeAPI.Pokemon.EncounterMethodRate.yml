@@ -1,0 +1,8 @@
+PokeAPI\Pokemon\EncounterMethodRate:
+  exclusion_policy: ALL
+  properties:
+    method:
+      type: PokeProxy<'PokeAPI\Pokemon\EncounterMethod'>
+    versionRates:
+      type: ArrayCollection<PokeAPI\Pokemon\EncounterVersionRates>
+      serialized_name: version_details

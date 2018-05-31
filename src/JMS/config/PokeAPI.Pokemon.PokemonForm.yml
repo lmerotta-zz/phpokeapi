@@ -1,0 +1,32 @@
+PokeAPI\Pokemon\PokemonForm:
+  exclusion_policy: ALL
+  properties:
+    id:
+      type: integer
+    name:
+      type: integer
+    order:
+      type: order
+    formOrder:
+      type: integer
+    default:
+      type: boolean
+      serialized_name: is_default
+    battleOnly:
+      type: boolean
+      serialized_name: is_battle_only
+    mega:
+      type: boolean
+      serialized_name: is_mega
+    formName:
+      type: string
+    pokemon:
+      type: PokeProxy<'PokeAPI\Pokemon\Pokemon'>
+    sprites:
+      type: ArrayCollection<string, string>
+    versionGroup:
+      type: PokeProxy<'PokeAPI\Pokemon\VersionGroup'>
+    names:
+      type: PokeTranslation<'name'>
+    formNames:
+      type: PokeTranslation<'name'>

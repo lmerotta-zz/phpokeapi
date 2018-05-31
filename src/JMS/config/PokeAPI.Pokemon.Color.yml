@@ -1,0 +1,12 @@
+PokeAPI\Pokemon\Color:
+  exclusion_policy: ALL
+  properties:
+    id:
+      type: integer
+    name:
+      type: string
+    names:
+      type: PokeTranslation<'name'>
+    species:
+      type: ArrayCollection<PokeProxy<'PokeAPI\Pokemon\Species'>>
+      serialized_name: pokemon_species

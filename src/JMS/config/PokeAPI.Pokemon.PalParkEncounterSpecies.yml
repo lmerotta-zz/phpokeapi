@@ -1,0 +1,9 @@
+PokeAPI\Pokemon\PalParkEncounterSpecies:
+  exclusion_policy: ALL
+  properties:
+    baseScore:
+      type: integer
+    rate:
+      type: integer
+    area:
+      type: ArrayCollection<PokeProxy<'PokeAPI\Pokemon\Species'>>

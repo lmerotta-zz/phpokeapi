@@ -1,0 +1,8 @@
+PokeAPI\Pokemon\EffectChange:
+  exclusion_policy: ALL
+  properties:
+    effect:
+      type: PokeTranslation<'effect'>
+      serialized_name: effect_entries
+    versionGroup:
+      type: PokeProxy<'PokeAPI\Pokemon\VersionGroup'>

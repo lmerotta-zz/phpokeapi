@@ -1,0 +1,21 @@
+PokeAPI\Pokemon\Nature:
+  exclusion_policy: ALL
+  properties:
+    id:
+      type: integer
+    name:
+      type: string
+    decreasedStat:
+      type: PokeProxy<'PokeAPI\Pokemon\Stat'>
+    increasedStat:
+      type: PokeProxy<'PokeAPI\Pokemon\Stat'>
+    hatedFlavor:
+      type: PokeProxy<'PokeAPI\Pokemon\BerryFlavor'>
+      serialized_name: hates_flavor
+    likedFlavor:
+      type: PokeProxy<'PokeAPI\Pokemon\BerryFlavor'>
+      serialized_name: likes_flavor
+    moveBattleStylePreferences:
+      type: ArrayCollection<PokeAPI\Pokemon\MoveBattleStylePreference>
+    names:
+      type: PokeTranslation<'name'>

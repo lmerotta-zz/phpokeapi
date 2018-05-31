@@ -1,0 +1,8 @@
+PokeAPI\Pokemon\MoveStatAffect:
+  exclusion_policy: ALL
+  properties:
+    amount:
+      type: integer
+      serialized_name: change
+    move:
+      type: PokeProxy<'PokeAPI\Pokemon\Move'>
