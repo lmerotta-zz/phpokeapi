@@ -15,8 +15,11 @@ use PokeAPI\Translations;
  * Class EvolutionTrigger
  * @package PokeAPI\Pokemon
  */
-class EvolutionTrigger extends Resource
+class EvolutionTrigger
 {
+
+    const POKEAPI_ENDPOINT = 'evolution-trigger';
+
     /**
      * @var integer
      */
@@ -33,22 +36,16 @@ class EvolutionTrigger extends Resource
     protected $names;
 
     /**
-     * @var array|Species[]
+     * @var ArrayCollection|Species[]
      */
-    protected $species = [];
+    protected $species;
 
     /**
-     * @param ArrayCollection $data
+     * EvolutionTrigger constructor.
      */
-    protected function hydrate(ArrayCollection $data): void
+    public function __construct()
     {
-        $this->id = $data['id'];
-        $this->name = $data['name'];
-        $this->names = new Translations($data['names'], 'name');
-
-        foreach ($data['pokemon_species'] as $species) {
-            $this->species[$species['name']] = $this->client->species($species['url']);
-        }
+        $this->species = new ArrayCollection();
     }
 
     /**
@@ -76,9 +73,9 @@ class EvolutionTrigger extends Resource
     }
 
     /**
-     * @return array|Species[]
+     * @return ArrayCollection|Species[]
      */
-    public function getSpecies()
+    public function getSpecies(): ArrayCollection
     {
         return $this->species;
     }

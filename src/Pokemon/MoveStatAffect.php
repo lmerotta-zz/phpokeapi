@@ -8,8 +8,35 @@
 
 namespace PokeAPI\Pokemon;
 
-
+/**
+ * Class MoveStatAffect
+ * @package PokeAPI\Pokemon
+ */
 class MoveStatAffect
 {
+    /**
+     * @var integer
+     */
+    protected $amount;
 
+    /**
+     * @var Move
+     */
+    protected $move;
+
+    /**
+     * @return int
+     */
+    public function getAmount(): int
+    {
+        return $this->amount;
+    }
+
+    /**
+     * @return Move
+     */
+    public function getMove(): Move
+    {
+        return $this->move;
+    }
 }

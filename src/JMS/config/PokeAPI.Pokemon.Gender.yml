@@ -1,7 +1,11 @@
-PokeAPI\Pokemon\GameIndex:
+PokeAPI\Pokemon\Gender:
   exclusion_policy: ALL
   properties:
-    index:
+    id:
       type: integer
-    generation:
-      type: PokeProxy<'PokeAPI\Pokemon\Generation'>
+    name:
+      type: string
+    speciesGenderDetails:
+      type: ArrayCollection<'PokeAPI\Pokemon\SpeciesGenderDetail'>
+    requiredForEvolution:
+      type: ArrayCollection<PokeProxy<'PokeAPI\Pokemon\Species'>

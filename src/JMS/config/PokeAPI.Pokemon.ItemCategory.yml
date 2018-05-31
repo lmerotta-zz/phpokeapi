@@ -1,4 +1,4 @@
-PokeAPI\Pokemon\ItemAttribute:
+PokeAPI\Pokemon\ItemCategory:
   exclusion_policy: ALL
   properties:
     id:
@@ -9,5 +9,5 @@ PokeAPI\Pokemon\ItemAttribute:
       type: ArrayCollection<PokeProxy<'PokeAPI\Pokemon\Item'>>
     names:
       type: PokeTranslation<'name'>
-    descriptions:
-      type: PokeTranslation<'description'>
+    pocket:
+      type: PokeProxy<'PokeAPI\Pokemon\ItemPocket'>

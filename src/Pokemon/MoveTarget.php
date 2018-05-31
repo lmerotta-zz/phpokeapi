@@ -15,8 +15,11 @@ use PokeAPI\Translations;
  * Class MoveTarget
  * @package PokeAPI\Pokemon
  */
-class MoveTarget extends Resource
+class MoveTarget
 {
+
+    const POKEAPI_ENDPOINT = 'move-target';
+
     /**
      * @var integer
      */
@@ -33,9 +36,9 @@ class MoveTarget extends Resource
     protected $descriptions;
 
     /**
-     * @var array|Move[]
+     * @var ArrayCollection|Move[]
      */
-    protected $moves = [];
+    protected $moves;
 
     /**
      * @var Translations|null
@@ -43,24 +46,11 @@ class MoveTarget extends Resource
     protected $names;
 
     /**
-     * @param ArrayCollection $data
+     * MoveTarget constructor.
      */
-    protected function hydrate(ArrayCollection $data): void
+    public function __construct()
     {
-        $this->id = $data['id'];
-        $this->name = $data['name'];
-
-        if (!empty($data['descriptions'])) {
-            $this->descriptions = new Translations($data['descriptions'], 'description');
-        }
-
-        foreach ($data['moves'] as $move) {
-            $this->moves[$move['name']] = $this->client->move($move['name']);
-        }
-
-        if (!empty($data['names'])) {
-            $this->names = new Translations($data['names'], 'name');
-        }
+        $this->moves = new ArrayCollection();
     }
 
     /**
@@ -88,9 +78,9 @@ class MoveTarget extends Resource
     }
 
     /**
-     * @return array|Move[]
+     * @return ArrayCollection|Move[]
      */
-    public function getMoves()
+    public function getMoves(): ArrayCollection
     {
         return $this->moves;
     }

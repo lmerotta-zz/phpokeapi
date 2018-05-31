@@ -1,11 +1,44 @@
-PokeAPI\Pokemon\Machine:
+PokeAPI\Pokemon\Move:
   exclusion_policy: ALL
   properties:
     id:
       type: integer
-    item:
-      type: PokeProxy<'PokeAPI\Pokemon\Item'>
-    move:
-      type: PokeProxy<'PokeAPI\Pokemon\Move'>
-    versionGroup:
-      type: PokeProxy<'PokeAPI\Pokemon\VersionGroup'>
+    name:
+      type: string
+    accuracy:
+      type: integer
+    effectChance:
+      type: integer
+    pp:
+      type: integer
+    priority:
+      type: integer
+    power:
+      type: integer
+    damageClass:
+      type: PokeProxy<'PokeAPI\Pokemon\MoveDamageClass'>
+    effects:
+      type: PokeTranslation<'effect'>
+      serialized_name: effect_entries
+    shortEffects:
+      type: PokeTranslation<'short_effect'>
+      serialized_name: effect_entries
+    effectChanges:
+      type: ArrayCollection<PokeAPI\Pokemon\EffectChange>
+    flavorTexts:
+      type: ArrayCollection<PokeAPI\Pokemon\FlavorTextEntry>
+      serialized_name: flavor_text_entries
+    generation:
+      type: PokeProxy<'PokeAPI\Pokemon\Generation'>
+    machines:
+      type: ArrayCollection<PokeProxy<'PokeAPI\Pokemon\Generation'>>
+    metadata:
+      type: PokeAPI\Pokemon\MoveMetadata
+    pastValues:
+      type: ArrayCollection<PokeAPI\Pokemon\PastMoveStatValues>
+    statChanges:
+      type: ArrayCollection<PokeAPI\Pokemon\MoveStatChange>
+    target:
+      type: PokeProxy<'PokeAPI\Pokemon\MoveTarget'>
+    type:
+      type: PokeProxy<'PokeAPI\Pokemon\Type'>

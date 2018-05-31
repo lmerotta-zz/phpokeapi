@@ -15,8 +15,10 @@ use PokeAPI\Translations;
  * Class Move
  * @package PokeAPI\Pokemon
  */
-class Move extends Resource
+class Move
 {
+    public const POKEAPI_ENDPOINT = 'move';
+
     /**
      * @var integer
      */
@@ -68,14 +70,14 @@ class Move extends Resource
     protected $shortEffects;
 
     /**
-     * @var array|EffectChange[]
+     * @var ArrayCollection|EffectChange[]
      */
-    protected $effectChanges = [];
+    protected $effectChanges;
 
     /**
-     * @var array|AbilityFlavorText[]
+     * @var ArrayCollection|FlavorTextEntry[]
      */
-    protected $flavorTexts = [];
+    protected $flavorTexts;
 
     /**
      * @var Generation
@@ -83,12 +85,12 @@ class Move extends Resource
     protected $generation;
 
     /**
-     * @var array|ItemVersionMachine
+     * @var ArrayCollection|ItemVersionMachine
      */
-    protected $machines = [];
+    protected $machines;
 
     /**
-     * @var MoveMetaData
+     * @var MoveMetadata
      */
     protected $metadata;
 
@@ -98,14 +100,14 @@ class Move extends Resource
     protected $names;
 
     /**
-     * @var array|PastMoveStatValues[]
+     * @var ArrayCollection|PastMoveStatValues[]
      */
-    protected $pastValues = [];
+    protected $pastValues;
 
     /**
-     * @var array|MoveStatChange[]
+     * @var ArrayCollection|MoveStatChange[]
      */
-    protected $statChanges = [];
+    protected $statChanges;
 
     /**
      * @var MoveTarget
@@ -118,60 +120,15 @@ class Move extends Resource
     protected $type;
 
     /**
-     * @param ArrayCollection $data
+     * Move constructor.
      */
-    protected function hydrate(ArrayCollection $data): void
+    public function __construct()
     {
-        $this->id = $data['id'];
-        $this->name = $data['name'];
-        $this->accuracy = $data['accuracy'];
-        $this->effectChance = $data['effect_chance'];
-        $this->pp = $data['pp'];
-        $this->priority = $data['priority'];
-        $this->power = $data['power'];
-        $this->damageClass = $this->client->moveDamageClass($data['damage_class']['url']);
-        $this->effects = new Translations($data['effect_entries'], 'effect');
-        $this->shortEffects = new Translations($data['effect_entries'], 'short_effect');
-
-        foreach ($data['effect_changes'] as $effectChange) {
-            $this->effectChanges[] = new EffectChange($this->client, $effectChange);
-        }
-
-        $versionGroups = [];
-        $sortedFlavorTextEntries = [];
-        foreach ($data['flavor_text_entries'] as $flavorTextEntry) {
-            $versionGroupName = $flavorTextEntry['version_group']['name'];
-            if (empty($sortedFlavorTextEntries[$versionGroupName])) {
-                $sortedFlavorTextEntries[$versionGroupName] = [];
-                $versionGroups[$versionGroupName] = $flavorTextEntry['version_group'];
-            }
-
-            $sortedFlavorTextEntries[$versionGroupName][] = $flavorTextEntry;
-        }
-
-        foreach ($versionGroups as $versionGroupName => $versionGroup) {
-            $this->flavorTexts[] = new AbilityFlavorText($this->client, ['version' => $versionGroup, 'entries' => $sortedFlavorTextEntries[$versionGroupName]]);
-        }
-
-        $this->generation = $this->client->generation($data['generation']['url']);
-
-        foreach ($data['machines'] as $machine) {
-            $this->machines[] = new ItemVersionMachine($machine);
-        }
-
-        $this->metadata = new MoveMetaData($data['meta']);
-        $this->names = new Translations($data['names'], 'name');
-
-        foreach ($data['past_values'] as $pastValue) {
-            $this->pastValues[] = new PastMoveStatValues($this->client, $pastValue);
-        }
-
-        foreach ($data['stat_changes'] as $statChange) {
-            $this->statChanges[] = new MoveStatChange($this->client, $statChange);
-        }
-
-        $this->target = $this->client->moveTarget($data['target']['url']);
-        $this->type = $this->client->type($data['type']['url']);
+        $this->effectChanges = new ArrayCollection();
+        $this->flavorTexts = new ArrayCollection();
+        $this->machines = new ArrayCollection();
+        $this->pastValues = new ArrayCollection();
+        $this->statChanges = new ArrayCollection();
     }
 
     /**
@@ -255,17 +212,17 @@ class Move extends Resource
     }
 
     /**
-     * @return array|EffectChange[]
+     * @return ArrayCollection|EffectChange[]
      */
-    public function getEffectChanges()
+    public function getEffectChanges(): ArrayCollection
     {
         return $this->effectChanges;
     }
 
     /**
-     * @return array|AbilityFlavorText[]
+     * @return ArrayCollection|FlavorTextEntry[]
      */
-    public function getFlavorTexts()
+    public function getFlavorTexts(): ArrayCollection
     {
         return $this->flavorTexts;
     }
@@ -279,17 +236,17 @@ class Move extends Resource
     }
 
     /**
-     * @return array|ItemVersionMachine
+     * @return ArrayCollection|ItemVersionMachine
      */
-    public function getMachines()
+    public function getMachines(): ArrayCollection
     {
         return $this->machines;
     }
 
     /**
-     * @return MoveMetaData
+     * @return MoveMetadata
      */
-    public function getMetadata(): MoveMetaData
+    public function getMetadata(): MoveMetadata
     {
         return $this->metadata;
     }
@@ -303,17 +260,17 @@ class Move extends Resource
     }
 
     /**
-     * @return array|PastMoveStatValues[]
+     * @return ArrayCollection|PastMoveStatValues[]
      */
-    public function getPastValues()
+    public function getPastValues(): ArrayCollection
     {
         return $this->pastValues;
     }
 
     /**
-     * @return array|MoveStatChange[]
+     * @return ArrayCollection|MoveStatChange[]
      */
-    public function getStatChanges()
+    public function getStatChanges(): ArrayCollection
     {
         return $this->statChanges;
     }

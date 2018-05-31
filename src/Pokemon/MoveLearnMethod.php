@@ -15,8 +15,11 @@ use PokeAPI\Translations;
  * Class MoveLearnMethod
  * @package PokeAPI\Pokemon
  */
-class MoveLearnMethod extends Resource
+class MoveLearnMethod
 {
+
+    const POKEAPI_ENDPOINT = 'move-learn-method';
+
     /**
      * @var integer
      */
@@ -38,23 +41,16 @@ class MoveLearnMethod extends Resource
     protected $names;
 
     /**
-     * @var array|VersionGroup
+     * @var ArrayCollection|VersionGroup
      */
     protected $versionGroups = [];
 
     /**
-     * @param ArrayCollection $data
+     * MoveLearnMethod constructor.
      */
-    protected function hydrate(ArrayCollection $data): void
+    public function __construct()
     {
-        $this->id = $data['id'];
-        $this->name = $data['name'];
-        $this->descriptions = new Translations($data['descriptions'], 'description');
-        $this->names = new Translations($data['names'], 'name');
-
-        foreach ($data['version_groups'] as $versionGroup) {
-            $this->versionGroups[$versionGroup['name']] = $this->client->versionGroup($versionGroup['url']);
-        }
+        $this->versionGroups = new ArrayCollection();
     }
 
     /**
@@ -90,9 +86,9 @@ class MoveLearnMethod extends Resource
     }
 
     /**
-     * @return array|VersionGroup
+     * @return ArrayCollection|VersionGroup
      */
-    public function getVersionGroups()
+    public function getVersionGroups(): ArrayCollection
     {
         return $this->versionGroups;
     }

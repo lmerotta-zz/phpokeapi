@@ -1,11 +1,7 @@
-PokeAPI\Pokemon\MoveAilment:
+PokeAPI\Pokemon\BerryFlavorMap:
   exclusion_policy: ALL
   properties:
-    id:
+    potency:
       type: integer
-    name:
-      type: string
-    moves:
-      type: ArrayCollection<PokeProxy<'PokeAPI\Pokemon\Move'>>
-    names:
-      type: PokeTranslation<'name'>
+    flavor:
+      type: PokeProxy<'PokeAPI\Pokemon\BerryFlavor'>

@@ -8,13 +8,11 @@
 
 namespace PokeAPI\Pokemon;
 
-use Doctrine\Common\Collections\ArrayCollection;
-
 /**
  * Class PalParkEncounter
  * @package PokeAPI\Pokemon
  */
-class PalParkEncounter extends Resource
+class PalParkEncounter
 {
     /**
      * @var integer
@@ -30,16 +28,6 @@ class PalParkEncounter extends Resource
      * @var PalParkArea
      */
     protected $area;
-
-    /**
-     * @param ArrayCollection $data
-     */
-    protected function hydrate(ArrayCollection $data): void
-    {
-        $this->baseScore = $data['base_score'];
-        $this->rate = $data['rate'];
-        $this->area = new PalParkArea($this->client, $data['area']);
-    }
 
     /**
      * @return int

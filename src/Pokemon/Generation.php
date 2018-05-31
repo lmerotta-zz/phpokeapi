@@ -15,8 +15,10 @@ use PokeAPI\Translations;
  * Class Generation
  * @package PokeAPI\Pokemon
  */
-class Generation extends Resource
+class Generation
 {
+    public const POKEAPI_ENDPOINT = 'generation';
+
     /**
      * @var integer
      */
@@ -28,9 +30,9 @@ class Generation extends Resource
     protected $name;
 
     /**
-     * @var array|Ability
+     * @var ArrayCollection|Ability
      */
-    protected $abilities = [];
+    protected $abilities;
 
     /**
      * @var Translations
@@ -40,58 +42,38 @@ class Generation extends Resource
     /**
      * @var Region
      */
-    protected $mainRegion;
+    protected $region;
 
     /**
-     * @var array|Move[]
+     * @var ArrayCollection|Move[]
      */
-    protected $moves = [];
+    protected $moves;
 
     /**
-     * @var array|Species[]
+     * @var ArrayCollection|Species[]
      */
-    protected $species = [];
+    protected $species;
 
     /**
-     * @var array|Type[]
+     * @var ArrayCollection|Type[]
      */
-    protected $types = [];
+    protected $types;
 
     /**
-     * @var array|VersionGroup
+     * @var ArrayCollection|VersionGroup
      */
-    protected $versionGroups = [];
+    protected $versionGroups;
 
     /**
-     * @param ArrayCollection $data
+     * Generation constructor.
      */
-    protected function hydrate(ArrayCollection $data): void
+    public function __construct()
     {
-        $this->id = $data['id'];
-        $this->name = $data['name'];
-
-        foreach ($data['abilities'] as $ability) {
-            $this->abilities[$ability['name']] = $this->client->ability($ability['url']);
-        }
-
-        $this->names = new Translations($data['names'], 'name');
-        $this->mainRegion = $this->client->region($data['region']['url']);
-
-        foreach ($data['moves'] as $move) {
-            $this->moves[$move['name']] = $this->client->move($move['url']);
-        }
-        
-        foreach ($data['pokemon_species'] as $species) {
-            $this->species[$species['name']] = $this->client->species($species['url']);
-        }
-
-        foreach ($data['types'] as $type) {
-            $this->types[$type['name']] = $this->client->type($type['url']);
-        }
-
-        foreach ($data['version_groups'] as $versionGroup) {
-            $this->versionGroups[$versionGroup['name']] = $this->client->versionGroup($versionGroup['url']);
-        }
+        $this->versionGroups = new ArrayCollection();
+        $this->types = new ArrayCollection();
+        $this->species = new ArrayCollection();
+        $this->moves = new ArrayCollection();
+        $this->abilities = new ArrayCollection();
     }
 
     /**
@@ -111,9 +93,9 @@ class Generation extends Resource
     }
 
     /**
-     * @return array|Ability
+     * @return ArrayCollection|Ability
      */
-    public function getAbilities()
+    public function getAbilities(): ArrayCollection
     {
         return $this->abilities;
     }
@@ -129,39 +111,39 @@ class Generation extends Resource
     /**
      * @return Region
      */
-    public function getMainRegion(): Region
+    public function getRegion(): Region
     {
-        return $this->mainRegion;
+        return $this->region;
     }
 
     /**
-     * @return array|Move[]
+     * @return ArrayCollection|Move[]
      */
-    public function getMoves()
+    public function getMoves(): ArrayCollection
     {
         return $this->moves;
     }
 
     /**
-     * @return array|Species[]
+     * @return ArrayCollection|Species[]
      */
-    public function getSpecies()
+    public function getSpecies(): ArrayCollection
     {
         return $this->species;
     }
 
     /**
-     * @return array|Type[]
+     * @return ArrayCollection|Type[]
      */
-    public function getTypes()
+    public function getTypes(): ArrayCollection
     {
         return $this->types;
     }
 
     /**
-     * @return array|VersionGroup
+     * @return ArrayCollection|VersionGroup
      */
-    public function getVersionGroups()
+    public function getVersionGroups(): ArrayCollection
     {
         return $this->versionGroups;
     }

@@ -1,4 +1,4 @@
-PokeAPI\Pokemon\MoveAilment:
+PokeAPI\Pokemon\MoveLearnMethod:
   exclusion_policy: ALL
   properties:
     id:
@@ -7,7 +7,7 @@ PokeAPI\Pokemon\MoveAilment:
       type: string
     descriptions:
       type: PokeTranslation<'description'>
-    moves:
-      type: ArrayCollection<PokeProxy<'PokeAPI\Pokemon\Move'>>
     names:
       type: PokeTranslation<'name'>
+    versionGroups:
+      type: ArrayCollection<PokeProxy<'PokeAPI\Pokemon\VersionGroup'>>

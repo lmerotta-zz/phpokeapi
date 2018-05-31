@@ -15,8 +15,11 @@ use PokeAPI\Translations;
  * Class Item
  * @package PokeAPI\Pokemon
  */
-class Item extends Resource
+class Item
 {
+
+    const POKEAPI_ENDPOINT = 'item';
+
     /**
      * @var integer
      */
@@ -43,9 +46,9 @@ class Item extends Resource
     protected $flingEffect;
 
     /**
-     * @var array|ItemAttribute[]
+     * @var ArrayCollection|ItemAttribute[]
      */
-    protected $attributes = [];
+    protected $attributes;
 
     /**
      * @var ItemCategory
@@ -63,14 +66,14 @@ class Item extends Resource
     protected $shortEffects;
 
     /**
-     * @var array|FlavorText[]
+     * @var ArrayCollection|VersionGroupFlavorText[]
      */
-    protected $flavorTexts = [];
+    protected $flavorTexts;
 
     /**
-     * @var array|Gameindex[]
+     * @var ArrayCollection|GameIndex[]
      */
-    protected $gameIndices = [];
+    protected $gameIndices;
 
     /**
      * @var Translations
@@ -78,14 +81,14 @@ class Item extends Resource
     protected $names;
 
     /**
-     * @var string
+     * @var ArrayCollection|string[]
      */
-    protected $sprite;
+    protected $sprites;
 
     /**
-     * @var array|ItemPokemon[]
+     * @var ArrayCollection|ItemPokemon[]
      */
-    protected $heldByPokemons = [];
+    protected $heldByPokemons;
 
     /**
      * @var EvolutionChain|null
@@ -93,73 +96,21 @@ class Item extends Resource
     protected $babyTriggerFor;
 
     /**
-     * @var array|ItemVersionMachine[]
+     * @var ArrayCollection|ItemVersionMachine[]
      */
-    protected $machines = [];
+    protected $machines;
 
     /**
-     * @param ArrayCollection $data
+     * Item constructor.
      */
-    protected function hydrate(ArrayCollection $data): void
+    public function __construct()
     {
-        $this->id = $data['id'];
-        $this->name = $data['name'];
-        $this->cost = $data['cost'];
-        $this->flingPower = $data['fling_power'];
-
-        if (!empty($data['fling_effect'])) {
-            $this->flingEffect = $this->client->flingEffect($data['fling_effect']['url']);
-        }
-
-        foreach ($data['attributes'] as $attribute) {
-            $this->attributes[$attribute['name']] = $this->client->itemAttribute($attribute['url']);
-        }
-
-        $this->category = $this->client->itemCategory($data['category']);
-
-        if (!empty($data['effect_entries'])) {
-            $this->effects = new Translations($data['effect_entries'], 'effect');
-            $this->shortEffects = new Translations($data['effect_entries'], 'short_effect');
-        }
-
-        $versions = [];
-        $sortedFlavorTexts = [];
-        foreach ($data['flavor_text_entries'] as $flavorTextEntry) {
-            $versionName = $flavorTextEntry['version']['name'];
-
-            if (empty($versions[$versionName])) {
-                $versions[$versionName] = $this->client->version($flavorTextEntry['version']['url']);
-                $sortedFlavorTexts[$versionName] = [];
-            }
-
-            $sortedFlavorTexts[$versionName][] = [
-                'language' => $flavorTextEntry['language'],
-                'flavor_text' => $flavorTextEntry['flavor_text']
-            ];
-        }
-
-        foreach ($sortedFlavorTexts as $versionName => $entries) {
-            $this->flavorTexts[] = new FlavorText($this->client, ['version' => $versions[$versionName], 'entries' => $entries]);
-        }
-
-        foreach ($data['game_indices'] as $gameIndex) {
-            $this->gameIndices[] = new Gameindex($this->client, $gameIndex);
-        }
-
-        $this->name = new Translations($data['names'], 'name');
-        $this->sprite = $data['sprites']['default'];
-
-        foreach ($data['held_by_pokemon'] as $heldBy) {
-            $this->heldByPokemons[] = new ItemPokemon($this->client, $heldBy);
-        }
-
-        if (!empty($data['baby_trigger_for'])) {
-            $this->babyTriggerFor = $this->client->evolutionChain($data['baby_trigger_for']['url']);
-        }
-
-        foreach ($data['machines'] as $machine) {
-            $this->machines[] = new ItemVersionMachine($this->client, $machine);
-        }
+        $this->flavorTexts = new ArrayCollection();
+        $this->attributes = new ArrayCollection();
+        $this->gameIndices = new ArrayCollection();
+        $this->sprites = new ArrayCollection();
+        $this->heldByPokemons = new ArrayCollection();
+        $this->machines = new ArrayCollection();
     }
 
     /**
@@ -203,9 +154,9 @@ class Item extends Resource
     }
 
     /**
-     * @return array|ItemAttribute[]
+     * @return ArrayCollection|ItemAttribute[]
      */
-    public function getAttributes()
+    public function getAttributes(): ArrayCollection
     {
         return $this->attributes;
     }
@@ -235,17 +186,17 @@ class Item extends Resource
     }
 
     /**
-     * @return array|FlavorText[]
+     * @return ArrayCollection|VersionGroupFlavorText[]
      */
-    public function getFlavorTexts()
+    public function getFlavorTexts(): ArrayCollection
     {
         return $this->flavorTexts;
     }
 
     /**
-     * @return array|Gameindex[]
+     * @return ArrayCollection|GameIndex[]
      */
-    public function getGameIndices()
+    public function getGameIndices(): ArrayCollection
     {
         return $this->gameIndices;
     }
@@ -259,17 +210,17 @@ class Item extends Resource
     }
 
     /**
-     * @return string
+     * @return ArrayCollection|string[]
      */
-    public function getSprite(): string
+    public function getSprites(): ArrayCollection
     {
-        return $this->sprite;
+        return $this->sprites;
     }
 
     /**
-     * @return array|ItemPokemon[]
+     * @return ArrayCollection|ItemPokemon[]
      */
-    public function getHeldByPokemons()
+    public function getHeldByPokemons(): ArrayCollection
     {
         return $this->heldByPokemons;
     }
@@ -283,9 +234,9 @@ class Item extends Resource
     }
 
     /**
-     * @return array|ItemVersionMachine[]
+     * @return ArrayCollection|ItemVersionMachine[]
      */
-    public function getMachines()
+    public function getMachines(): ArrayCollection
     {
         return $this->machines;
     }

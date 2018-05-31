@@ -14,8 +14,11 @@ use Doctrine\Common\Collections\ArrayCollection;
  * Class Gender
  * @package PokeAPI\Pokemon
  */
-class Gender extends Resource
+class Gender
 {
+
+    const POKEAPI_ENDPOINT = 'gender';
+
     /**
      * @var integer
      */
@@ -27,30 +30,22 @@ class Gender extends Resource
     protected $name;
 
     /**
-     * @var array|SpeciesGenderDetail[]
+     * @var ArrayCollection|SpeciesGenderDetail[]
      */
-    protected $speciesGenderDetails = [];
+    protected $speciesGenderDetails;
 
     /**
-     * @var array|Species[]
+     * @var ArrayCollection|Species[]
      */
-    protected $requiredForEvolution = [];
+    protected $requiredForEvolution;
 
     /**
-     * @param ArrayCollection $data
+     * Gender constructor.
      */
-    protected function hydrate(ArrayCollection $data): void
+    public function __construct()
     {
-        $this->id = $data['id'];
-        $this->name = $data['name'];
-
-        foreach ($data['pokemon_species_details'] as $speciesGenderDetail) {
-            $this->speciesGenderDetails[] = new SpeciesGenderDetail($this->client, $speciesGenderDetail);
-        }
-
-        foreach ($data['required_for_evolution'] as $species) {
-            $this->requiredForEvolution[$species['name']] = $this->client->species($species['url']);
-        }
+        $this->speciesGenderDetails = new ArrayCollection();
+        $this->requiredForEvolution = new ArrayCollection();
     }
 
     /**
@@ -70,17 +65,17 @@ class Gender extends Resource
     }
 
     /**
-     * @return array|SpeciesGenderDetail[]
+     * @return ArrayCollection|SpeciesGenderDetail[]
      */
-    public function getSpeciesGenderDetails()
+    public function getSpeciesGenderDetails(): ArrayCollection
     {
         return $this->speciesGenderDetails;
     }
 
     /**
-     * @return array|Species[]
+     * @return ArrayCollection|Species[]
      */
-    public function getRequiredForEvolution()
+    public function getRequiredForEvolution(): ArrayCollection
     {
         return $this->requiredForEvolution;
     }

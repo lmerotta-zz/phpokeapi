@@ -1,21 +1,21 @@
-PokeAPI\Pokemon\PastMoveStatValue:
+PokeAPI\Pokemon\Pokedex:
   exclusion_policy: ALL
   properties:
-    accuracy:
+    id:
       type: integer
-    effectChance:
-      type: integer
-    power:
-      type: integer
-    pp:
-      type: integer
-    effects:
-      type: PokeTranslation<'effect'>
-      serialized_name: effect_entries
-    shortEffects:
-      type: PokeTranslation<'short_effect'>
-      serialized_name: effect_entries
-    type:
-      type: PokeProxy<'PokeAPI\Pokemon\Type'>
-    versionGroup:
-      type: PokeProxy<'PokeAPI\Pokemon\VersionGroup'>
+    name:
+      type: string
+    mainSeries:
+      type: boolean
+      serialized_name: is_main_series
+    descriptions:
+      type: PokeTranslation<'description'>
+    names:
+      type: PokeTranslation<'name'>
+    pokedexEntries:
+      type: ArrayCollection<PokeAPI\Pokemon\PokedexEntry>
+    region:
+      type: PokeProxy<'PokeAPI\Pokemon\Region'>
+    versionGroups:
+      type: ArrayCollection<PokeProxy<'PokeAPI\Pokemon\VersionGroup'>>
+

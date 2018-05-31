@@ -7,13 +7,12 @@
  */
 
 namespace PokeAPI\Pokemon;
-use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Class PokemonType
  * @package PokeAPI\Pokemon
  */
-class PokemonType extends Resource
+class PokemonType
 {
     /**
      * @var integer
@@ -24,15 +23,6 @@ class PokemonType extends Resource
      * @var Type
      */
     protected $type;
-
-    /**
-     * @param ArrayCollection $data
-     */
-    protected function hydrate(ArrayCollection $data): void
-    {
-        $this->slot = $data['slot'];
-        $this->type = $this->client->type($data['type']['url']);
-    }
 
     /**
      * @return int

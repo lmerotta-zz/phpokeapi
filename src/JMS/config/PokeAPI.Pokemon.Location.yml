@@ -1,7 +1,15 @@
-PokeAPI\Pokemon\ItemVersionMachine:
+PokeAPI\Pokemon\Location:
   exclusion_policy: ALL
   properties:
-    machine:
-      type: PokeProxy<'PokeAPI\Pokemon\Machine'>
-    versionGroup:
-      type: PokeProxy<'PokeAPI\Pokemon\VersionGroup'>
+    id:
+      type: integer
+    name:
+      type: string
+    region:
+      type: PokeProxy<'PokeAPI\Pokemon\Region'>
+    names:
+      type: PokeTranslation<'name'>
+    gameIndices:
+      type: ArrayCollection<PokeAPI\Pokemon\GameIndex>
+    areas:
+      type: ArrayCollection<PokeProxy<'PokeAPI\Pokemon\Area'>>

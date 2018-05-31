@@ -8,13 +8,11 @@
 
 namespace PokeAPI\Pokemon;
 
-use Doctrine\Common\Collections\ArrayCollection;
-
 /**
  * Class EvolutionDetails
  * @package PokeAPI\Pokemon
  */
-class EvolutionDetails extends Resource
+class EvolutionDetails
 {
     /**
      * @var Item|null
@@ -69,7 +67,7 @@ class EvolutionDetails extends Resource
     /**
      * @var integer|null
      */
-    protected $minaffection;
+    protected $minAffection;
 
     /**
      * @var boolean
@@ -93,9 +91,9 @@ class EvolutionDetails extends Resource
     protected $physicalStats;
 
     /**
-     * @var boolean|null
+     * @var string|null
      */
-    protected $requiresDay;
+    protected $timeOfDay;
 
     /**
      * @var Species|null
@@ -106,61 +104,6 @@ class EvolutionDetails extends Resource
      * @var boolean
      */
     protected $upsideDown;
-
-    /**
-     * @param ArrayCollection $data
-     */
-    protected function hydrate(ArrayCollection $data): void
-    {
-
-        if (!empty($data['item'])) {
-            $this->item = $this->client->item($data['item']['url']);
-        }
-
-        $this->trigger = $this->client->evolutionTrigger($data['trigger']['url']);
-
-        if (!empty($data['gender'])) {
-            $this->gender = $this->client->gender($data['gender']);
-        }
-
-        if (!empty($data['held_item'])) {
-            $this->heldItem = $this->client->item($data['held_item']['url']);
-        }
-
-        if (!empty($data['known_move'])) {
-            $this->knownMove = $this->client->move($data['known_move']['url']);
-        }
-
-        if (!empty($data['known_move_type'])) {
-            $this->knownMoveType = $this->client->type($data['known_move_type']['url']);
-        }
-
-        if (!empty($data['location'])) {
-            $this->location = $this->client->location($data['location']['url']);
-        }
-
-        $this->minLevel = $data['min_level'];
-        $this->minHappiness = $data['min_happiness'];
-        $this->minBeauty = $data['min_beauty'];
-        $this->minaffection = $data['min_affection'];
-        $this->needsRain = $data['needs_overworld_rain'];
-
-        if (!empty($data['party_species'])) {
-            $this->partySpecies = $this->client->species($data['party_species']['url']);
-        }
-
-        if (!empty($data['party_type'])) {
-            $this->partyType = $this->client->type($data['party_type']['url']);
-        }
-
-        $this->physicalStats = $data['relative_physical_stats'];
-        $this->requiresDay = $data['time_of_day'] ? $data['time_of_day'] === 'day' : null;
-
-        if (!empty($data['trade_species'])) {
-            $this->tradeSpecies = $this->client->species($data['trade_species']['url']);
-        }
-        $this->upsideDown = $data['turn_upside_down'];
-    }
 
     /**
      * @return null|Item
@@ -245,9 +188,9 @@ class EvolutionDetails extends Resource
     /**
      * @return int|null
      */
-    public function getMinaffection(): ?int
+    public function getMinAffection(): ?int
     {
-        return $this->minaffection;
+        return $this->minAffection;
     }
 
     /**
@@ -283,11 +226,11 @@ class EvolutionDetails extends Resource
     }
 
     /**
-     * @return bool|null
+     * @return null|string
      */
-    public function getRequiresDay(): ?bool
+    public function getTimeOfDay(): ?string
     {
-        return $this->requiresDay;
+        return $this->timeOfDay;
     }
 
     /**

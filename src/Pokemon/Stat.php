@@ -14,8 +14,11 @@ use PokeAPI\Translations;
  * Class Stat
  * @package PokeAPI\Pokemon
  */
-class Stat extends Resource
+class Stat
 {
+
+    const POKEAPI_ENDPOINT = 'stat';
+
     /**
      * @var integer
      */
@@ -37,19 +40,19 @@ class Stat extends Resource
     protected $battleOnly;
 
     /**
-     * @var array|MoveStatAffect[]
+     * @var ArrayCollection|MoveStatAffect[]
      */
-    protected $affectingMoves = [];
+    protected $affectingMoves;
 
     /**
-     * @var array|NatureStatAffect[]
+     * @var ArrayCollection|NatureStatAffect[]
      */
-    protected $affectingNatures = [];
+    protected $affectingNatures;
 
     /**
-     * @var array|Characteristic[]
+     * @var ArrayCollection|Characteristic[]
      */
-    protected $characteristics = [];
+    protected $characteristics;
 
     /**
      * @var MoveDamageClass
@@ -66,29 +69,9 @@ class Stat extends Resource
      */
     protected function hydrate(ArrayCollection $data): void
     {
-        $this->id = $data['id'];
-        $this->name = $data['name'];
-        $this->gameIndex = $data['game_index'];
-        $this->battleOnly = $data['is_battle_only'];
-
-        foreach ($data['affecting_moves'] as $affectingMoveSet) {
-            foreach ($affectingMoveSet as $affectingMove) {
-                $this->affectingMoves[] = new MoveStatAffect($this->client, $affectingMove);
-            }
-        }
-
-        foreach ($data['affecting_natures'] as $affectingNatureSet) {
-            foreach ($affectingNatureSet as $affectingNature) {
-                $this->$affectingNature[] = new NatureStatAffect($this->client, $affectingNature);
-            }
-        }
-
-        foreach ($data['characteristics'] as $characteristic) {
-            $this->characteristics[] = $this->client->characteristic($characteristic['url']);
-        }
-
-        $this->moveDamageClass = $this->client->moveDamageClass($data['move_damage_class']['url']);
-        $this->names = new Translations($data['names'], 'name');
+        $this->affectingMoves = new ArrayCollection();
+        $this->affectingNatures = new ArrayCollection();
+        $this->characteristics = new ArrayCollection();
     }
 
     /**
@@ -124,25 +107,25 @@ class Stat extends Resource
     }
 
     /**
-     * @return array|MoveStatAffect[]
+     * @return ArrayCollection|MoveStatAffect[]
      */
-    public function getAffectingMoves()
+    public function getAffectingMoves(): ArrayCollection
     {
         return $this->affectingMoves;
     }
 
     /**
-     * @return array|NatureStatAffect[]
+     * @return ArrayCollection|NatureStatAffect[]
      */
-    public function getAffectingNatures()
+    public function getAffectingNatures(): ArrayCollection
     {
         return $this->affectingNatures;
     }
 
     /**
-     * @return array|Characteristic[]
+     * @return ArrayCollection|Characteristic[]
      */
-    public function getCharacteristics()
+    public function getCharacteristics(): ArrayCollection
     {
         return $this->characteristics;
     }

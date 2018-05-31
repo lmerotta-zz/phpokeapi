@@ -1,7 +1,7 @@
-PokeAPI\Pokemon\BerryFlavorMap:
+PokeAPI\Pokemon\FlavorBerryMap:
   exclusion_policy: ALL
   properties:
     potency:
       type: integer
-    flavor:
-      type: PokeProxy<'PokeAPI\Pokemon\BerryFlavor'>
+    berry:
+      type: PokeProxy<'PokeAPI\Pokemon\Berry'>

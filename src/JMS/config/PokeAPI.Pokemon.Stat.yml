@@ -1,60 +1,22 @@
-PokeAPI\Pokemon\Species:
+PokeAPI\Pokemon\Stat:
   exclusion_policy: ALL
   properties:
     id:
       type: integer
     name:
       type: string
-    order:
+    gameIndex:
       type: integer
-    genderRate:
-      type: float
-    captureRate:
-      type: integer
-    baseHappiness:
-      type: integer
-    baby:
+    battleOnly:
       type: boolean
-      serialized_name: is_baby
-    hatchCounter:
-      type: integer
-      accessor:
-        setter: setHatchCounter
-    genderDifferences:
-      type: boolean
-      serialized_name: has_gender_differences
-    formsSwitchable:
-      type: boolean
-    growthRate:
-      type: PokeProxy<'PokeAPI\Pokemon\GrowthRate'>
-    pokedexEntries:
-      type: ArrayCollection<PokeAPI\Pokemon\PokedexEntry>
-      serialized_name: pokedex_numbers
-    eggGroups:
-      type: ArrayCollection<PokeAPI\Pokemon\EggGroup>
-    color:
-      type: PokeAPI\Pokemon\Color
-    shape:
-      type: PokeAPI\Pokemon\Shape
-    evolutionOf:
-      type: PokeProxy<'PokeAPI\Pokemon\Species'>
-      serialized_name: evolves_from_species
-    evolutionChain:
-      type: PokeAPI\Pokemon\EvolutionChain
-    habitat:
-      type: PokeProxy<'PokeAPI\Pokemon\Habitat'>
-    generation:
-      type: PokeProxy<'PokeAPI\Pokemon\Generation'>
+      serialized_name: is_battle_only
+    affectingMoves:
+      type: ArrayCollection<string, ArrayCollection<PokeAPI\Pokemon\MoveStatAffect>>
+    affectingNatures:
+      type: ArrayCollection<string, ArrayCollection<PokeProxy<'PokeAPI\Pokemon\Nature'>>>
+    characteristics:
+      type: PokeProxy<'PokeAPI\Pokemon\Characteristic'>
+    moveDamageClass:
+      type: PokeProxy<'PokeAPI\Pokemon\MoveDamageClass'>
     names:
       type: PokeTranslation<'name'>
-    palParkEncounters:
-      type: ArrayCollection<PokeAPI\Pokemon\PalParkEncounter>
-    flavorTexts:
-      type: ArrayCollection<PokeAPI\Pokemon\FlavorTextEntry>
-      serialized_name: flavor_text_entries
-    formDescriptions:
-      type: PokeTranslation<'description'>
-    genera:
-      type: PokeTranslation<'genus'>
-    varieties:
-      type: ArrayCollection<PokeAPI\Pokemon\Variety>

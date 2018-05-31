@@ -14,8 +14,11 @@ use PokeAPI\Translations;
  * Class ItemFlingEffect
  * @package PokeAPI\Pokemon
  */
-class ItemFlingEffect extends Resource
+class ItemFlingEffect
 {
+
+    const POKEAPI_ENDPOINT = 'item-fling-effect';
+
     /**
      * @var integer
      */
@@ -32,22 +35,16 @@ class ItemFlingEffect extends Resource
     protected $effects;
 
     /**
-     * @var array]Item[]
+     * @var ArrayCollection]Item[]
      */
     protected $items = [];
 
     /**
-     * @param ArrayCollection $data
+     * ItemFlingEffect constructor.
      */
-    protected function hydrate(ArrayCollection $data): void
+    public function __construct()
     {
-        $this->id = $data['id'];
-        $this->name = $data['name'];
-        $this->effects = new Translations($data['effect_entries'], 'effect');
-
-        foreach ($data['items'] as $item) {
-            $this->items[$item['name']] = $this->client->item($item['url']);
-        }
+        $this->items = new ArrayCollection();
     }
 
     /**
@@ -75,9 +72,9 @@ class ItemFlingEffect extends Resource
     }
 
     /**
-     * @return array
+     * @return ArrayCollection|Item[]
      */
-    public function getItems(): array
+    public function getItems(): ArrayCollection
     {
         return $this->items;
     }

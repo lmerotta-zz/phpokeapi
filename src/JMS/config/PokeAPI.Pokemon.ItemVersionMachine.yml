@@ -1,7 +1,7 @@
-PokeAPI\Pokemon\ItemPokemonDetails:
+PokeAPI\Pokemon\ItemVersionMachine:
   exclusion_policy: ALL
   properties:
-    rarity:
-      type: integer
-    version:
-      type: PokeProxy<'PokeAPI\Pokemon\Version'>
+    machine:
+      type: PokeProxy<'PokeAPI\Pokemon\Machine'>
+    versionGroup:
+      type: PokeProxy<'PokeAPI\Pokemon\VersionGroup'>

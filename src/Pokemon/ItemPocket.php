@@ -15,8 +15,11 @@ use PokeAPI\Translations;
  * Class ItemPocket
  * @package PokeAPI\Pokemon
  */
-class ItemPocket extends Resource
+class ItemPocket
 {
+
+    const POKEAPI_ENDPOINT = 'item-pocket';
+
     /**
      * @var integer
      */
@@ -28,7 +31,7 @@ class ItemPocket extends Resource
     protected $name;
 
     /**
-     * @var array|ItemCategory[]
+     * @var ArrayCollection|ItemCategory[]
      */
     protected $categories = [];
 
@@ -38,18 +41,11 @@ class ItemPocket extends Resource
     protected $names;
 
     /**
-     * @param ArrayCollection $data
+     * ItemPocket constructor.
      */
-    protected function hydrate(ArrayCollection $data): void
+    public function __construct()
     {
-        $this->id = $data['id'];
-        $this->name = $data['name'];
-
-        foreach ($data['categories'] as $category) {
-            $this->categories[$category['name']] = $this->client->itemCategory($category['url']);
-        }
-
-        $this->names = new Translations($data['names'], 'name');
+        $this->categories = new ArrayCollection();
     }
 
     /**
@@ -69,9 +65,9 @@ class ItemPocket extends Resource
     }
 
     /**
-     * @return array|ItemCategory[]
+     * @return ArrayCollection|ItemCategory[]
      */
-    public function getCategories()
+    public function getCategories(): ArrayCollection
     {
         return $this->categories;
     }

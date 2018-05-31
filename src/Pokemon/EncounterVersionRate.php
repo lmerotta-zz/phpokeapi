@@ -11,13 +11,13 @@ namespace PokeAPI\Pokemon;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * Class EncounterVersionRates
+ * Class EncounterVersionRate
  * @package PokeAPI\Pokemon
  */
-class EncounterVersionRates
+class EncounterVersionRate
 {
     /**
-     * @var integer|null
+     * @var integer
      */
     protected $rate;
 
@@ -27,18 +27,9 @@ class EncounterVersionRates
     protected $version;
 
     /**
-     * @param ArrayCollection $data
-     */
-    protected function hydrate(ArrayCollection $data): void
-    {
-        $this->rate = $data['rate'];
-        $this->version = $this->client->version($data['version']['url']);
-    }
-
-    /**
      * @return int|null
      */
-    public function getRate(): ?int
+    public function getRate(): int
     {
         return $this->rate;
     }

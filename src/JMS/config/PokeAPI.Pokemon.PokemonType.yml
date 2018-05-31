@@ -1,9 +1,7 @@
-PokeAPI\Pokemon\PokemonStat:
+PokeAPI\Pokemon\PokemonType:
   exclusion_policy: ALL
   properties:
-    stat:
-      type: PokeProxy<'PokeAPI\Pokemon\Stat'>
-    effort:
+    slot:
       type: integer
-    baseStat:
-      type: integer
+    type:
+      type: PokeProxy<'PokeAPI\Pokemon\Type'>

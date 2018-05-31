@@ -15,8 +15,11 @@ use PokeAPI\Translations;
  * Class PokemonForm
  * @package PokeAPI\Pokemon
  */
-class PokemonForm extends Resource
+class PokemonForm
 {
+
+    const POKEAPI_ENDPOINT = 'pokemon-form';
+
     /**
      * @var integer
      */
@@ -63,9 +66,9 @@ class PokemonForm extends Resource
     protected $pokemon;
 
     /**
-     * @var array indexed by sprite name
+     * @var ArrayCollection indexed by sprite name
      */
-    protected $sprites = [];
+    protected $sprites;
 
     /**
      * @var VersionGroup
@@ -83,27 +86,11 @@ class PokemonForm extends Resource
     protected $formNames;
 
     /**
-     * @param ArrayCollection $data
+     * PokemonForm constructor.
      */
-    protected function hydrate(ArrayCollection $data): void
+    public function __construct()
     {
-        $this->id = $data['id'];
-        $this->name = $data['name'];
-        $this->order = $data['order'];
-        $this->formOrder = $data['form_order'];
-        $this->default = $data['is_default'];
-        $this->battleOnly = $data['is_battle_only'];
-        $this->mega = $data['is_mega'];
-        $this->formName = empty($data['form_name']) ? null : $data['form_name'];
-        $this->pokemon = $this->client->pokedex($data['pokemon']['url']);
-
-        foreach ($data['sprites'] as $name => $value) {
-            $this->sprites[$name] = $value;
-        }
-
-        $this->versionGroup = $this->client->versionGroup($data['version_group']['url']);
-        $this->names = empty($data['names']) ? null : new Translations($data['names'], 'name');
-        $this->formNames = empty($data['form_names']) ? null : new Translations($data['form_names'], 'name');
+        $this->sprites = new ArrayCollection();
     }
 
     /**
@@ -179,9 +166,9 @@ class PokemonForm extends Resource
     }
 
     /**
-     * @return array
+     * @return ArrayCollection
      */
-    public function getSprites(): array
+    public function getSprites(): ArrayCollection
     {
         return $this->sprites;
     }

@@ -1,25 +1,8 @@
-PokeAPI\Pokemon\Ability:
+PokeAPI\Pokemon\AbilityFlavorText:
   exclusion_policy: ALL
   properties:
-    id:
-      type: integer
-    name:
-      type: string
-    mainSeries:
-      type: boolean
-      serialized_name: is_main_series
-    generation:
-      type: PokeProxy<'PokeAPI\Pokemon\Generation', 'name'>
-    names:
-      type: PokeTranslation<'name'>
-    effects:
-      type: ArrayCollection<PokeAPI\Pokemon\EffectEntry>
-      serialized_name: effect_entries
-    effectChanges:
-      type: ArrayCollection<PokeAPI\Pokemon\EffectChange>
+    versionGroup:
+      type: PokeProxy<'PokeAPI\Pokemon\VersionGroup'>
     flavorTexts:
-      type: PokeVersionGroupSortedCollection<'PokeAPI\Pokemon\AbilityFlavorText'>
-      serialized_name: flavor_text_entries
-    pokemons:
-      type: ArrayCollection<PokeAPI\Pokemon\AbilityPokemon>
-
+      type: PokeTranslation<'flavor_text'>
+      serialized_name: entries

@@ -9,8 +9,10 @@ use PokeAPI\Translations;
  * Class Species
  * @package PokeAPI\Pokemon
  */
-class Species extends Resource
+class Species
 {
+    public const POKEAPI_ENDPOINT = 'pokemon-species';
+
     /**
      * @var integer
      */
@@ -67,14 +69,14 @@ class Species extends Resource
     protected $growthRate;
 
     /**
-     * @var array|PokedexEntry[]
+     * @var ArrayCollection|SpeciesPokedexEntry[]
      */
-    protected $pokedexEntries = [];
+    protected $pokedexEntries;
 
     /**
-     * @var array|EggGroup[]
+     * @var ArrayCollection|EggGroup[]
      */
-    protected $eggGroups = [];
+    protected $eggGroups;
 
     /**
      * @var Color
@@ -112,14 +114,14 @@ class Species extends Resource
     protected $names;
 
     /**
-     * @var array|PalParkEncounter[]
+     * @var ArrayCollection|PalParkEncounter[]
      */
-    protected $palParkEncounters = [];
+    protected $palParkEncounters;
 
     /**
-     * @var array|FlavorText[]
+     * @var ArrayCollection|FlavorTextEntry[]
      */
-    protected $flavorTexts = [];
+    protected $flavorTexts;
 
     /**
      * @var Translations
@@ -132,81 +134,17 @@ class Species extends Resource
     protected $genera;
 
     /**
-     * @var array|Variety[]
+     * @var ArrayCollection|Variety[]
      */
-    protected $varieties = [];
+    protected $varieties;
 
-    /**
-     * @param ArrayCollection $data
-     */
-    protected function hydrate(ArrayCollection $data): void
+    public function __construct()
     {
-        $this->id = $data['id'];
-        $this->name = $data['name'];
-        $this->order = $data['order'];
-        $this->genderRate = floatval(($data['gender_rate'] / 8) * 100.0);
-        $this->captureRate = $data['capture_rate'];
-        $this->baseHappiness = $data['base_happiness'];
-        $this->baby = $data['is_baby'];
-        $this->hatchCounter = 255 * ($data['hatch_counter'] + 1);
-        $this->genderDifferences = $data['has_gender_differences'];
-        $this->formsSwitchable = $data['forms_switchable'];
-        $this->growthRate = $this->client->growthRate($data['growth_rate']['url']);
-
-        foreach ($data['pokedex_numbers'] as $pokedexEntry) {
-            $this->pokedexEntries[$pokedexEntry['name']] = new PokedexEntry($this->client, $pokedexEntry);
-        }
-
-        foreach ($data['egg_groups'] as $eggGroup) {
-            $this->eggGroups[$eggGroup['name']] = $this->client->eggGroup($eggGroup['url']);
-        }
-
-        $this->color = $this->client->color($data['color']['url']);
-        $this->shape = $this->client->shape($data['shape']['url']);
-
-        if (!empty($data['evolves_from_species'])) {
-            $this->evolutionOf = $this->client->species($data['evolves_from_species']['url']);
-        }
-
-        $this->evolutionChain = $this->client->evolutionChain($data['evolution_chain']['url']);
-
-        if (!empty($data['habitat'])) {
-            $this->habitat = $this->client->habitat($data['habitat']['url']);
-        }
-
-        $this->generation = $this->client->generation($data['generation']['url']);
-        $this->names = new Translations($data['names'], 'name');
-
-        foreach ($data['pal_park_encounters'] as $encounter) {
-            $this->palParkEncounters = new PalParkEncounter($this->client, $encounter);
-        }
-
-        $versions = [];
-        $sortedFlavorTexts = [];
-        foreach ($data['flavor_text_entries'] as $flavorTextEntry) {
-            $versionName = $flavorTextEntry['version']['name'];
-
-            if (empty($versions[$versionName])) {
-                $versions[$versionName] = $this->client->version($flavorTextEntry['version']['url']);
-                $sortedFlavorTexts[$versionName] = [];
-            }
-
-            $sortedFlavorTexts[$versionName][] = [
-                'language' => $flavorTextEntry['language'],
-                'flavor_text' => $flavorTextEntry['flavor_text']
-            ];
-        }
-
-        foreach ($sortedFlavorTexts as $versionName => $entries) {
-            $this->flavorTexts[] = new FlavorText($this->client, ['version' => $versions[$versionName], 'entries' => $entries]);
-        }
-
-        $this->formDescriptions = new Translations($data['form_descriptions'], 'description');
-        $this->genera = new Translations($data['genera'], 'genus');
-
-        foreach ($data['varieties'] as $variety) {
-            $this->varieties[] = new Variety($this->client, $variety);
-        }
+        $this->pokedexEntries = new ArrayCollection();
+        $this->eggGroups = new ArrayCollection();
+        $this->palParkEncounters = new ArrayCollection();
+        $this->flavorTexts = new ArrayCollection();
+        $this->varieties = new ArrayCollection();
     }
 
     /**
@@ -266,6 +204,16 @@ class Species extends Resource
     }
 
     /**
+     * @param int $hatchCounter
+     * @return Species
+     */
+    public function setHatchCounter(int $hatchCounter): Species
+    {
+        $this->hatchCounter = 255 * ($hatchCounter + 1);
+        return $this;
+    }
+
+    /**
      * @return int
      */
     public function getHatchCounter(): int
@@ -298,17 +246,17 @@ class Species extends Resource
     }
 
     /**
-     * @return array|PokedexEntry[]
+     * @return ArrayCollection|SpeciesPokedexEntry[]
      */
-    public function getPokedexEntries() : array
+    public function getPokedexEntries(): ArrayCollection
     {
         return $this->pokedexEntries;
     }
 
     /**
-     * @return array|EggGroup[]
+     * @return ArrayCollection|EggGroup[]
      */
-    public function getEggGroups() : array
+    public function getEggGroups(): ArrayCollection
     {
         return $this->eggGroups;
     }
@@ -370,17 +318,17 @@ class Species extends Resource
     }
 
     /**
-     * @return array|PalParkEncounter[]
+     * @return ArrayCollection|PalParkEncounter[]
      */
-    public function getPalParkEncounters() : array
+    public function getPalParkEncounters(): ArrayCollection
     {
         return $this->palParkEncounters;
     }
 
     /**
-     * @return array|FlavorText[]
+     * @return ArrayCollection|FlavorTextEntry[]
      */
-    public function getFlavorTexts() : array
+    public function getFlavorTexts(): ArrayCollection
     {
         return $this->flavorTexts;
     }
@@ -402,9 +350,9 @@ class Species extends Resource
     }
 
     /**
-     * @return array|Variety[]
+     * @return ArrayCollection|Variety[]
      */
-    public function getVarieties() : array
+    public function getVarieties(): ArrayCollection
     {
         return $this->varieties;
     }

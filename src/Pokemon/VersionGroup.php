@@ -14,8 +14,10 @@ use Doctrine\Common\Collections\ArrayCollection;
  * Class VersionGroup
  * @package PokeAPI\Pokemon
  */
-class VersionGroup extends Resource
+class VersionGroup
 {
+    const POKEAPI_ENDPOINT = 'version-group';
+
     /**
      * @var integer
      */
@@ -37,50 +39,34 @@ class VersionGroup extends Resource
     protected $generation;
 
     /**
-     * @var array|MoveLearnMethod[]
+     * @var ArrayCollection|MoveLearnMethod[]
      */
-    protected $moveLearnMethods = [];
+    protected $moveLearnMethods;
 
     /**
-     * @var array|Pokedex[]
+     * @var ArrayCollection|Pokedex[]
      */
-    protected $pokedexes = [];
+    protected $pokedexes;
 
     /**
-     * @var array|Region[]
+     * @var ArrayCollection|Region[]
      */
-    protected $regions = [];
+    protected $regions;
 
     /**
-     * @var array|Version[]
+     * @var ArrayCollection|Version[]
      */
-    protected $versions = [];
+    protected $versions;
 
     /**
-     * @param ArrayCollection $data
+     * VersionGroup constructor.
      */
-    protected function hydrate(ArrayCollection $data): void
+    public function __construct()
     {
-        $this->id = $data['id'];
-        $this->name = $data['name'];
-        $this->order = $data['order'];
-        $this->generation = $this->client->generation($data['generation']['url']);
-
-        foreach ($data['move_learn_methods'] as $moveLearnMethod) {
-            $this->moveLearnMethods[$moveLearnMethod['name']] = $this->client->moveLearnMethod($moveLearnMethod['url']);
-        }
-
-        foreach ($data['pokedexes'] as $pokedex) {
-            $this->pokedexes[$pokedex['name']] = $this->client->pokedex($pokedex['url']);
-        }
-
-        foreach ($data['regions'] as $region) {
-            $this->regions[$region['name']] = $this->client->region($region['url']);
-        }
-
-        foreach ($data['versions'] as $version) {
-            $this->versions[$version['name']] = $this->client->version($version['url']);
-        }
+        $this->moveLearnMethods = new ArrayCollection();
+        $this->pokedexes = new ArrayCollection();
+        $this->regions = new ArrayCollection();
+        $this->versions = new ArrayCollection();
     }
 
     /**
@@ -116,33 +102,33 @@ class VersionGroup extends Resource
     }
 
     /**
-     * @return array|MoveLearnMethod[]
+     * @return ArrayCollection|MoveLearnMethod[]
      */
-    public function getMoveLearnMethods()
+    public function getMoveLearnMethods(): ArrayCollection
     {
         return $this->moveLearnMethods;
     }
 
     /**
-     * @return array|Pokedex[]
+     * @return ArrayCollection|Pokedex[]
      */
-    public function getPokedexes()
+    public function getPokedexes(): ArrayCollection
     {
         return $this->pokedexes;
     }
 
     /**
-     * @return array|Region[]
+     * @return ArrayCollection|Region[]
      */
-    public function getRegions()
+    public function getRegions(): ArrayCollection
     {
         return $this->regions;
     }
 
     /**
-     * @return array|Version[]
+     * @return ArrayCollection|Version[]
      */
-    public function getVersions()
+    public function getVersions(): ArrayCollection
     {
         return $this->versions;
     }

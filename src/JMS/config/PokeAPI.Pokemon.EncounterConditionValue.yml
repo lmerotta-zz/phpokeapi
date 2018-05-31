@@ -5,7 +5,7 @@ PokeAPI\Pokemon\Version:
       type: integer
     name:
       type: string
+    condition:
+      type: PokeProxy<'PokeAPI\Pokemon\EncounterCondition'>
     names:
       type: PokeTranslation<'name'>
-    versionGroups:
-      type: ArrayCollection<PokeProxy<'PokeAPI\Pokemon\VersionGroup'>>

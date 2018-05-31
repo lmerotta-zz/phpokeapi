@@ -3,20 +3,49 @@
 namespace PokeAPI;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use JMS\Serializer\SerializerInterface;
 use PokeAPI\Exception\NetworkException;
+use PokeAPI\JMS\Serializer\PokeApiJmsSerializerBuilder;
 use PokeAPI\Pokemon\Ability;
+use PokeAPI\Pokemon\Berry;
+use PokeAPI\Pokemon\BerryFirmness;
+use PokeAPI\Pokemon\BerryFlavor;
+use PokeAPI\Pokemon\Characteristic;
 use PokeAPI\Pokemon\Color;
 use PokeAPI\Pokemon\EggGroup;
+use PokeAPI\Pokemon\EncounterCondition;
+use PokeAPI\Pokemon\EncounterConditionValue;
+use PokeAPI\Pokemon\EncounterMethod;
 use PokeAPI\Pokemon\EvolutionChain;
+use PokeAPI\Pokemon\EvolutionTrigger;
+use PokeAPI\Pokemon\Gender;
 use PokeAPI\Pokemon\Generation;
 use PokeAPI\Pokemon\GrowthRate;
 use PokeAPI\Pokemon\Habitat;
+use PokeAPI\Pokemon\Item;
+use PokeAPI\Pokemon\ItemAttribute;
+use PokeAPI\Pokemon\ItemCategory;
+use PokeAPI\Pokemon\ItemFlingEffect;
+use PokeAPI\Pokemon\ItemPocket;
 use PokeAPI\Pokemon\Location;
+use PokeAPI\Pokemon\Machine;
+use PokeAPI\Pokemon\Move;
+use PokeAPI\Pokemon\MoveAilment;
+use PokeAPI\Pokemon\MoveBattleStyle;
+use PokeAPI\Pokemon\MoveCategory;
+use PokeAPI\Pokemon\MoveDamageClass;
 use PokeAPI\Pokemon\MoveLearnMethod;
+use PokeAPI\Pokemon\MoveTarget;
+use PokeAPI\Pokemon\Nature;
+use PokeAPI\Pokemon\PalParkArea;
 use PokeAPI\Pokemon\Pokedex;
+use PokeAPI\Pokemon\Pokemon;
+use PokeAPI\Pokemon\PokemonForm;
 use PokeAPI\Pokemon\Region;
 use PokeAPI\Pokemon\Shape;
 use PokeAPI\Pokemon\Species;
+use PokeAPI\Pokemon\Stat;
+use PokeAPI\Pokemon\Type;
 use PokeAPI\Pokemon\VersionGroup;
 use ProxyManager\Factory\LazyLoadingValueHolderFactory;
 use ProxyManager\Proxy\LazyLoadingInterface;
@@ -40,155 +69,522 @@ class Client
     private $cache;
 
     /**
+     * @var SerializerInterface
+     */
+    private $serializer;
+
+    /**
      * Client constructor.
      * @param string $url
+     * @param CacheInterface $cache
+     * @param SerializerInterface $serializer
      */
-    public function __construct(string $url = 'http://pokeapi.co/api/v2/', CacheInterface $cache)
+    public function __construct(string $url = 'http://pokeapi.co/api/v2/', CacheInterface $cache = null, SerializerInterface $serializer = null)
     {
         $this->baseUrl = $url;
         $this->cache = $cache ?: new FilesystemCache('pokeapi');
+        $this->serializer = $serializer ?: PokeApiJmsSerializerBuilder::build($this);
     }
 
     /**
      * @param int|string $idOrName
-     */
-    public function species($idOrName) : Species
-    {
-        return $this->createProxy(Species::class, 'pokemon-species', $idOrName);
-    }
-
-    /**
-     * @param int|string $idOrName
-     */
-    public function growthRate($idOrName) : GrowthRate
-    {
-        return $this->createProxy(GrowthRate::class, 'growth-rate', $idOrName);
-    }
-
-    /**
-     * @param int|string $idOrName
-     */
-    public function eggGroup($idOrName) : EggGroup
-    {
-        return $this->createProxy(EggGroup::class, 'egg-group', $idOrName);
-    }
-
-    /**
-     * @param int|string $idOrName
-     */
-    public function color($idOrName) : Color
-    {
-        return $this->createProxy(Color::class, 'pokemon-color', $idOrName);
-    }
-
-
-    /**
-     * @param int|string $idOrName
-     */
-    public function shape($idOrName) : Shape
-    {
-        return $this->createProxy(Shape::class, 'pokemon-shape', $idOrName);
-    }
-
-    /**
-     * @param int|string $idOrName
-     */
-    public function evolutionChain($idOrName) : EvolutionChain
-    {
-        return $this->createProxy(EvolutionChain::class, 'evolution-chain', $idOrName);
-    }
-
-    /**
-     * @param int|string $idOrName
-     */
-    public function habitat($idOrName) : Habitat
-    {
-        return $this->createProxy(Habitat::class, 'pokemon-habitat', $idOrName);
-    }
-
-    /**
-     * @param int|string $idOrName
-     */
-    public function version($idOrName) : Version
-    {
-        return $this->createProxy(Version::class, 'version', $idOrName);
-    }
-
-    /**
-     * @param int|string $idOrName
-     */
-    public function pokedex($idOrName) : Pokedex
-    {
-        return $this->createProxy(Pokedex::class, 'pokedex', $idOrName);
-    }
-
-    /**
-     * @param int|string $idOrName
-     */
-    public function region($idOrName) : Region
-    {
-        return $this->createProxy(Region::class, 'region', $idOrName);
-    }
-
-    /**
-     * @param int|string $idOrName
-     */
-    public function location($idOrName) : Location
-    {
-        return $this->createProxy(Location::class, 'location', $idOrName);
-    }
-
-    /**
-     * @param int|string $idOrName
-     */
-    public function generation($idOrName) : Generation
-    {
-        return $this->createProxy(Generation::class, 'generation', $idOrName);
-    }
-
-    /**
-     * @param int|string $idOrName
+     * @return Ability
+     * @throws NetworkException
+     * @throws \Psr\SimpleCache\InvalidArgumentException
      */
     public function ability($idOrName) : Ability
     {
-        return $this->createProxy(Ability::class, 'ability', $idOrName);
+        return $this->sendRequest(Ability::class, $idOrName);
     }
 
     /**
      * @param int|string $idOrName
+     * @return Area
+     * @throws NetworkException
+     * @throws \Psr\SimpleCache\InvalidArgumentException
      */
-    public function versionGroup($idOrName) : VersionGroup
+    public function area($idOrName) : Area
     {
-        return $this->createProxy(VersionGroup::class, 'version-group', $idOrName);
+        return $this->sendRequest(Area::class, $idOrName);
+    }
+
+
+    /**
+     * @param int|string $idOrName
+     * @return Berry
+     * @throws NetworkException
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     */
+    public function berry($idOrName) : Berry
+    {
+        return $this->sendRequest(Berry::class, $idOrName);
+    }
+
+
+    /**
+     * @param int|string $idOrName
+     * @return BerryFirmness
+     * @throws NetworkException
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     */
+    public function berryFirmness($idOrName) : BerryFirmness
+    {
+        return $this->sendRequest(BerryFirmness::class, $idOrName);
+    }
+
+
+    /**
+     * @param int|string $idOrName
+     * @return BerryFlavor
+     * @throws NetworkException
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     */
+    public function berryFlavor($idOrName) : BerryFlavor
+    {
+        return $this->sendRequest(BerryFlavor::class, $idOrName);
     }
 
     /**
      * @param int|string $idOrName
+     * @return Characteristic
+     * @throws NetworkException
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     */
+    public function characteristic($idOrName) : Characteristic
+    {
+        return $this->sendRequest(Characteristic::class, $idOrName);
+    }
+
+    /**
+     * @param int|string $idOrName
+     * @return Color
+     * @throws NetworkException
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     */
+    public function color($idOrName) : Color
+    {
+        return $this->sendRequest(Color::class, $idOrName);
+    }
+
+    /**
+     * @param int|string $idOrName
+     * @return EggGroup
+     * @throws NetworkException
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     */
+    public function eggGroup($idOrName) : EggGroup
+    {
+        return $this->sendRequest(EggGroup::class, $idOrName);
+    }
+
+    /**
+     * @param int|string $idOrName
+     * @return EncounterCondition
+     * @throws NetworkException
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     */
+    public function encounterCondition($idOrName) : EncounterCondition
+    {
+        return $this->sendRequest(EncounterCondition::class, $idOrName);
+    }
+
+    /**
+     * @param int|string $idOrName
+     * @return EncounterConditionValue
+     * @throws NetworkException
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     */
+    public function encounterConditionValue($idOrName) : EncounterConditionValue
+    {
+        return $this->sendRequest(EncounterConditionValue::class, $idOrName);
+    }
+
+    /**
+     * @param int|string $idOrName
+     * @return EncounterMethod
+     * @throws NetworkException
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     */
+    public function encounterMethod($idOrName) : EncounterMethod
+    {
+        return $this->sendRequest(EncounterMethod::class, $idOrName);
+    }
+
+    /**
+     * @param int|string $idOrName
+     * @return EvolutionChain
+     * @throws NetworkException
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     */
+    public function evolutionChain($idOrName) : EvolutionChain
+    {
+        return $this->sendRequest(EvolutionChain::class, $idOrName);
+    }
+
+    /**
+     * @param int|string $idOrName
+     * @return EvolutionTrigger
+     * @throws NetworkException
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     */
+    public function evolutionTrigger($idOrName) : EvolutionTrigger
+    {
+        return $this->sendRequest(EvolutionTrigger::class, $idOrName);
+    }
+
+    /**
+     * @param int|string $idOrName
+     * @return Gender
+     * @throws NetworkException
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     */
+    public function gender($idOrName) : Gender
+    {
+        return $this->sendRequest(Gender::class,  $idOrName);
+    }
+
+    /**
+     * @param int|string $idOrName
+     * @return Generation
+     * @throws NetworkException
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     */
+    public function generation($idOrName) : Generation
+    {
+        return $this->sendRequest(Generation::class,  $idOrName);
+    }
+
+    /**
+     * @param int|string $idOrName
+     * @return GrowthRate
+     * @throws NetworkException
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     */
+    public function growthRate($idOrName) : GrowthRate
+    {
+        return $this->sendRequest(GrowthRate::class, $idOrName);
+    }
+
+    /**
+     * @param int|string $idOrName
+     * @return Habitat
+     * @throws NetworkException
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     */
+    public function habitat($idOrName) : Habitat
+    {
+        return $this->sendRequest(Habitat::class, $idOrName);
+    }
+
+    /**
+     * @param int|string $idOrName
+     * @return Item
+     * @throws NetworkException
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     */
+    public function item($idOrName) : Item
+    {
+        return $this->sendRequest(Item::class, $idOrName);
+    }
+
+    /**
+     * @param int|string $idOrName
+     * @return ItemAttribute
+     * @throws NetworkException
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     */
+    public function itemAttribute($idOrName) : ItemAttribute
+    {
+        return $this->sendRequest(ItemAttribute::class, $idOrName);
+    }
+
+    /**
+     * @param int|string $idOrName
+     * @return ItemCategory
+     * @throws NetworkException
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     */
+    public function itemCategory($idOrName) : ItemCategory
+    {
+        return $this->sendRequest(ItemCategory::class, $idOrName);
+    }
+
+    /**
+     * @param int|string $idOrName
+     * @return ItemFlingEffect
+     * @throws NetworkException
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     */
+    public function itemFlingEffect($idOrName) : ItemFlingEffect
+    {
+        return $this->sendRequest(ItemFlingEffect::class, $idOrName);
+    }
+
+    /**
+     * @param int|string $idOrName
+     * @return ItemPocket
+     * @throws NetworkException
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     */
+    public function itemPocket($idOrName) : ItemPocket
+    {
+        return $this->sendRequest(ItemPocket::class, $idOrName);
+    }
+
+    /**
+     * @param int|string $idOrName
+     * @return Location
+     * @throws NetworkException
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     */
+    public function location($idOrName) : Location
+    {
+        return $this->sendRequest(Location::class,  $idOrName);
+    }
+
+    /**
+     * @param int|string $idOrName
+     * @return Machine
+     * @throws NetworkException
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     */
+    public function machine($idOrName) : Machine
+    {
+        return $this->sendRequest(Machine::class,  $idOrName);
+    }
+
+    /**
+     * @param int|string $idOrName
+     * @return Move
+     * @throws NetworkException
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     */
+    public function move($idOrName) : Move
+    {
+        return $this->sendRequest(Move::class,  $idOrName);
+    }
+
+    /**
+     * @param int|string $idOrName
+     * @return MoveAilment
+     * @throws NetworkException
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     */
+    public function moveAilment($idOrName) : MoveAilment
+    {
+        return $this->sendRequest(MoveAilment::class,  $idOrName);
+    }
+
+    /**
+     * @param int|string $idOrName
+     * @return MoveBattleStyle
+     * @throws NetworkException
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     */
+    public function moveBattleStyle($idOrName) : MoveBattleStyle
+    {
+        return $this->sendRequest(MoveBattleStyle::class,  $idOrName);
+    }
+
+    /**
+     * @param int|string $idOrName
+     * @return MoveCategory
+     * @throws NetworkException
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     */
+    public function moveCategory($idOrName) : MoveCategory
+    {
+        return $this->sendRequest(MoveCategory::class,  $idOrName);
+    }
+
+    /**
+     * @param int|string $idOrName
+     * @return MoveDamageClass
+     * @throws NetworkException
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     */
+    public function moveDamageClass($idOrName) : MoveDamageClass
+    {
+        return $this->sendRequest(MoveDamageClass::class,  $idOrName);
+    }
+
+    /**
+     * @param int|string $idOrName
+     * @return MoveLearnMethod
+     * @throws NetworkException
+     * @throws \Psr\SimpleCache\InvalidArgumentException
      */
     public function moveLearnMethod($idOrName) : MoveLearnMethod
     {
-        return $this->createProxy(MoveLearnMethod::class, 'move-learn-method', $idOrName);
+        return $this->sendRequest(MoveLearnMethod::class, $idOrName);
     }
 
     /**
-     * @param string $uri
-     * @param int|string $identifier
-     * @return ArrayCollection
+     * @param int|string $idOrName
+     * @return MoveTarget
      * @throws NetworkException
+     * @throws \Psr\SimpleCache\InvalidArgumentException
      */
-    public function sendRequest(string $uri, $identifier) : ArrayCollection
+    public function moveTarget($idOrName) : MoveTarget
+    {
+        return $this->sendRequest(MoveTarget::class, $idOrName);
+    }
+
+    /**
+     * @param int|string $idOrName
+     * @return Nature
+     * @throws NetworkException
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     */
+    public function nature($idOrName) : Nature
+    {
+        return $this->sendRequest(Nature::class, $idOrName);
+    }
+
+    /**
+     * @param int|string $idOrName
+     * @return PalParkArea
+     * @throws NetworkException
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     */
+    public function palParkArea($idOrName) : PalParkArea
+    {
+        return $this->sendRequest(PalParkArea::class, $idOrName);
+    }
+
+    /**
+     * @param int|string $idOrName
+     * @return Pokedex
+     * @throws NetworkException
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     */
+    public function pokedex($idOrName) : Pokedex
+    {
+        return $this->sendRequest(Pokedex::class,  $idOrName);
+    }
+
+    /**
+     * @param int|string $idOrName
+     * @return Pokemon
+     * @throws NetworkException
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     */
+    public function pokemon($idOrName) : Pokemon
+    {
+        return $this->sendRequest(Pokemon::class,  $idOrName);
+    }
+
+    /**
+     * @param int|string $idOrName
+     * @return PokemonForm
+     * @throws NetworkException
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     */
+    public function pokemonForm($idOrName) : PokemonForm
+    {
+        return $this->sendRequest(PokemonForm::class,  $idOrName);
+    }
+
+    /**
+     * @param int|string $idOrName
+     * @return Region
+     * @throws NetworkException
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     */
+    public function region($idOrName) : Region
+    {
+        return $this->sendRequest(Region::class,  $idOrName);
+    }
+
+    /**
+     * @param int|string $idOrName
+     * @return Shape
+     * @throws NetworkException
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     */
+    public function shape($idOrName) : Shape
+    {
+        return $this->sendRequest(Shape::class, $idOrName);
+    }
+
+    /**
+     * @param int|string $idOrName
+     * @return Species
+     * @throws NetworkException
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     */
+    public function species($idOrName) : Species
+    {
+        return $this->sendRequest(Species::class, $idOrName);
+    }
+
+    /**
+     * @param int|string $idOrName
+     * @return Stat
+     * @throws NetworkException
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     */
+    public function stat($idOrName) : Stat
+    {
+        return $this->sendRequest(Stat::class, $idOrName);
+    }
+
+    /**
+     * @param int|string $idOrName
+     * @return Type
+     * @throws NetworkException
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     */
+    public function type($idOrName) : Type
+    {
+        return $this->sendRequest(Type::class, $idOrName);
+    }
+
+    /**
+     * @param int|string $idOrName
+     * @return Version
+     * @throws NetworkException
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     */
+    public function version($idOrName) : Version
+    {
+        return $this->sendRequest(Version::class,  $idOrName);
+    }
+
+    /**
+     * @param int|string $idOrName
+     * @return VersionGroup
+     * @throws NetworkException
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     */
+    public function versionGroup($idOrName) : VersionGroup
+    {
+        return $this->sendRequest(VersionGroup::class, $idOrName);
+    }
+
+    /**
+     * @param string $className
+     * @param int|string $identifier
+     * @return mixed
+     * @throws NetworkException
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     */
+    public function sendRequest(string $className, $identifier)
     {
 
+        $uri = $className::POKEAPI_ENDPOINT;
+        
         $url = sprintf(
-            "%s/%s",
+            "%s%s/",
             $this->baseUrl,
             $uri
         );
 
-        $url .= str_replace($url, $identifier);
+        $url .= str_replace($url, '', $identifier);
+        $cache_key = urlencode($url);
 
-        if ($this->cache->has($url)) {
-            return $this->cache->get($url);
+        if ($this->cache->has($cache_key)) {
+            return $this->deserialize($className, $this->cache->get($cache_key));
         }
 
         $ch = curl_init();
@@ -207,32 +603,19 @@ class Client
             throw new NetworkException($url, $data);
         }
 
-        $data = new ArrayCollection(json_encode($data, true));
+        $this->cache->set($cache_key, $data);
 
-        $this->cache->set($url, $data);
-
-        return $data;
+        return $this->deserialize($className, $data);
 
     }
 
     /**
-     * @param string $class
-     * @param string $resourceUri
-     * @param int|string $identifier
-     * @return object a proxy of $class
+     * @param string $className
+     * @param string $data
+     * @return array|\JMS\Serializer\scalar|mixed|object 
      */
-    private function createProxy(string $class, string $resourceUri, $identifier)
+    private function deserialize(string $className, string $data)
     {
-        $client = $this;
-        $factory     = new LazyLoadingValueHolderFactory();
-        $initializer = function (& $wrappedObject, LazyLoadingInterface $proxy, $method, array $parameters, & $initializer) use ($client, $class, $resourceUri, $identifier) {
-            $response = $client->sendRequest($resourceUri, $identifier);
-            $initializer   = null; // disable initialization
-            $wrappedObject = new $class($client, $response); // fill your object with values here
-
-            return true; // confirm that initialization occurred correctly
-        };
-
-        return $factory->createProxy($class, $initializer);
+        return $this->serializer->deserialize($data, $className, 'json');
     }
 }

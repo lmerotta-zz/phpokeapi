@@ -1,8 +1,27 @@
-PokeAPI\Pokemon\MoveStatChange:
+PokeAPI\Pokemon\Berry:
   exclusion_policy: ALL
   properties:
-    amount:
+    id:
       type: integer
-      serialized_name: change
-    stat:
-      type: PokeProxy<'PokeAPI\Pokemon\Stat'>
+    name:
+      type: string
+    growthTime:
+      type: integer
+    maxHarvest:
+      type: integer
+    naturalGiftPower:
+      type: integer
+    size:
+      type: integer
+    smoothness:
+      type: integer
+    soilDryneds:
+      type: integer
+    firmness:
+      type: PokeProxy<'PokeAPI\Pokemon\BerryFirmness'>
+    flavors:
+      type: ArrayCollection<PokeAPI\Pokemon\BerryFlavorMap>
+    item:
+      type: PokeProxy<'PokeAPI\Pokemon\Item>
+    naturalGiftType:
+      type: PokeProxy<'PokeAPI\Pokemon\Type>

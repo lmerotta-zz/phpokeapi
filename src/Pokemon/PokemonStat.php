@@ -7,13 +7,12 @@
  */
 
 namespace PokeAPI\Pokemon;
-use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Class PokemonStat
  * @package PokeAPI\Pokemon
  */
-class PokemonStat extends Resource
+class PokemonStat
 {
     /**
      * @var Stat
@@ -29,16 +28,6 @@ class PokemonStat extends Resource
      * @var integer
      */
     protected $baseStat;
-
-    /**
-     * @param ArrayCollection $data
-     */
-    protected function hydrate(ArrayCollection $data): void
-    {
-        $this->stat = $this->client->stat($data['stat']['url']);
-        $this->effort = $data['effort'];
-        $this->baseStat = $data['base_stat'];
-    }
 
     /**
      * @return Stat

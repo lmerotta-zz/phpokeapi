@@ -14,7 +14,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * Class PokemonHeldItem
  * @package PokeAPI\Pokemon
  */
-class PokemonHeldItem extends Resource
+class PokemonHeldItem
 {
     /**
      * @var Item
@@ -22,20 +22,13 @@ class PokemonHeldItem extends Resource
     protected $item;
 
     /**
-     * @var array|VersionHeldItem[]
+     * @var ArrayCollection|VersionHeldItem[]
      */
-    protected $versionHeldItems = [];
+    protected $versionHeldItems;
 
-    /**
-     * @param ArrayCollection $data
-     */
-    protected function hydrate(ArrayCollection $data): void
+    public function __construct()
     {
-        $this->item = $this->client->item($data['item']['url']);
-
-        foreach ($data['version_details'] as $detail) {
-            $this->versionHeldItems[] = new VersionHeldItem($this->client, $detail);
-        }
+        $this->versionHeldItems = new ArrayCollection();
     }
 
     /**
@@ -47,9 +40,9 @@ class PokemonHeldItem extends Resource
     }
 
     /**
-     * @return array|VersionHeldItem[]
+     * @return ArrayCollection|VersionHeldItem[]
      */
-    public function getVersionHeldItems()
+    public function getVersionHeldItems(): ArrayCollection
     {
         return $this->versionHeldItems;
     }

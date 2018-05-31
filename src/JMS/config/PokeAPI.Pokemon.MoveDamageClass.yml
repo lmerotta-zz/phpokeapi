@@ -5,7 +5,9 @@ PokeAPI\Pokemon\MoveAilment:
       type: integer
     name:
       type: string
-    moves:
-      type: ArrayCollection<PokeProxy<'PokeAPI\Pokemon\Move'>>
     descriptions:
       type: PokeTranslation<'description'>
+    moves:
+      type: ArrayCollection<PokeProxy<'PokeAPI\Pokemon\Move'>>
+    names:
+      type: PokeTranslation<'name'>

@@ -14,8 +14,10 @@ use Doctrine\Common\Collections\ArrayCollection;
  * Class EvolutionChain
  * @package PokeAPI\Pokemon
  */
-class EvolutionChain extends Resource
+class EvolutionChain
 {
+
+    const POKEAPI_ENDPOINT = 'evolution-chain';
 
     /**
      * @var integer
@@ -31,20 +33,6 @@ class EvolutionChain extends Resource
      * @var ChainLink
      */
     protected $chain;
-
-    /**
-     * @param ArrayCollection $data
-     */
-    protected function hydrate(ArrayCollection $data): void
-    {
-        $this->id = $data['id'];
-
-        if (!empty($data['baby_trigger_item'])) {
-            $this->babyTriggerItem = $this->client->item($data['baby_trigger_item']['url']);
-        }
-
-        $this->chain = new ChainLink($this->client, $data['chain']);
-    }
 
     /**
      * @return int

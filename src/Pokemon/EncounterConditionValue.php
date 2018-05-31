@@ -11,10 +11,10 @@ namespace PokeAPI\Pokemon;
 use PokeAPI\Translations;
 
 /**
- * Class EncounderConditionValue
+ * Class EncounterConditionValue
  * @package PokeAPI\Pokemon
  */
-class EncounderConditionValue
+class EncounterConditionValue
 {
 
     const POKEAPI_ENDPOINT = 'encounter-condition-value';

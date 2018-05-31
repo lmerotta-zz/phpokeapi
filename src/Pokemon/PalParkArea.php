@@ -15,8 +15,11 @@ use PokeAPI\Translations;
  * Class PalParkArea
  * @package PokeAPI\Pokemon
  */
-class PalParkArea extends Resource
+class PalParkArea
 {
+
+    const POKEAPI_ENDPOINT = 'pal-park-area';
+
     /**
      * @var string
      */
@@ -33,22 +36,16 @@ class PalParkArea extends Resource
     protected $names;
 
     /**
-     * @var array|PalParkEncounterSpecies[]
+     * @var ArrayCollection|PalParkEncounterSpecies[]
      */
-    protected $encounters = [];
+    protected $encounters;
 
     /**
-     * @param ArrayCollection $data
+     * PalParkArea constructor.
      */
-    protected function hydrate(ArrayCollection $data): void
+    public function __construct()
     {
-        $this->id = $data['id'];
-        $this->name = $data['name'];
-        $this->names = new Translations($data['names'], 'name');
-
-        foreach ($data['pokemon_encounters'] as $encounter) {
-            $this->encounters[] = new PalParkEncounterSpecies($this->client, $encounter);
-        }
+        $this->encounters = new ArrayCollection();
     }
 
     /**
@@ -76,9 +73,9 @@ class PalParkArea extends Resource
     }
 
     /**
-     * @return array|PalParkEncounterSpecies[]
+     * @return ArrayCollection|PalParkEncounterSpecies[]
      */
-    public function getEncounters()
+    public function getEncounters(): ArrayCollection
     {
         return $this->encounters;
     }

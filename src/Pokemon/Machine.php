@@ -7,14 +7,16 @@
  */
 
 namespace PokeAPI\Pokemon;
-use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Class Machine
  * @package PokeAPI\Pokemon
  */
-class Machine extends Resource
+class Machine
 {
+
+    const POKEAPI_ENDPOINT = 'machine';
+
     /**
      * @var integer
      */
@@ -34,17 +36,6 @@ class Machine extends Resource
      * @var VersionGroup
      */
     protected $versionGroup;
-
-    /**
-     * @param ArrayCollection $data
-     */
-    protected function hydrate(ArrayCollection $data): void
-    {
-        $this->id = $data['id'];
-        $this->item = $this->client->item($data['item']['url']);
-        $this->move = $this->client->move($data['move']['url']);
-        $this->versionGroup = $this->client->versionGroup($data['version_group']['url']);
-    }
 
     /**
      * @return int

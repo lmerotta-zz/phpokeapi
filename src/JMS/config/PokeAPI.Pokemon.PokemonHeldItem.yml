@@ -1,8 +1,8 @@
-PokeAPI\Pokemon\PokemonEncounter:
+PokeAPI\Pokemon\PokemonHeldItem:
   exclusion_policy: ALL
   properties:
-    pokemon:
-      type: PokeProxy<'PokeAPI\Pokemon\Pokemon'>
-    versionEncounters:
-      type: ArrayCollection<PokeAPI\Pokemon\VersionEncounter>
+    item:
+      type: PokeProxy<'PokeAPI\Pokemon\Item'>
+    versionHeldItems:
+      type: ArrayCollection<PokeAPI\Pokemon\VersionHeldItem>
       serialized_name: version_details

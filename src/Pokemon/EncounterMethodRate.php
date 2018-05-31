@@ -14,7 +14,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * Class EncounterMethodRate
  * @package PokeAPI\Pokemon
  */
-class EncounterMethodRate extends Resource
+class EncounterMethodRate
 {
     /**
      * @var EncounterMethod
@@ -22,20 +22,16 @@ class EncounterMethodRate extends Resource
     protected $method;
 
     /**
-     * @var array|EncounterVersionRates[]
+     * @var ArrayCollection|EncounterVersionRate[]
      */
-    protected $versionRates = [];
+    protected $versionRates;
 
     /**
-     * @param ArrayCollection $data
+     * EncounterMethodRate constructor.
      */
-    protected function hydrate(ArrayCollection $data): void
+    public function __construct()
     {
-        $this->method = $this->client->encounterMethod($data['encounter_method']['url']);
-
-        foreach ($data['version_details'] as $versionRate) {
-            $this->versionRates[] = new EncounterVersionRates($this->client, $versionRate);
-        }
+        $this->versionRates = new ArrayCollection();
     }
 
     /**
@@ -47,9 +43,9 @@ class EncounterMethodRate extends Resource
     }
 
     /**
-     * @return array|EncounterVersionRates[]
+     * @return ArrayCollection|EncounterVersionRate[]
      */
-    public function getVersionRates()
+    public function getVersionRates(): ArrayCollection
     {
         return $this->versionRates;
     }

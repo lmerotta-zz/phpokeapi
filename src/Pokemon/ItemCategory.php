@@ -7,6 +7,7 @@
  */
 
 namespace PokeAPI\Pokemon;
+
 use Doctrine\Common\Collections\ArrayCollection;
 use PokeAPI\Translations;
 
@@ -14,8 +15,11 @@ use PokeAPI\Translations;
  * Class ItemCategory
  * @package PokeAPI\Pokemon
  */
-class ItemCategory extends Resource
+class ItemCategory
 {
+
+    const POKEAPI_ENDPOINT = 'item-category';
+
     /**
      * @var integer
      */
@@ -27,9 +31,9 @@ class ItemCategory extends Resource
     protected $name;
 
     /**
-     * @var array|Item[]
+     * @var ArrayCollection|Item[]
      */
-    protected $items = [];
+    protected $items;
 
     /**
      * @var Translations
@@ -42,19 +46,11 @@ class ItemCategory extends Resource
     protected $pocket;
 
     /**
-     * @param ArrayCollection $data
+     * ItemCategory constructor.
      */
-    protected function hydrate(ArrayCollection $data): void
+    public function __construct()
     {
-        $this->id = $data['id'];
-        $this->name = $data['name'];
-
-        foreach ($data['items'] as $item) {
-            $this->items[$item['name']] = $this->client->item($item['url']);
-        }
-
-        $this->names = new Translations($data['names'], 'name');
-        $this->pocket = $this->client->itemPocket($data['pocket']['url']);
+        $this->items = new ArrayCollection();
     }
 
     /**
@@ -74,9 +70,9 @@ class ItemCategory extends Resource
     }
 
     /**
-     * @return array|Item[]
+     * @return ArrayCollection|Item[]
      */
-    public function getItems()
+    public function getItems(): ArrayCollection
     {
         return $this->items;
     }

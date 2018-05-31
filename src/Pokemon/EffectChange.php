@@ -15,7 +15,7 @@ use PokeAPI\Translations;
  * Class EffectChange
  * @package PokeAPI\Pokemon
  */
-class EffectChange extends Resource
+class EffectChange
 {
     /**
      * @var Translations
@@ -26,15 +26,6 @@ class EffectChange extends Resource
      * @var VersionGroup
      */
     protected $versionGroup;
-
-    /**
-     * @param ArrayCollection $data
-     */
-    protected function hydrate(ArrayCollection $data): void
-    {
-        $this->effect = new Translations($data['effect_entries'], 'effect');
-        $this->versionGroup = $this->client->versionGroup($data['version_group']['url']);
-    }
 
     /**
      * @return Translations

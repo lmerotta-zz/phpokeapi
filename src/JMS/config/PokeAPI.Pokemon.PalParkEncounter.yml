@@ -1,12 +1,9 @@
-PokeAPI\Pokemon\PalParkArea:
+PokeAPI\Pokemon\PalParkEncounter:
   exclusion_policy: ALL
   properties:
-    id:
+    baseScore:
       type: integer
-    name:
-      type: string
-    names:
-      type: PokeTranslation<'name'>
-    encounters:
-      type: ArrayCollection<PokeAPI\Pokemon\PalParkEncounterSpecies>
-      serialized_name: pokemon_encounters
+    rate:
+      type: integer
+    area:
+      type: PokeProxy<'PokeAPI\Pokemon\PalParkArea'>

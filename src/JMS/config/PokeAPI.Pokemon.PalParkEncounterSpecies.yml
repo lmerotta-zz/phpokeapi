@@ -1,4 +1,4 @@
-PokeAPI\Pokemon\PalParkEncounter:
+PokeAPI\Pokemon\PalParkEncounterSpecies:
   exclusion_policy: ALL
   properties:
     baseScore:
@@ -6,4 +6,4 @@ PokeAPI\Pokemon\PalParkEncounter:
     rate:
       type: integer
     area:
-      type: PokeProxy<'PokeAPI\Pokemon\PalParkArea'>
+      type: ArrayCollection<PokeProxy<'PokeAPI\Pokemon\Species'>>

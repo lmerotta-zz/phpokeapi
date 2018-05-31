@@ -1,8 +1,18 @@
-PokeAPI\Pokemon\AbilityFlavorText:
+PokeAPI\Pokemon\Area:
   exclusion_policy: ALL
   properties:
-    versionGroup:
-      type: PokeProxy<'PokeAPI\Pokemon\VersionGroup', 'name'>
-    flavorText:
-      type: PokeTranslation<'flavor_text'>
-      serialized_name: entries
+    id:
+      type: integer
+    name:
+      type: string
+    gameIndex:
+      type: integer
+    encounterMethodRates:
+      type: ArrayCollection<PokeAPI\Pokemon\EncounterMethodRate>
+    location:
+      type: PokeProxy<'PokeAPI\Pokemon\Location'>
+    names:
+      type: PokeTranslation<'name'>
+    encounters:
+      type: ArrayCollection<PokeAPI\Pokemon\PokemonEncounter>
+      serialized_name: pokemon_encounters

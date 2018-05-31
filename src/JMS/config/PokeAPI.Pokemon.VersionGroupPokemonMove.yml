@@ -1,8 +1,10 @@
-PokeAPI\Pokemon\AbilityFlavorText:
+PokeAPI\Pokemon\VersionGroupPokemonMove:
   exclusion_policy: ALL
   properties:
+    moveLearnMethod:
+      type: PokeProxy<'PokeAPI\Pokemon\MoveLearnMethod'>
     versionGroup:
       type: PokeProxy<'PokeAPI\Pokemon\VersionGroup'>
-    flavorTexts:
-      type: PokeTranslation<'flavor_text'>
-      serialized_name: entries
+    learnLevel:
+      type: integer
+      serialized_name: level_learned_at

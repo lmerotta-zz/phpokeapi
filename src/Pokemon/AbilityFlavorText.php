@@ -15,7 +15,7 @@ use PokeAPI\Translations;
  * Class AbilityFlavorText
  * @package PokeAPI\Pokemon
  */
-class AbilityFlavorText extends Resource
+class AbilityFlavorText
 {
     /**
      * @var VersionGroup
@@ -25,19 +25,7 @@ class AbilityFlavorText extends Resource
     /**
      * @var Translations
      */
-    protected $flavorText;
-
-    /**
-     * @param ArrayCollection $data
-     */
-    protected function hydrate(ArrayCollection $data): void
-    {
-        if (!empty($data['version_group'])) {
-            $this->versionGroup = $this->client->versionGroup($data['version_group']['url']);
-        }
-
-        $this->flavorText = new Translations($data['entries'], 'flavor_text');
-    }
+    protected $flavorTexts;
 
     /**
      * @return VersionGroup
@@ -50,8 +38,8 @@ class AbilityFlavorText extends Resource
     /**
      * @return Translations
      */
-    public function getFlavorText(): Translations
+    public function getFlavorTexts(): Translations
     {
-        return $this->flavorText;
+        return $this->flavorTexts;
     }
 }

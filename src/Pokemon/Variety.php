@@ -8,13 +8,11 @@
 
 namespace PokeAPI\Pokemon;
 
-use Doctrine\Common\Collections\ArrayCollection;
-
 /**
  * Class Variety
  * @package PokeAPI\Pokemon
  */
-class Variety extends Resource
+class Variety
 {
     /**
      * @var boolean
@@ -25,15 +23,6 @@ class Variety extends Resource
      * @var Pokemon
      */
     protected $pokemon;
-
-    /**
-     * @param ArrayCollection $data
-     */
-    protected function hydrate(ArrayCollection $data): void
-    {
-        $this->default = $data['is_default'];
-        $this->pokemon = $this->client->pokemon($data['pokemon']['url']);
-    }
 
     /**
      * @return bool

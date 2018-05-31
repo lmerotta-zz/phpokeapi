@@ -14,7 +14,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * Class AbilityPokemon
  * @package PokeAPI\Pokemon
  */
-class AbilityPokemon extends Resource
+class AbilityPokemon
 {
     /**
      * @var boolean
@@ -30,19 +30,6 @@ class AbilityPokemon extends Resource
      * @var Pokemon
      */
     protected $pokemon;
-
-    /**
-     * @param ArrayCollection $data
-     */
-    protected function hydrate(ArrayCollection $data): void
-    {
-        $this->hidden = $data['is_hidden'];
-        $this->slot = $data['slot'];
-
-        if (!empty($data['pokemon'])) {
-            $this->pokemon = $this->client->pokemon($data['pokemon']['url']);
-        }
-    }
 
     /**
      * @return bool

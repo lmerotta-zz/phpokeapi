@@ -15,8 +15,11 @@ use PokeAPI\Translations;
  * Class Shape
  * @package PokeAPI\Pokemon
  */
-class Shape extends Resource
+class Shape
 {
+
+    const POKEAPI_ENDPOINT = 'pokemon-shape';
+
     /**
      * @var integer
      */
@@ -38,23 +41,16 @@ class Shape extends Resource
     protected $names;
 
     /**
-     * @var array|Species[]
+     * @var ArrayCollection|Species[]
      */
-    protected $species = [];
+    protected $species;
 
     /**
-     * @param ArrayCollection $data
+     * Shape constructor.
      */
-    protected function hydrate(ArrayCollection $data): void
+    public function __construct()
     {
-        $this->id = $data['id'];
-        $this->name = $data['name'];
-        $this->names = new Translations($data['awesome_names'], 'awesome_name');
-        $this->names = new Translations($data['names'], 'name');
-
-        foreach ($data['pokemon_species'] as $species) {
-            $this->species[$species['name']] = $this->client->species($species['url']);
-        }
+        $this->species = new ArrayCollection();
     }
 
     /**
@@ -90,9 +86,9 @@ class Shape extends Resource
     }
 
     /**
-     * @return array|Species[]
+     * @return ArrayCollection|Species[]
      */
-    public function getSpecies()
+    public function getSpecies(): ArrayCollection
     {
         return $this->species;
     }

@@ -1,11 +1,8 @@
-PokeAPI\Pokemon\ItemPocket:
+PokeAPI\Pokemon\ItemPokemon:
   exclusion_policy: ALL
   properties:
-    id:
-      type: integer
-    name:
-      type: string
-    categories:
-      type: ArrayCollection<PokeProxy<'PokeAPI\Pokemon\ItemCategory'>>
-    names:
-      type: PokeTranslation<'name'>
+    pokemon:
+      type: PokeProxy<'PokeAPI\Pokemon\Pokemon'>
+    details:
+      type: ArrayCollection<PokeAPI\Pokemon\ItemPokemonDetails>
+      serialized_name: version_details

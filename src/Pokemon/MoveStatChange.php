@@ -7,13 +7,12 @@
  */
 
 namespace PokeAPI\Pokemon;
-use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Class MoveStatChange
  * @package PokeAPI\Pokemon
  */
-class MoveStatChange extends Resource
+class MoveStatChange
 {
     /**
      * @var integer
@@ -24,15 +23,6 @@ class MoveStatChange extends Resource
      * @var Stat
      */
     protected $stat;
-
-    /**
-     * @param ArrayCollection $data
-     */
-    protected function hydrate(ArrayCollection $data): void
-    {
-        $this->change = $data['change'];
-        $this->stat = $this->client->stat($data['stat']['url']);
-    }
 
     /**
      * @return int

@@ -11,10 +11,10 @@ namespace PokeAPI\Pokemon;
 use PokeAPI\Translations;
 
 /**
- * Class FlavorTextEntry
+ * Class VersionGroupFlavorText
  * @package PokeAPI\Pokemon
  */
-class FlavorTextEntry
+class VersionGroupFlavorText
 {
     /**
      * @var Translations

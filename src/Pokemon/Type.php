@@ -15,8 +15,11 @@ use PokeAPI\Translations;
  * Class Type
  * @package PokeAPI\Pokemon
  */
-class Type extends Resource
+class Type
 {
+
+    const POKEAPI_ENDPOINT = 'type';
+
     /**
      * @var integer
      */
@@ -28,14 +31,15 @@ class Type extends Resource
     protected $name;
 
     /**
-     * @var array|TypeRelation
+     * @var ArrayCollection|TypeRelation
+     * array of relations to types, where the key is the relation
      */
-    protected $damageRelation;
+    protected $damageRelations;
 
     /**
-     * @var array|Gameindex[]
+     * @var ArrayCollection|GameIndex[]
      */
-    protected $gameIndices = [];
+    protected $gameIndices;
 
     /**
      * @var Generation
@@ -53,12 +57,95 @@ class Type extends Resource
     protected $names;
 
     /**
-     * @var PokemonType
+     * @var ArrayCollection|PokemonType
      */
-    protected $pokemons = [];
+    protected $pokemons;
 
     /**
-     * @var array|Move[]
+     * @var ArrayCollection|Move[]
      */
-    protected $moves = [];
+    protected $moves;
+
+    /**
+     * Type constructor.
+     */
+    public function __construct()
+    {
+        $this->damageRelations = new ArrayCollection();
+        $this->damageRelations = new ArrayCollection();
+        $this->gameIndices = new ArrayCollection();
+        $this->moves = new ArrayCollection();
+    }
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @return ArrayCollection|TypeRelation
+     */
+    public function getDamageRelations(): ArrayCollection
+    {
+        return $this->damageRelations;
+    }
+
+    /**
+     * @return ArrayCollection|GameIndex[]
+     */
+    public function getGameIndices(): ArrayCollection
+    {
+        return $this->gameIndices;
+    }
+
+    /**
+     * @return Generation
+     */
+    public function getGeneration(): Generation
+    {
+        return $this->generation;
+    }
+
+    /**
+     * @return MoveDamageClass
+     */
+    public function getMoveDamageClass(): MoveDamageClass
+    {
+        return $this->moveDamageClass;
+    }
+
+    /**
+     * @return Translations
+     */
+    public function getNames(): Translations
+    {
+        return $this->names;
+    }
+
+    /**
+     * @return ArrayCollection|PokemonType
+     */
+    public function getPokemons(): ArrayCollection
+    {
+        return $this->pokemons;
+    }
+
+    /**
+     * @return ArrayCollection|Move[]
+     */
+    public function getMoves(): ArrayCollection
+    {
+        return $this->moves;
+    }
 }

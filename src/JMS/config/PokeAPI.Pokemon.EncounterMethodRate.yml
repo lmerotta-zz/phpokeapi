@@ -1,11 +1,8 @@
-PokeAPI\Pokemon\EncounterMethod:
+PokeAPI\Pokemon\EncounterMethodRate:
   exclusion_policy: ALL
   properties:
-    id:
-      type: integer
-    name:
-      type: string
-    order:
-      type: integer
-    names:
-      type: PokeTranslation<'name'>
+    method:
+      type: PokeProxy<'PokeAPI\Pokemon\EncounterMethod'>
+    versionRates:
+      type: ArrayCollection<PokeAPI\Pokemon\EncounterVersionRates>
+      serialized_name: version_details

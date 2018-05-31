@@ -15,8 +15,10 @@ use PokeAPI\Translations;
  * Class Region
  * @package PokeAPI\Pokemon
  */
-class Region extends Resource
+class Region
 {
+    public const POKEAPI_ENDPOINT = 'region';
+
     /**
      * @var integer
      */
@@ -28,9 +30,9 @@ class Region extends Resource
     protected $name;
 
     /**
-     * @var array|Location[]
+     * @var ArrayCollection|Location[]
      */
-    protected $locations = [];
+    protected $locations;
 
     /**
      * @var Generation
@@ -43,37 +45,23 @@ class Region extends Resource
     protected $names;
 
     /**
-     * @var array|Pokedex[]
+     * @var ArrayCollection|Pokedex[]
      */
-    protected $pokedexes = [];
+    protected $pokedexes;
 
     /**
-     * @var array|VersionGroup[]
+     * @var ArrayCollection|VersionGroup[]
      */
     protected $versionGroups;
 
     /**
-     * @param ArrayCollection $data
+     * Region constructor.
      */
-    protected function hydrate(ArrayCollection $data): void
+    public function __construct()
     {
-        $this->id = $data['id'];
-        $this->name = $data['name'];
-
-        foreach ($data['locations'] as $location) {
-            $this->locations[$location['name']] = $this->client->location($location['url']);
-        }
-
-        $this->mainGeneration = $this->client->generation($data['main_generation']['name']);
-        $this->names = new Translations($data['names'], 'name');
-
-        foreach ($data['pokedexes'] as $pokedex) {
-            $this->pokedexes[$pokedex['name']] = $this->client->pokedex($pokedex['url']);
-        }
-
-        foreach ($data['version_groups'] as $versionGroup) {
-            $this->versionGroups[$versionGroup['name']] = $this->client->versionGroup($versionGroup['url']);
-        }
+        $this->locations = new ArrayCollection();
+        $this->pokedexes = new ArrayCollection();
+        $this->versionGroups = new ArrayCollection();
     }
 
     /**
@@ -93,9 +81,9 @@ class Region extends Resource
     }
 
     /**
-     * @return array|Location[]
+     * @return ArrayCollection|Location[]
      */
-    public function getLocations()
+    public function getLocations(): ArrayCollection
     {
         return $this->locations;
     }
@@ -117,17 +105,17 @@ class Region extends Resource
     }
 
     /**
-     * @return array|Pokedex[]
+     * @return ArrayCollection|Pokedex[]
      */
-    public function getPokedexes()
+    public function getPokedexes(): ArrayCollection
     {
         return $this->pokedexes;
     }
 
     /**
-     * @return array|VersionGroup[]
+     * @return ArrayCollection|VersionGroup[]
      */
-    public function getVersionGroups()
+    public function getVersionGroups(): ArrayCollection
     {
         return $this->versionGroups;
     }

@@ -1,7 +1,17 @@
-PokeAPI\Pokemon\PokemonType:
+PokeAPI\Pokemon\Region:
   exclusion_policy: ALL
   properties:
-    slot:
+    id:
       type: integer
-    type:
-      type: PokeProxy<'PokeAPI\Pokemon\Type'>
+    name:
+      type: string
+    locations:
+      type: ArrayCollection<PokeProxy<'PokeAPI\Pokemon\Location'>>
+    mainGeneration:
+      type: PokeProxy<'PokeAPI\Pokemon\Generation'>
+    names:
+      type: PokeTranslation<'name'>
+    pokedexes:
+      type: ArrayCollection<PokeProxy<'PokeAPI\Pokemon\Pokedex'>>
+    versionGroups:
+      type: ArrayCollection<PokeProxy<'PokeAPI\Pokemon\VersionGroup'>>

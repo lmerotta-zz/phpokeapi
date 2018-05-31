@@ -9,15 +9,17 @@
 namespace PokeAPI\Pokemon;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use phpDocumentor\Reflection\DocBlock\Description;
 use PokeAPI\Translations;
 
 /**
  * Class ItemAttribute
  * @package PokeAPI\Pokemon
  */
-class ItemAttribute extends Resource
+class ItemAttribute
 {
+
+    const POKEAPI_ENDPOINT = 'item-attribute';
+
     /**
      * @var integer
      */
@@ -29,9 +31,9 @@ class ItemAttribute extends Resource
     protected $name;
 
     /**
-     * @var array|Item[]
+     * @var ArrayCollection|Item[]
      */
-    protected $items = [];
+    protected $items;
 
     /**
      * @var Translations
@@ -39,24 +41,16 @@ class ItemAttribute extends Resource
     protected $names;
 
     /**
-     * @var Description
+     * @var Translations
      */
     protected $descriptions;
 
     /**
-     * @param ArrayCollection $data
+     * ItemAttribute constructor.
      */
-    protected function hydrate(ArrayCollection $data): void
+    public function __construct()
     {
-        $this->id = $data['id'];
-        $this->name = $data['name'];
-
-        foreach ($data['items'] as $item) {
-            $this->items[$item['name']] = $this->client->item($item['url']);
-        }
-
-        $this->names = new Translations($data['names'], 'name');
-        $this->descriptions = new Translations($data['descriptions'], 'description');
+        $this->items = new ArrayCollection();
     }
 
     /**
@@ -76,9 +70,9 @@ class ItemAttribute extends Resource
     }
 
     /**
-     * @return array|Item[]
+     * @return ArrayCollection|Item[]
      */
-    public function getItems()
+    public function getItems(): ArrayCollection
     {
         return $this->items;
     }
@@ -92,9 +86,9 @@ class ItemAttribute extends Resource
     }
 
     /**
-     * @return Description
+     * @return Translations
      */
-    public function getDescriptions(): Description
+    public function getDescriptions(): Translations
     {
         return $this->descriptions;
     }

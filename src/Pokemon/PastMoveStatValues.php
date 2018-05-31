@@ -7,14 +7,14 @@
  */
 
 namespace PokeAPI\Pokemon;
-use Doctrine\Common\Collections\ArrayCollection;
+
 use PokeAPI\Translations;
 
 /**
  * Class PastMoveStatValues
  * @package PokeAPI\Pokemon
  */
-class PastMoveStatValues extends Resource
+class PastMoveStatValues
 {
     /**
      * @var integer|null
@@ -55,25 +55,6 @@ class PastMoveStatValues extends Resource
      * @var VersionGroup
      */
     protected $versionGroup;
-
-    /**
-     * @param ArrayCollection $data
-     */
-    protected function hydrate(ArrayCollection $data): void
-    {
-        $this->accuracy = $data['accuracy'];
-        $this->effectChance = $data['effect_chance'];
-        $this->power = $data['power'];
-        $this->pp = $data['pp'];
-        $this->effects = new Translations($data['effect_entries'], 'effect');
-        $this->shortEffects = new Translations($data['effect_entries'], 'short_effect');
-
-        if (!empty($data['type'])) {
-            $this->type = $this->client->type($data['type']['url']);
-        }
-
-        $this->versionGroup = $this->client->versionGroup($data['version_group']['url']);
-    }
 
     /**
      * @return int|null

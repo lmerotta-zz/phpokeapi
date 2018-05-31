@@ -1,17 +1,13 @@
-PokeAPI\Pokemon\Region:
+PokeAPI\Pokemon\Shape:
   exclusion_policy: ALL
   properties:
     id:
       type: integer
     name:
       type: string
-    locations:
-      type: ArrayCollection<PokeProxy<'PokeAPI\Pokemon\Location'>>
-    mainGeneration:
-      type: PokeProxy<'PokeAPI\Pokemon\Generation'>
+    awesomeNames:
+      type: PokeTranslation<'awesome_name'>
     names:
       type: PokeTranslation<'name'>
-    pokedexes:
-      type: ArrayCollection<PokeProxy<'PokeAPI\Pokemon\Pokedex'>>
-    versionGroups:
-      type: ArrayCollection<PokeProxy<'PokeAPI\Pokemon\VersionGroup'>>
+    species:
+      type: ArrayCollection<PokeProxy<'PokeAPI\Pokemon\Species'>>

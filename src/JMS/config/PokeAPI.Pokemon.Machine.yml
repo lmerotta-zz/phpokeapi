@@ -1,11 +1,11 @@
-PokeAPI\Pokemon\Gender:
+PokeAPI\Pokemon\Machine:
   exclusion_policy: ALL
   properties:
     id:
       type: integer
-    name:
-      type: string
-    speciesGenderDetails:
-      type: ArrayCollection<'PokeAPI\Pokemon\SpeciesGenderDetail'>
-    requiredForEvolution:
-      type: ArrayCollection<PokeProxy<'PokeAPI\Pokemon\Species'>
+    item:
+      type: PokeProxy<'PokeAPI\Pokemon\Item'>
+    move:
+      type: PokeProxy<'PokeAPI\Pokemon\Move'>
+    versionGroup:
+      type: PokeProxy<'PokeAPI\Pokemon\VersionGroup'>

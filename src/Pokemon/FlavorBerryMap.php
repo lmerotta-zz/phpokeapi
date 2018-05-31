@@ -9,10 +9,10 @@
 namespace PokeAPI\Pokemon;
 
 /**
- * Class BerryFlavorMap
+ * Class FlavorBerryMap
  * @package PokeAPI\Pokemon
  */
-class BerryFlavorMap
+class FlavorBerryMap
 {
 
     /**
@@ -21,9 +21,9 @@ class BerryFlavorMap
     protected $potency;
 
     /**
-     * @var BerryFlavor
+     * @var Berry
      */
-    protected $flavor;
+    protected $berry;
 
     /**
      * @return int
@@ -34,10 +34,10 @@ class BerryFlavorMap
     }
 
     /**
-     * @return BerryFlavor
+     * @return Berry
      */
-    public function getFlavor(): BerryFlavor
+    public function getFlavor(): Berry
     {
-        return $this->flavor;
+        return $this->berry;
     }
 }

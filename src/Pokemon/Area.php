@@ -15,8 +15,11 @@ use PokeAPI\Translations;
  * Class Area
  * @package PokeAPI\Pokemon
  */
-class Area extends Resource
+class Area
 {
+
+    const POKEAPI_ENDPOINT = 'location-area';
+
     /**
      * @var integer
      */
@@ -33,9 +36,9 @@ class Area extends Resource
     protected $gameIndex;
 
     /**
-     * @var array|EncounterMethodRate[]
+     * @var ArrayCollection|EncounterMethodRate[]
      */
-    protected $encounterMethodRates = [];
+    protected $encounterMethodRates;
 
     /**
      * @var Location
@@ -48,30 +51,17 @@ class Area extends Resource
     protected $names;
 
     /**
-     * @var array|PokemonEncounter[]
+     * @var ArrayCollection|PokemonEncounter[]
      */
-    protected $encounters = [];
+    protected $encounters;
 
     /**
-     * @param ArrayCollection $data
+     * Area constructor.
      */
-    protected function hydrate(ArrayCollection $data): void
+    public function __construct()
     {
-        $this->id = $data['id'];
-        $this->name = $data['name'];
-        $this->gameIndex = $data['game_index'];
-
-        foreach ($data['encounter_method_rates'] as $encounterMethodRate) {
-            $this->encounterMethodRates[] = new EncounterMethodRate($this->client, $encounterMethodRate);
-        }
-
-        $this->location = $this->client->location($data['location']['url']);
-
-        $this->names = new Translations($data['names'], 'name');
-
-        foreach ($data['pokemon_encounters'] as $pokemon_encounter) {
-            $this->encounters[] = new PokemonEncounter($this->client, $pokemon_encounter);
-        }
+        $this->encounterMethodRates = new ArrayCollection();
+        $this->encounters = new ArrayCollection();
     }
 
     /**
@@ -99,9 +89,9 @@ class Area extends Resource
     }
 
     /**
-     * @return array|EncounterMethodRate[]
+     * @return ArrayCollection|EncounterMethodRate[]
      */
-    public function getEncounterMethodRates()
+    public function getEncounterMethodRates(): ArrayCollection
     {
         return $this->encounterMethodRates;
     }
@@ -123,9 +113,9 @@ class Area extends Resource
     }
 
     /**
-     * @return array|PokemonEncounter[]
+     * @return ArrayCollection|PokemonEncounter[]
      */
-    public function getEncounters()
+    public function getEncounters(): ArrayCollection
     {
         return $this->encounters;
     }

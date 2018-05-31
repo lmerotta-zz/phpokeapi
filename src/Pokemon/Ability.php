@@ -15,8 +15,10 @@ use PokeAPI\Translations;
  * Class Ability
  * @package PokeAPI\Pokemon
  */
-class Ability extends Resource
+class Ability
 {
+    const POKEAPI_ENDPOINT = 'ability';
+
     /**
      * @var integer
      */
@@ -35,7 +37,7 @@ class Ability extends Resource
     /**
      * @var Generation
      */
-    protected $generation = null;
+    protected $generation;
 
     /**
      * @var Translations
@@ -43,74 +45,35 @@ class Ability extends Resource
     protected $names;
 
     /**
-     * @var Translations|null
-     */
-    protected $effects;
-
-    /**
-     * @var Translations|null
+     * @var Translations
      */
     protected $shortEffects;
 
     /**
-     * @var array|EffectChange[]
+     * @var Translations
+     */
+    protected $effects;
+
+    /**
+     * @var ArrayCollection|EffectChange[]
      */
     protected $effectChanges = [];
 
     /**
-     * @var array|AbilityFlavorText[]
+     * @var ArrayCollection|AbilityFlavorText[]
      */
     protected $flavorTexts = [];
 
     /**
-     * @var array|AbilityPokemon
+     * @var ArrayCollection|AbilityPokemon
      */
     protected $pokemons = [];
 
-    /**
-     * @param ArrayCollection $data
-     */
-    protected function hydrate(ArrayCollection $data): void
+    public function __construct()
     {
-        $this->id = $data['id'];
-        $this->name = $data['name'];
-        $this->mainSeries = $data['is_main_series'];
-        $this->generation = $this->client->generation($data['generation']['url']);
-        $this->names = new Translations($data['names'], 'name');
-
-        // For short_effect and effect, we assume that since the first item in the array has a key and it is not empty
-        // Every item in the array has it
-        if (!empty($data['effect_entries'][0]['effect'])) {
-            $this->effects = new Translations($data['effect_entries'], 'effect');
-        }
-
-        if (!empty($data['effect_entries'][0]['short_effect'])) {
-            $this->shortEffects = new Translations($data['effect_entries'], 'short_effect');
-        }
-
-        foreach ($data['effect_changes'] as $effectChange) {
-            $this->effectChanges[] = new EffectChange($this->client, $effectChange);
-        }
-
-        $versionGroups = [];
-        $sortedFlavorTextEntries = [];
-        foreach ($data['flavor_text_entries'] as $flavorTextEntry) {
-            $versionGroupName = $flavorTextEntry['version_group']['name'];
-            if (empty($sortedFlavorTextEntries[$versionGroupName])) {
-                $sortedFlavorTextEntries[$versionGroupName] = [];
-                $versionGroups[$versionGroupName] = $flavorTextEntry['version_group'];
-            }
-
-            $sortedFlavorTextEntries[$versionGroupName][] = $flavorTextEntry;
-        }
-
-        foreach ($versionGroups as $versionGroupName => $versionGroup) {
-            $this->flavorTexts[] = new AbilityFlavorText($this->client, ['version' => $versionGroup, 'entries' => $sortedFlavorTextEntries[$versionGroupName]]);
-        }
-
-        foreach ($data['pokemon'] as $pokemon) {
-            $this->pokemons[] = new AbilityPokemon($this->client, $pokemon);
-        }
+        $this->effectChanges = new ArrayCollection();
+        $this->flavorTexts = new ArrayCollection();
+        $this->pokemons = new ArrayCollection();
     }
 
     /**
@@ -154,41 +117,41 @@ class Ability extends Resource
     }
 
     /**
-     * @return Translations|null
+     * @return Translations
      */
-    public function getEffects(): ?Translations
-    {
-        return $this->effects;
-    }
-
-    /**
-     * @return Translations|null
-     */
-    public function getShortEffects(): ?Translations
+    public function getShortEffects(): Translations
     {
         return $this->shortEffects;
     }
 
     /**
-     * @return array|EffectChange[]
+     * @return Translations
      */
-    public function getEffectChanges()
+    public function getEffects(): Translations
+    {
+        return $this->effects;
+    }
+
+    /**
+     * @return ArrayCollection|EffectChange[]
+     */
+    public function getEffectChanges(): ArrayCollection
     {
         return $this->effectChanges;
     }
 
     /**
-     * @return array|AbilityFlavorText[]
+     * @return ArrayCollection|AbilityFlavorText[]
      */
-    public function getFlavorTexts()
+    public function getFlavorTexts(): ArrayCollection
     {
         return $this->flavorTexts;
     }
 
     /**
-     * @return array|AbilityPokemon
+     * @return ArrayCollection|AbilityPokemon
      */
-    public function getPokemons()
+    public function getPokemons(): ArrayCollection
     {
         return $this->pokemons;
     }

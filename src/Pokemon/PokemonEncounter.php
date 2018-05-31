@@ -14,7 +14,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * Class PokemonEncounter
  * @package PokeAPI\Pokemon
  */
-class PokemonEncounter extends Resource
+class PokemonEncounter
 {
     /**
      * @var Pokemon
@@ -22,20 +22,16 @@ class PokemonEncounter extends Resource
     protected $pokemon;
 
     /**
-     * @var array|VersionEncounter[]
+     * @var ArrayCollection|VersionEncounter[]
      */
-    protected $versionEncounters = [];
+    protected $versionEncounters;
 
     /**
-     * @param ArrayCollection $data
+     * PokemonEncounter constructor.
      */
-    protected function hydrate(ArrayCollection $data): void
+    public function __construct()
     {
-        $this->pokemon = $this->client->pokemon($data['pokemon']['url']);
-
-        foreach ($data['version_details'] as $detail) {
-            $this->versionEncounters[] = new VersionEncounter($this->client, $detail);
-        }
+        $this->versionEncounters = new ArrayCollection();
     }
 
     /**
@@ -47,9 +43,9 @@ class PokemonEncounter extends Resource
     }
 
     /**
-     * @return array|VersionEncounter[]
+     * @return ArrayCollection|VersionEncounter[]
      */
-    public function getVersionEncounters()
+    public function getVersionEncounters(): ArrayCollection
     {
         return $this->versionEncounters;
     }

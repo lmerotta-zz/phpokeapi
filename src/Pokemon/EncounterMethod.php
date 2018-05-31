@@ -15,8 +15,11 @@ use PokeAPI\Translations;
  * Class EncounterMethod
  * @package PokeAPI\Pokemon
  */
-class EncounterMethod extends Resource
+class EncounterMethod
 {
+
+    const POKEAPI_ENDPOINT = 'encounter-method';
+
     /**
      * @var integer
      */
@@ -36,17 +39,6 @@ class EncounterMethod extends Resource
      * @var Translations
      */
     protected $names;
-
-    /**
-     * @param ArrayCollection $data
-     */
-    protected function hydrate(ArrayCollection $data): void
-    {
-        $this->id = $data['id'];
-        $this->name = $data['name'];
-        $this->order = $data['order'];
-        $this->names = new Translations($data['names'], 'name');
-    }
 
     /**
      * @return int

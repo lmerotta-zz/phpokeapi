@@ -8,13 +8,11 @@
 
 namespace PokeAPI\Pokemon;
 
-use Doctrine\Common\Collections\ArrayCollection;
-
 /**
- * Class PokedexEntry
+ * Class SpeciesPokedexEntry
  * @package PokeAPI\Pokemon
  */
-class PokedexEntry
+class SpeciesPokedexEntry
 {
     /**
      * @var integer
@@ -22,9 +20,9 @@ class PokedexEntry
     protected $number;
 
     /**
-     * @var Species
+     * @var Pokedex
      */
-    protected $species;
+    protected $pokedex;
 
     /**
      * @return int
@@ -35,10 +33,10 @@ class PokedexEntry
     }
 
     /**
-     * @return Species
+     * @return Pokedex
      */
-    public function getSpecies(): Species
+    public function getPokedex(): Pokedex
     {
-        return $this->species;
+        return $this->pokedex;
     }
 }

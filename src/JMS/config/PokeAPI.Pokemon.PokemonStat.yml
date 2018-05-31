@@ -1,8 +1,9 @@
-PokeAPI\Pokemon\PokemonMove:
+PokeAPI\Pokemon\PokemonStat:
   exclusion_policy: ALL
   properties:
-    move:
-      type: PokeProxy<'PokeAPI\Pokemon\Move'>
-    versionPokemonMoves:
-      type: ArrayCollection<PokeAPI\Pokemon\VersionGroupPokemonMove>
-      serialized_name: version_group_details
+    stat:
+      type: PokeProxy<'PokeAPI\Pokemon\Stat'>
+    effort:
+      type: integer
+    baseStat:
+      type: integer

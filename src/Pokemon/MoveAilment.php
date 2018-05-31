@@ -15,8 +15,11 @@ use PokeAPI\Translations;
  * Class MoveAilment
  * @package PokeAPI\Pokemon
  */
-class MoveAilment extends Resource
+class MoveAilment
 {
+
+    const POKEAPI_ENDPOINT = 'move-ailment';
+
     /**
      * @var integer
      */
@@ -28,9 +31,9 @@ class MoveAilment extends Resource
     protected $name;
 
     /**
-     * @var array|Move[]
+     * @var ArrayCollection|Move[]
      */
-    protected $moves = [];
+    protected $moves;
 
     /**
      * @var Translations
@@ -38,18 +41,11 @@ class MoveAilment extends Resource
     protected $names;
 
     /**
-     * @param ArrayCollection $data
+     * MoveAilment constructor.
      */
-    protected function hydrate(ArrayCollection $data): void
+    public function __construct()
     {
-        $this->id = $data['id'];
-        $this->name = $data['name'];
-
-        foreach ($data['moves'] as $move) {
-            $this->moves[$move['name']] = $this->client->move($move['url']);
-        }
-
-        $this->names = new Translations($data['names'], 'name');
+        $this->moves = new ArrayCollection();
     }
 
     /**
@@ -69,9 +65,9 @@ class MoveAilment extends Resource
     }
 
     /**
-     * @return array|Move[]
+     * @return ArrayCollection|Move[]
      */
-    public function getMoves()
+    public function getMoves(): ArrayCollection
     {
         return $this->moves;
     }

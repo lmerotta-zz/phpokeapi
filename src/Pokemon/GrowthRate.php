@@ -15,8 +15,10 @@ use PokeAPI\Translations;
  * Class GrowthRate
  * @package PokeAPI\Pokemon
  */
-class GrowthRate extends Resource
+class GrowthRate
 {
+    public const POKEAPI_ENDPOINT = 'growth-rate';
+
     /**
      * @var integer
      */
@@ -38,33 +40,22 @@ class GrowthRate extends Resource
     protected $descriptions;
 
     /**
-     * @var array indexed by level
+     * @var ArrayCollection|ExperienceLevel[]
      */
-    protected $levels = [];
+    protected $levels;
 
     /**
-     * @var array|Species
+     * @var ArrayCollection|Species[]
      */
-    protected $species = [];
+    protected $species;
 
     /**
-     * @param ArrayCollection $data
+     * GrowthRate constructor.
      */
-    protected function hydrate(ArrayCollection $data): void
+    public function __construct()
     {
-        $this->id = $data['id'];
-        $this->name = $data['name'];
-        $this->formula = $data['formula'];
-        $this->descriptions = new Translations($data['descriptions'], 'descriptions');
-
-        foreach ($data['levels'] as $level) {
-            $this->levels[$level['level']] = $level['experience'];
-        }
-
-        foreach ($data['pokemon_species'] as $species) {
-            $this->species[$species['name']] = $this->client->species($species['url']);
-        }
-
+        $this->levels = new ArrayCollection();
+        $this->species = new ArrayCollection();
     }
 
     /**
@@ -100,17 +91,17 @@ class GrowthRate extends Resource
     }
 
     /**
-     * @return array
+     * @return ArrayCollection|ExperienceLevel[]
      */
-    public function getLevels(): array
+    public function getLevels(): ArrayCollection
     {
         return $this->levels;
     }
 
     /**
-     * @return array|Species
+     * @return ArrayCollection|Species[]
      */
-    public function getSpecies()
+    public function getSpecies(): ArrayCollection
     {
         return $this->species;
     }

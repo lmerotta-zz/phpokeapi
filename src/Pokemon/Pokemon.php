@@ -14,8 +14,10 @@ use Doctrine\Common\Collections\ArrayCollection;
  * Class Pokemon
  * @package PokeAPI\Pokemon
  */
-class Pokemon extends Resource
+class Pokemon
 {
+    const POKEAPI_ENDPOINT = 'pokemon';
+
     /**
      * @var integer
      */
@@ -52,34 +54,39 @@ class Pokemon extends Resource
     protected $weight;
 
     /**
-     * @var array|Ability[]
+     * @var ArrayCollection|Ability[]
      */
-    protected $abilities = [];
+    protected $abilities;
 
     /**
-     * @var array|PokemonForm[]
+     * @var ArrayCollection|PokemonForm[]
      */
-    protected $forms = [];
+    protected $forms;
 
     /**
-     * @var array|Gameindex[]
+     * @var ArrayCollection|GameIndex[]
      */
-    protected $gameIndices = [];
+    protected $gameIndices;
 
     /**
-     * @var array|PokemonHeldItem[]
+     * @var ArrayCollection|PokemonHeldItem[]
      */
-    protected $heldItems = [];
+    protected $heldItems;
 
     /**
-     * @var array|PokemonMove[]
+     * @var ArrayCollection|AreaEncounter[]
      */
-    protected $moves = [];
+    protected $areaEncounters;
 
     /**
-     * @var array an array indexed by sprite name
+     * @var ArrayCollection|PokemonMove[]
      */
-    protected $sprites = [];
+    protected $moves;
+
+    /**
+     * @var ArrayCollection an array indexed by sprite name
+     */
+    protected $sprites;
 
     /**
      * @var Species
@@ -87,63 +94,29 @@ class Pokemon extends Resource
     protected $species;
 
     /**
-     * @var array|PokemonStat[]
+     * @var ArrayCollection|PokemonStat[]
      */
-    protected $stats = [];
+    protected $stats;
 
     /**
-     * @var array|PokemonType[]
+     * @var ArrayCollection|PokemonType[]
      */
-    protected $types = [];
+    protected $types;
 
     /**
-     * @param ArrayCollection $data
+     * Pokemon constructor.
      */
-    protected function hydrate(ArrayCollection $data): void
+    public function __construct()
     {
-        $this->id = $data['id'];
-        $this->name = $data['name'];
-        $this->baseExperience = $data['base_experience'];
-        $this->height = $data['height'];
-        $this->default = $data['is_default'];
-        $this->order = $data['order'];
-        $this->weight = $data['weight'];
-
-        foreach ($data['abilities'] as $ability) {
-            $this->abilities[$ability['name']] = $this->client->ability($ability['url']);
-        }
-
-        foreach ($data['forms'] as $form) {
-            $this->forms[$form['name']] = $this->client->form($form['url']);
-        }
-
-        foreach ($data['game_indices'] as $gameIndex) {
-            $this->gameIndices[] = new Gameindex($this->client, $gameIndex);
-        }
-
-        foreach ($data['held_items'] as $heldItem) {
-            $this->heldItems[] = new PokemonHeldItem($this->client, $heldItem);
-        }
-
-        foreach ($data['moves'] as $move) {
-            $this->moves[] = new PokemonMove($this->client, $move);
-        }
-
-        foreach ($data['sprites'] as $name => $value) {
-            $this->sprites[$name] = $value;
-        }
-
-        foreach ($data['species'] as $species) {
-            $this->species[$species['name']] = $this->client->species($species['url']);
-        }
-
-        foreach ($data['stats'] as $stat) {
-            $this->stats[] = new PokemonStat($this->client, $stat);
-        }
-
-        foreach ($data['types'] as $type) {
-            $this->types[] = new PokemonType($this->client, $type);
-        }
+        $this->abilities = new ArrayCollection();
+        $this->forms = new ArrayCollection();
+        $this->gameIndices = new ArrayCollection();
+        $this->heldItems = new ArrayCollection();
+        $this->areaEncounters = new ArrayCollection();
+        $this->moves = new ArrayCollection();
+        $this->sprites = new ArrayCollection();
+        $this->species = new ArrayCollection();
+        $this->types = new ArrayCollection();
     }
 
     /**
@@ -203,49 +176,49 @@ class Pokemon extends Resource
     }
 
     /**
-     * @return array|Ability[]
+     * @return ArrayCollection|Ability[]
      */
-    public function getAbilities()
+    public function getAbilities(): ArrayCollection
     {
         return $this->abilities;
     }
 
     /**
-     * @return array|PokemonForm[]
+     * @return ArrayCollection|PokemonForm[]
      */
-    public function getForms()
+    public function getForms(): ArrayCollection
     {
         return $this->forms;
     }
 
     /**
-     * @return array|Gameindex[]
+     * @return ArrayCollection|GameIndex[]
      */
-    public function getGameIndices()
+    public function getGameIndices(): ArrayCollection
     {
         return $this->gameIndices;
     }
 
     /**
-     * @return array|ItemPokemon[]
+     * @return ArrayCollection|ItemPokemon[]
      */
-    public function getHeldItems()
+    public function getHeldItems(): ArrayCollection
     {
         return $this->heldItems;
     }
 
     /**
-     * @return array|PokemonMove[]
+     * @return ArrayCollection|PokemonMove[]
      */
-    public function getMoves()
+    public function getMoves(): ArrayCollection
     {
         return $this->moves;
     }
 
     /**
-     * @return array
+     * @return ArrayCollection
      */
-    public function getSprites(): array
+    public function getSprites(): ArrayCollection
     {
         return $this->sprites;
     }
@@ -259,17 +232,17 @@ class Pokemon extends Resource
     }
 
     /**
-     * @return array|PokemonStat[]
+     * @return ArrayCollection|PokemonStat[]
      */
-    public function getStats()
+    public function getStats(): ArrayCollection
     {
         return $this->stats;
     }
 
     /**
-     * @return array|PokemonType[]
+     * @return ArrayCollection|PokemonType[]
      */
-    public function getTypes()
+    public function getTypes(): ArrayCollection
     {
         return $this->types;
     }

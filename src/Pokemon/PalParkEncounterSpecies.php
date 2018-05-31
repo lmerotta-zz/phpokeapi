@@ -7,13 +7,14 @@
  */
 
 namespace PokeAPI\Pokemon;
+
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Class PalParkEncounterSpecies
  * @package PokeAPI\Pokemon
  */
-class PalParkEncounterSpecies extends Resource
+class PalParkEncounterSpecies
 {
     /**
      * @var integer
@@ -26,21 +27,16 @@ class PalParkEncounterSpecies extends Resource
     protected $rate;
 
     /**
-     * @var array|Species[]
+     * @var ArrayCollection|Species[]
      */
-    protected $species = [];
+    protected $species;
 
     /**
-     * @param ArrayCollection $data
+     * PalParkEncounterSpecies constructor.
      */
-    protected function hydrate(ArrayCollection $data): void
+    public function __construct()
     {
-        $this->baseScore = $data['base_score'];
-        $this->rate = $data['rate'];
-
-        foreach ($data['pokemon_species'] as $species) {
-            $this->species[$species['name']] = $this->client->species($species['url']);
-        }
+        $this->species = new ArrayCollection();
     }
 
     /**
@@ -60,9 +56,9 @@ class PalParkEncounterSpecies extends Resource
     }
 
     /**
-     * @return array|Species[]
+     * @return ArrayCollection|Species[]
      */
-    public function getSpecies()
+    public function getSpecies(): ArrayCollection
     {
         return $this->species;
     }

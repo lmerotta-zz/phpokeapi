@@ -15,8 +15,11 @@ use PokeAPI\Translations;
  * Class Version
  * @package PokeAPI\Pokemon
  */
-class Version extends Resource
+class Version
 {
+
+    const POKEAPI_ENDPOINT = 'version';
+
     /**
      * @var integer
      */
@@ -33,22 +36,47 @@ class Version extends Resource
     protected $names;
 
     /**
-     * @var array|VersionGroup[]
+     * @var ArrayCollection|VersionGroup[]
      */
-    protected $versionGroups = [];
+    protected $versionGroups;
 
     /**
-     * @param ArrayCollection $data
+     * Version constructor.
      */
-    protected function hydrate(ArrayCollection $data): void
+    public function __construct()
     {
-        $this->id = $data['id'];
-        $this->name = $data['name'];
-        $this->names = new Translations($data['names'], 'name');
-
-        foreach ($data['version_groups'] as $versionGroup) {
-            $this->versionGroups[$versionGroup['name']] = $this->client->versionGroup($versionGroup['url']);
-        }
+        $this->versionGroups = new ArrayCollection();
     }
 
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @return Translations
+     */
+    public function getNames(): Translations
+    {
+        return $this->names;
+    }
+
+    /**
+     * @return ArrayCollection|VersionGroup[]
+     */
+    public function getVersionGroups(): ArrayCollection
+    {
+        return $this->versionGroups;
+    }
 }

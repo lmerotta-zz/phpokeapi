@@ -14,7 +14,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * Class PokedexEntry
  * @package PokeAPI\Pokemon
  */
-class PokedexEntry extends Resource
+class PokedexEntry
 {
     /**
      * @var integer
@@ -22,18 +22,9 @@ class PokedexEntry extends Resource
     protected $number;
 
     /**
-     * @var Pokedex
+     * @var Species
      */
-    protected $pokedex;
-
-    /**
-     * @param ArrayCollection $data
-     */
-    protected function hydrate(ArrayCollection $data): void
-    {
-        $this->number = $data['entry_number'];
-        $this->pokedex = $this->client->pokedex($data['pokedex']['url']);
-    }
+    protected $species;
 
     /**
      * @return int
@@ -44,10 +35,10 @@ class PokedexEntry extends Resource
     }
 
     /**
-     * @return Pokedex
+     * @return Species
      */
-    public function getPokedex(): Pokedex
+    public function getSpecies(): Species
     {
-        return $this->pokedex;
+        return $this->species;
     }
 }

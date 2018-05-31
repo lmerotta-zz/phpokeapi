@@ -7,13 +7,12 @@
  */
 
 namespace PokeAPI\Pokemon;
-use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Class ItemMachine
  * @package PokeAPI\Pokemon
  */
-class ItemMachine extends Resource
+class ItemMachine
 {
     /**
      * @var Machine
@@ -24,15 +23,6 @@ class ItemMachine extends Resource
      * @var VersionGroup
      */
     protected $versionGroup;
-
-    /**
-     * @param ArrayCollection $data
-     */
-    protected function hydrate(ArrayCollection $data): void
-    {
-        $this->machine = $this->client->machine($data['machine']['url']);
-        $this->versionGroup = $this->client->versionGroup($data['version_group']['url']);
-    }
 
     /**
      * @return Machine

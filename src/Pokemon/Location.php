@@ -15,8 +15,10 @@ use PokeAPI\Translations;
  * Class Location
  * @package PokeAPI\Pokemon
  */
-class Location extends Resource
+class Location
 {
+    public const POKEAPI_ENDPOINT = 'location';
+
     /**
      * @var integer
      */
@@ -38,32 +40,22 @@ class Location extends Resource
     protected $names;
 
     /**
-     * @var array|GameIndex
+     * @var ArrayCollection|GameIndex
      */
-    protected $gameIndices = [];
+    protected $gameIndices;
 
     /**
-     * @var array|Area
+     * @var ArrayCollection|Area
      */
-    protected $areas = [];
+    protected $areas;
 
     /**
-     * @param ArrayCollection $data
+     * Location constructor.
      */
-    protected function hydrate(ArrayCollection $data): void
+    public function __construct()
     {
-        $this->id = $data['id'];
-        $this->name = $data['name'];
-        $this->region = $this->client->region($data['region']['url']);
-        $this->names = new Translations($data['names'], 'name');
-
-        foreach ($data['game_indices'] as $gameIndex) {
-            $this->gameIndices[] = new Gameindex($this->client, $gameIndex);
-        }
-
-        foreach ($data['areas'] as $area) {
-            $this->areas[$area['name']] = $this->client->area($area['url']);
-        }
+        $this->gameIndices = new ArrayCollection();
+        $this->areas = new ArrayCollection();
     }
 
     /**
@@ -99,17 +91,17 @@ class Location extends Resource
     }
 
     /**
-     * @return array|GameIndex
+     * @return ArrayCollection|GameIndex[]
      */
-    public function getGameIndices(): array
+    public function getGameIndices(): ArrayCollection
     {
         return $this->gameIndices;
     }
 
     /**
-     * @return array|Area
+     * @return ArrayCollection|Area[]
      */
-    public function getAreas(): array
+    public function getAreas(): ArrayCollection
     {
         return $this->areas;
     }

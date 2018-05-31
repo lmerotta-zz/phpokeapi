@@ -1,10 +1,9 @@
-PokeAPI\Pokemon\MoveBattleStyle:
+PokeAPI\Pokemon\MoveBattleStylePreference:
   exclusion_policy: ALL
   properties:
-    version:
-      type: PokeProxy<'PokeAPI\Pokemon\Version'>
-    maxChance:
+    lowHpPreference:
       type: integer
-    encounters:
-      type: ArrayCollection<PokeAPI\Pokemon\Encounter>
-      serialized_name: encounter_details
+    highHpPreference:
+      type: integer
+    moveBattleStyle:
+      type: PokeProxy<'PokeAPI\Pokemon\MoveBattleStyle'>

@@ -1,11 +1,10 @@
-PokeAPI\Pokemon\Version:
+PokeAPI\Pokemon\VersionEncounter:
   exclusion_policy: ALL
   properties:
-    id:
+    version:
+      type: PokeProxy<'PokeAPI\Pokemon\Version'>
+    maxChance:
       type: integer
-    name:
-      type: string
-    names:
-      type: PokeTranslation<'name'>
-    versionGroups:
-      type: ArrayCollection<PokeProxy<'PokeAPI\Pokemon\VersionGroup'>>
+    encounters:
+      type: ArrayCollection<PokeAPI\Pokemon\Encounter>
+      serialized_name: encounter_details

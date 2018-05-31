@@ -15,8 +15,11 @@ use PokeAPI\Translations;
  * Class Pokedex
  * @package PokeAPI\Pokemon
  */
-class Pokedex extends Resource
+class Pokedex
 {
+
+    const POKEAPI_ENDPOINT = 'pokedex';
+
     /**
      * @var integer
      */
@@ -43,9 +46,9 @@ class Pokedex extends Resource
     protected $names;
 
     /**
-     * @var array|PokedexEntry[]
+     * @var ArrayCollection|PokedexEntry[]
      */
-    protected $pokedexEntries = [];
+    protected $pokedexEntries;
 
     /**
      * @var Region|null
@@ -53,32 +56,17 @@ class Pokedex extends Resource
     protected $region;
 
     /**
-     * @var array|VersionGroup[]
+     * @var ArrayCollection|VersionGroup[]
      */
-    protected $versionGroups = [];
+    protected $versionGroups;
 
     /**
-     * @param ArrayCollection $data
+     * Pokedex constructor.
      */
-    protected function hydrate(ArrayCollection $data): void
+    public function __construct()
     {
-        $this->id = $data['id'];
-        $this->name = $data['name'];
-        $this->mainSeries = $data['is_main_series'];
-        $this->descriptions = new Translations($data['descriptions'], 'description');
-        $this->names = new Translations($data['names'], 'name');
-
-        foreach ($data['pokemon_entries'] as $pokedexEntry) {
-            $this->pokedexEntries[$pokedexEntry['name']] = new PokedexEntry($this->client, $pokedexEntry);
-        }
-
-        if (!empty($data['region'])) {
-            $this->region = $this->client->region($data['region']['url']);
-        }
-
-        foreach ($data['version_groups'] as $versionGroup) {
-            $this->versionGroups[$versionGroup['name']] = $this->client->versionGroup($versionGroup['url']);
-        }
+        $this->pokedexEntries = new ArrayCollection();
+        $this->versionGroups = new ArrayCollection();
     }
 
     /**
@@ -122,9 +110,9 @@ class Pokedex extends Resource
     }
 
     /**
-     * @return array|PokedexEntries[]
+     * @return ArrayCollection|PokedexEntries[]
      */
-    public function getPokedexEntries() : array
+    public function getPokedexEntries(): ArrayCollection
     {
         return $this->pokedexEntries;
     }
@@ -138,9 +126,9 @@ class Pokedex extends Resource
     }
 
     /**
-     * @return array|VersionGroup[]
+     * @return ArrayCollection|VersionGroup[]
      */
-    public function getVersionGroups() : array
+    public function getVersionGroups(): ArrayCollection
     {
         return $this->versionGroups;
     }

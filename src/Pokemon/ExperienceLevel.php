@@ -11,10 +11,10 @@ namespace PokeAPI\Pokemon;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * Class Level
+ * Class ExperienceLevel
  * @package PokeAPI\Pokemon
  */
-class Level
+class ExperienceLevel
 {
 
     /**

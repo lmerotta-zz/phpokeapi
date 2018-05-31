@@ -14,7 +14,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * Class ChainLink
  * @package PokeAPI\Pokemon
  */
-class ChainLink extends Resource
+class ChainLink
 {
     /**
      * @var boolean
@@ -27,30 +27,22 @@ class ChainLink extends Resource
     protected $species;
 
     /**
-     * @var array|EvolutionDetails[]
+     * @var ArrayCollection|EvolutionDetails[]
      */
-    protected $details = [];
+    protected $details;
 
     /**
-     * @var array|ChainLink[]
+     * @var ArrayCollection|ChainLink[]
      */
-    protected $evolutions = [];
+    protected $evolutions;
 
     /**
-     * @param ArrayCollection $data
+     * ChainLink constructor.
      */
-    protected function hydrate(ArrayCollection $data): void
+    public function __construct()
     {
-        $this->baby = $data['is_baby'];
-        $this->species = $this->client->species($data['species']['url']);
-
-        foreach ($data['evolution_details'] as $evolutionDetail) {
-            $this->details[] = new EvolutionDetails($this->client, $evolutionDetail);
-        }
-
-        foreach ($data['evolves_to'] as $evolution) {
-            $this->evolutions[] = new ChainLink($this->client, $evolution);
-        }
+        $this->details = new ArrayCollection();
+        $this->evolutions = new ArrayCollection();
     }
 
     /**
@@ -70,17 +62,17 @@ class ChainLink extends Resource
     }
 
     /**
-     * @return array|EvolutionDetails[]
+     * @return ArrayCollection|EvolutionDetails[]
      */
-    public function getDetails()
+    public function getDetails(): ArrayCollection
     {
         return $this->details;
     }
 
     /**
-     * @return array|ChainLink[]
+     * @return ArrayCollection|ChainLink[]
      */
-    public function getEvolutions()
+    public function getEvolutions(): ArrayCollection
     {
         return $this->evolutions;
     }

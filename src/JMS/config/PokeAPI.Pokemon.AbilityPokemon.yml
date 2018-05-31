@@ -1,8 +1,10 @@
-PokeAPI\Pokemon\AbilityFlavorText:
+PokeAPI\Pokemon\AbilityPokemon:
   exclusion_policy: ALL
   properties:
-    versionGroup:
-      type: PokeProxy<'PokeAPI\Pokemon\VersionGroup', 'name'>
-    flavorText:
-      type: PokeTranslation<'flavor_text'>
-      serialized_name: entries
+    hidden:
+      type: boolean
+      serialized_name: is_hidden
+    slot:
+      type: integer
+    pokemon:
+      type: PokeProxy<'PokeAPI\Pokemon\Pokemon'>

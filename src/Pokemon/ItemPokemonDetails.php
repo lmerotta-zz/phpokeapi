@@ -7,13 +7,12 @@
  */
 
 namespace PokeAPI\Pokemon;
-use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Class ItemPokemonDetails
  * @package PokeAPI\Pokemon
  */
-class ItemPokemonDetails extends Resource
+class ItemPokemonDetails
 {
     /**
      * @var integer
@@ -24,15 +23,6 @@ class ItemPokemonDetails extends Resource
      * @var Version
      */
     protected $version;
-
-    /**
-     * @param ArrayCollection $data
-     */
-    protected function hydrate(ArrayCollection $data): void
-    {
-        $this->rarity = $data['rarity'];
-        $this->version = $this->client->version($data['version']['url']);
-    }
 
     /**
      * @return int

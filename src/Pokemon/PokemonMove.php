@@ -14,7 +14,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * Class PokemonMove
  * @package PokeAPI\Pokemon
  */
-class PokemonMove extends Resource
+class PokemonMove
 {
     /**
      * @var Move
@@ -22,20 +22,16 @@ class PokemonMove extends Resource
     protected $move;
 
     /**
-     * @var array|VersionGroupPokemonMove[]
+     * @var ArrayCollection|VersionGroupPokemonMove[]
      */
-    protected $versionPokemonMoves = [];
+    protected $versionPokemonMoves;
 
     /**
-     * @param ArrayCollection $data
+     * PokemonMove constructor.
      */
-    protected function hydrate(ArrayCollection $data): void
+    public function __construct()
     {
-        $this->move = $this->client->move($data['move']['url']);
-
-        foreach ($data['version_group_details'] as $detail) {
-            $this->versionPokemonMoves[] = new VersionGroupPokemonMove($this->client, $detail);
-        }
+        $this->versionPokemonMoves = new ArrayCollection();
     }
 
     /**
@@ -47,9 +43,9 @@ class PokemonMove extends Resource
     }
 
     /**
-     * @return array|VersionGroupPokemonMove[]
+     * @return ArrayCollection|VersionGroupPokemonMove[]
      */
-    public function getVersionPokemonMoves()
+    public function getVersionPokemonMoves(): ArrayCollection
     {
         return $this->versionPokemonMoves;
     }

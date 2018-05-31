@@ -15,8 +15,10 @@ use PokeAPI\Translations;
  * Class Habitat
  * @package PokeAPI\Pokemon
  */
-class Habitat extends Resource
+class Habitat
 {
+    public const POKEAPI_ENDPOINT = 'pokemon-habitat';
+
     /**
      * @var integer
      */
@@ -36,20 +38,6 @@ class Habitat extends Resource
      * @var array|Species[]
      */
     protected $species = [];
-
-    /**
-     * @param ArrayCollection $data
-     */
-    protected function hydrate(ArrayCollection $data): void
-    {
-        $this->id = $data['id'];
-        $this->name = $data['name'];
-        $this->names = new Translations($data['names'], 'name');
-
-        foreach ($data['pokemon_species'] as $species) {
-            $this->species[$species['name']] = $this->client->species($species['url']);
-        }
-    }
 
     /**
      * @return int

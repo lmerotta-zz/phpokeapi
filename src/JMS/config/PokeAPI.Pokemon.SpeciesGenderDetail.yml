@@ -1,13 +1,7 @@
-PokeAPI\Pokemon\Shape:
+PokeAPI\Pokemon\SpeciesGenderDetail:
   exclusion_policy: ALL
   properties:
-    id:
+    rate:
       type: integer
-    name:
-      type: string
-    awesomeNames:
-      type: PokeTranslation<'awesome_name'>
-    names:
-      type: PokeTranslation<'name'>
     species:
-      type: ArrayCollection<PokeProxy<'PokeAPI\Pokemon\Species'>>
+      type: PokeProxy<'PokeAPI\Pokemon\Species'>

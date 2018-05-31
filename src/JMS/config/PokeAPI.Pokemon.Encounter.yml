@@ -1,11 +1,14 @@
-PokeAPI\Pokemon\Version:
+PokeAPI\Pokemon\Encounter:
   exclusion_policy: ALL
   properties:
-    id:
+    minLevel:
+      type: integr
+    maxLevel:
       type: integer
-    name:
-      type: string
-    names:
-      type: PokeTranslation<'name'>
-    versionGroups:
-      type: ArrayCollection<PokeProxy<'PokeAPI\Pokemon\VersionGroup'>>
+    conditionValues:
+      type: ArrayCollection<PokeProxy<'PokeAPI\Pokemon\EncounterConditionValue'>>
+    chancePercent:
+      type: integer
+      serialized_name: chance
+    method:
+      type: PokeProxy<'PokeAPI\Pokemon\EncounterMethod'>
