@@ -1,0 +1,9 @@
+PokeAPI\Pokemon\PalParkEncounter:
+  exclusion_policy: ALL
+  properties:
+    baseScore:
+      type: integer
+    rate:
+      type: integer
+    area:
+      type: PokeProxy<'PokeAPI\Pokemon\PalParkArea'>

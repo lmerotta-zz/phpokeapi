@@ -1,0 +1,8 @@
+PokeAPI\Pokemon\PokemonHeldItem:
+  exclusion_policy: ALL
+  properties:
+    item:
+      type: PokeProxy<'PokeAPI\Pokemon\Item'>
+    versionHeldItems:
+      type: ArrayCollection<PokeAPI\Pokemon\VersionHeldItem>
+      serialized_name: version_details

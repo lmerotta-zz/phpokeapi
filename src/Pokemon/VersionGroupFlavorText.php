@@ -8,14 +8,13 @@
 
 namespace PokeAPI\Pokemon;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use PokeAPI\Translations;
 
 /**
- * Class FlavorText
+ * Class FlavorTextEntry
  * @package PokeAPI\Pokemon
  */
-class FlavorText extends Resource
+class FlavorTextEntry
 {
     /**
      * @var Translations
@@ -26,15 +25,6 @@ class FlavorText extends Resource
      * @var Version
      */
     protected $version;
-
-    /**
-     * @param ArrayCollection $data
-     */
-    protected function hydrate(ArrayCollection $data): void
-    {
-        $this->flavorTexts = new Translations($data['entries'], 'flavor_text');
-        $this->version = $this->client->version($data['version']['url']);
-    }
 
     /**
      * @return Translations

@@ -1,0 +1,39 @@
+PokeAPI\Pokemon\Pokemon:
+  exclusion_policy: ALL
+  properties:
+    id:
+      type: integer
+    name:
+      type: string
+    baseExperience:
+      type: integer
+    height:
+      type: integer
+    default:
+      type: boolean
+      serialized_name: is_default
+    order:
+      type: integer
+    weight:
+      type: integer
+    abilities:
+      type: ArrayCollection<PokeProxy<'PokeAPI\Pokemon\Ability'>>
+    forms:
+      type: ArrayCollection<PokeProxy<'PokeAPI\Pokemon\PokemonForm'>>
+    gameIndices:
+      type: ArrayCollection<PokeAPI\Pokemon\GameIndex>
+    heldItems:
+      type: ArrayCollection<PokeAPI\Pokemon\PokemonHeldItem>
+    areaEncounters:
+      type: ArrayCollection<PokeAPI\Pokemon\AreaEncounter>
+      serialized_name: location_area_encounters
+    moves:
+      type: ArrayCollection<PokeAPI\Pokemon\PokemonMove>
+    sprites:
+      type: ArrayCollection<string, string>
+    species:
+      type: PokeProxy<'PokeAPI\Pokemon\Species'>
+    stats:
+      type: ArrayCollection<PokeAPI\Pokemon\PokemonStat>
+    types:
+      type: ArrayCollection<PokeAPI\Pokemon\PokemonType>

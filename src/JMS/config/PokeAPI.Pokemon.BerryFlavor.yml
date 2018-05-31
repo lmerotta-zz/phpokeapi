@@ -1,0 +1,22 @@
+PokeAPI\Pokemon\Stat:
+  exclusion_policy: ALL
+  properties:
+    id:
+      type: integer
+    name:
+      type: string
+    gameIndex:
+      type: integer
+    battleOnly:
+      type: boolean
+      serialized_name: is_battle_only
+    affectingMoves:
+      type: ArrayCollection<string, ArrayCollection<PokeAPI\Pokemon\MoveStatAffect>>
+    affectingNatures:
+      type: ArrayCollection<string, ArrayCollection<PokeProxy<'PokeAPI\Pokemon\Nature'>>>
+    characteristics:
+      type: PokeProxy<'PokeAPI\Pokemon\Characteristic'>
+    moveDamageClass:
+      type: PokeProxy<'PokeAPI\Pokemon\MoveDamageClass'>
+    names:
+      type: PokeTranslation<'name'>

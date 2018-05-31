@@ -1,0 +1,7 @@
+PokeAPI\Pokemon\GameIndex:
+  exclusion_policy: ALL
+  properties:
+    index:
+      type: integer
+    generation:
+      type: PokeProxy<'PokeAPI\Pokemon\Generation'>

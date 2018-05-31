@@ -1,0 +1,38 @@
+PokeAPI\Pokemon\Item:
+  exclusion_policy: ALL
+  properties:
+    id:
+      type: integer
+    name:
+      type: string
+    cost:
+      type: integer
+    flingPower:
+      type: integer
+    flingEffect:
+      type: PokeProxy<'PokeAPI\Pokemon\FlingEffect'>
+    attributes:
+      type: ArrayCollection<PokeProxy<'PokeAPI\Pokemon\ItemAttribute'>>
+    category:
+      type: PokeProxy<'PokeAPI\Pokemon\ItemCategory'>
+    effects:
+      type: PokeTranslation<'effect'>
+      serialized_name: effect_entries
+    shortEffects:
+      type: PokeTranslation<'short_effect'>
+      serialized_name: effect_entries
+    flavorTexts:
+      type: PokeVersionGroupSortedCollection<'PokeAPI\Pokemon\VersionGroupFlavorText'>
+      serialized_name: flavor_text_entries
+    gameIndices:
+      type: ArrayCollection<PokeAPI\Pokemon\GameIndex>
+    names:
+      type: PokeTranslation<'name'>
+    sprites:
+      type: ArrayCollection<string, string>
+    heldByPokemon:
+      type: ArrayCollection<PokeAPI\Pokemon\ItemPokemon>
+    babyTriggerFor:
+      type: PokeProxy<'PokeAPI\Pokemon\EvolutionChain'>
+    machines:
+      type: ArrayCollection<PokeAPI\Pokemon\ItemVersionMachine>

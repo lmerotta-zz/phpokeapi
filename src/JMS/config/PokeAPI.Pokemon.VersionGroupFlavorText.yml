@@ -1,0 +1,8 @@
+PokeAPI\Pokemon\FlavorTextEntry:
+  exclusion_policy: ALL
+  properties:
+    flavorTexts:
+      type: PokeTranslation<'flavor_text'>
+      serialized_name: entries
+    version:
+      type: PokeProxy<'PokeAPI\Pokemon\Version'>

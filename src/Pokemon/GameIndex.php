@@ -14,7 +14,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * Class Gameindex
  * @package PokeAPI\Pokemon
  */
-class Gameindex extends Resource
+class GameIndex
 {
     /**
      * @var integer
@@ -25,15 +25,6 @@ class Gameindex extends Resource
      * @var Generation
      */
     protected $generation;
-
-    /**
-     * @param ArrayCollection $data
-     */
-    protected function hydrate(ArrayCollection $data): void
-    {
-        $this->index = $data['game_index'];
-        $this->generation = $this->client->generation($data['generation']['url']);
-    }
 
     /**
      * @return int

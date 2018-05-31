@@ -1,0 +1,11 @@
+PokeAPI\Pokemon\MoveAilment:
+  exclusion_policy: ALL
+  properties:
+    id:
+      type: integer
+    name:
+      type: string
+    moves:
+      type: ArrayCollection<PokeProxy<'PokeAPI\Pokemon\Move'>>
+    names:
+      type: PokeTranslation<'name'>

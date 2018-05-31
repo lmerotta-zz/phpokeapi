@@ -14,7 +14,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * Class EncounterVersionRates
  * @package PokeAPI\Pokemon
  */
-class EncounterVersionRates extends Resource
+class EncounterVersionRates
 {
     /**
      * @var integer|null

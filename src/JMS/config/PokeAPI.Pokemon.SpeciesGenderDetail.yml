@@ -1,0 +1,13 @@
+PokeAPI\Pokemon\Shape:
+  exclusion_policy: ALL
+  properties:
+    id:
+      type: integer
+    name:
+      type: string
+    awesomeNames:
+      type: PokeTranslation<'awesome_name'>
+    names:
+      type: PokeTranslation<'name'>
+    species:
+      type: ArrayCollection<PokeProxy<'PokeAPI\Pokemon\Species'>>

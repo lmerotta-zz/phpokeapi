@@ -1,0 +1,12 @@
+PokeAPI\Pokemon\ItemFlingEffect:
+  exclusion_policy: ALL
+  properties:
+    id:
+      type: integer
+    name:
+      type: string
+    effects:
+      type: PokeTranslation<'effect'>
+      serialized_name: effect_entries
+    items:
+      type: ArrayCollection<PokeProxy<'PokeAPI\Pokemon\Item'>>

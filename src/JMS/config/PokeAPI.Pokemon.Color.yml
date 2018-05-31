@@ -1,0 +1,11 @@
+PokeAPI\Pokemon\Characteristic:
+  exclusion_policy: ALL
+  properties:
+    id:
+      type: integer
+    geneModulo:
+      type: integer
+    possibleValues:
+      type: ArrayCollection<int>
+    descriptions:
+      type: PokeTranslation<'description'>

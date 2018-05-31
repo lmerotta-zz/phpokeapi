@@ -1,0 +1,7 @@
+PokeAPI\Pokemon\ItemPokemonDetails:
+  exclusion_policy: ALL
+  properties:
+    rarity:
+      type: integer
+    version:
+      type: PokeProxy<'PokeAPI\Pokemon\Version'>

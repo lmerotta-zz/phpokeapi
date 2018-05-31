@@ -1,0 +1,16 @@
+PokeAPI\Pokemon\GrowthRate:
+  exclusion_policy: ALL
+  properties:
+    id:
+      type: integer
+    name:
+      type: string
+    formula:
+      type: string
+    descriptions:
+      type: PokeTranslation<'description'>
+    levels:
+      type: ArrayCollection<integer, integer>
+    species:
+      type: ArrayCollection<PokeProxy<'PokeAPI\Pokemon\Species', 'pokemon-species', 'name'>>
+      serialized_name: pokemon_species

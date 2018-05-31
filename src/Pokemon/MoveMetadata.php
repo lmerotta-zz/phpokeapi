@@ -7,13 +7,12 @@
  */
 
 namespace PokeAPI\Pokemon;
-use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Class MoveMetaData
  * @package PokeAPI\Pokemon
  */
-class MoveMetaData extends Resource
+class MoveMetadata
 {
     /**
      * @var MoveAilment
@@ -76,25 +75,6 @@ class MoveMetaData extends Resource
      * @var integer
      */
     protected $statChance;
-
-    /**
-     * @param ArrayCollection $data
-     */
-    protected function hydrate(ArrayCollection $data): void
-    {
-        $this->ailment = $this->client->moveAilment($data['ailment']['url']);
-        $this->category = $this->client->moveCategory($data['category']['url']);
-        $this->minHits = $data['min_hits'];
-        $this->maxHits = $data['max_hits'];
-        $this->minturns = $data['min_turns'];
-        $this->maxturns = $data['max_turns'];
-        $this->drainPercent = $data['drain'];
-        $this->healingPercent = $data['healing'];
-        $this->criticalRate = $data['crit_rate'];
-        $this->ailmentChance = $data['ailment_chance'];
-        $this->flintChance = $data['flint_chance'];
-        $this->statChance = $data['stat_chance'];
-    }
 
     /**
      * @return MoveAilment

@@ -1,0 +1,13 @@
+PokeAPI\Pokemon\MoveTarget:
+  exclusion_policy: ALL
+  properties:
+    id:
+      type: integer
+    name:
+      type: string
+    descriptions:
+      type: PokeTranslation<'description'>
+    moves:
+      type: ArrayCollection<PokeProxy<'PokeAPI\Pokemon\Move'>>
+    names:
+      type: PokeTranslation<'name'>

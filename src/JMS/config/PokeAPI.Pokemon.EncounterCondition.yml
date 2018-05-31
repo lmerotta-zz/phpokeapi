@@ -1,0 +1,11 @@
+PokeAPI\Pokemon\Version:
+  exclusion_policy: ALL
+  properties:
+    id:
+      type: integer
+    name:
+      type: string
+    condition:
+      type: PokeProxy<'PokeAPI\Pokemon\EncounterCondition'>
+    names:
+      type: PokeTranslation<'name'>

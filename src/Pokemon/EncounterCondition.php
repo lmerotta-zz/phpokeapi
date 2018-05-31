@@ -2,14 +2,14 @@
 /**
  * Created by PhpStorm.
  * User: zack
- * Date: 04.05.18
- * Time: 14:09
+ * Date: 31.05.18
+ * Time: 18:55
  */
 
 namespace PokeAPI\Pokemon;
 
 
-class NatureStatAffect
+class EncounterCondition
 {
 
 }
