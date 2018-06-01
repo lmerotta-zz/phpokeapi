@@ -2,7 +2,7 @@ PokeAPI\Pokemon\Encounter:
   exclusion_policy: ALL
   properties:
     minLevel:
-      type: integr
+      type: integer
     maxLevel:
       type: integer
     conditionValues:

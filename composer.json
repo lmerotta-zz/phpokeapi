@@ -1,6 +1,6 @@
 {
-    "name": "lmerotta/pokeapi-php-wrapper",
-    "description": "This is a PHP 7.1+ wrapper for PokéAPI",
+    "name": "lmerotta/phpokeapi",
+    "description": "A PHP7.1 Wrapper for PokéAPI, with cache and lazy-loading",
     "type": "library",
     "require": {
         "php": "^7.1.3",
@@ -11,9 +11,6 @@
         "jms/serializer": "^1.11",
         "symfony/yaml": "^4.0"
     },
-    "require-dev": {
-        "phpunit/phpunit": "^6.5"
-    },
     "license": "MIT",
     "authors": [
         {
@@ -23,8 +20,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "PokeAPI\\": "src/",
-            "tests\\": "tests/"
+            "PokeAPI\\": "src/"
         }
     },
     "minimum-stability": "stable"

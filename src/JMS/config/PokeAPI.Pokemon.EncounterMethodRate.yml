@@ -4,5 +4,5 @@ PokeAPI\Pokemon\EncounterMethodRate:
     method:
       type: PokeProxy<'PokeAPI\Pokemon\EncounterMethod'>
     versionRates:
-      type: ArrayCollection<PokeAPI\Pokemon\EncounterVersionRates>
+      type: ArrayCollection<PokeAPI\Pokemon\EncounterVersionRate>
       serialized_name: version_details

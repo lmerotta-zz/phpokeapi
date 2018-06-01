@@ -1,4 +1,4 @@
-PokeAPI\Pokemon\EncounterMethodRate:
+PokeAPI\Pokemon\EncounterVersionRate:
   exclusion_policy: ALL
   properties:
     rate:

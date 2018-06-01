@@ -615,7 +615,7 @@ class Client
      * @param string $data
      * @return array|\JMS\Serializer\scalar|mixed|object 
      */
-    private function deserialize(string $className, string $data)
+    protected function deserialize(string $className, string $data)
     {
         return $this->serializer->deserialize($data, $className, 'json');
     }

@@ -74,10 +74,10 @@ class PokeProxy implements SubscribingHandlerInterface
         $factory     = new LazyLoadingValueHolderFactory();
         $initializer = function (& $wrappedObject, LazyLoadingInterface $proxy, $method, array $parameters, & $initializer) use ($class, $identifier) {
             $response = $this->client->sendRequest($class, $identifier);
-            $initializer   = null; // disable initialization
+            $initializer   = null;
             $wrappedObject = $response;
 
-            return true; // confirm that initialization occurred correctly
+            return true;
         };
 
         return $factory->createProxy($class, $initializer);
