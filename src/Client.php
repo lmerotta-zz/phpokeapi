@@ -39,6 +39,7 @@ use PokeAPI\Pokemon\MoveLearnMethod;
 use PokeAPI\Pokemon\MoveTarget;
 use PokeAPI\Pokemon\Nature;
 use PokeAPI\Pokemon\PalParkArea;
+use PokeAPI\Pokemon\PokeathlonStat;
 use PokeAPI\Pokemon\Pokedex;
 use PokeAPI\Pokemon\Pokemon;
 use PokeAPI\Pokemon\PokemonForm;
@@ -451,6 +452,17 @@ class Client
     public function palParkArea($idOrName) : PalParkArea
     {
         return $this->sendRequest(PalParkArea::class, $idOrName);
+    }
+
+    /**
+     * @param int|string $idOrName
+     * @return PokeathlonStat
+     * @throws NetworkException
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     */
+    public function pokeathlonStat($idOrName) : PokeathlonStat
+    {
+        return $this->sendRequest(PokeathlonStat::class,  $idOrName);
     }
 
     /**

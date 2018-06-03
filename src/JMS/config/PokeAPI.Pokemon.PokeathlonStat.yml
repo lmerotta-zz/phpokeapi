@@ -1,0 +1,11 @@
+PokeAPI\Pokemon\PokeathlonStat:
+  exclusion_policy: ALL
+  properties:
+    id:
+      type: integer
+    name:
+      type: string
+    affectingNatures:
+      type: ArrayCollection<PokeAPI\Pokemon\StatNatureChange>
+    names:
+      type: PokeTranslation<'name'>

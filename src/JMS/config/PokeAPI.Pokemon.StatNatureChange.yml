@@ -1,0 +1,7 @@
+PokeAPI\Pokemon\StatNatureChange:
+  exclusion_policy: ALL
+  properties:
+    maxChange:
+      type: integer
+    nature:
+      type: PokeProxy<'PokeAPI\Pokemon\Nature'>

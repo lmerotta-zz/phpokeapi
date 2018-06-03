@@ -45,7 +45,7 @@ class Stat
     protected $affectingMoves;
 
     /**
-     * @var ArrayCollection|NatureStatAffect[]
+     * @var ArrayCollection|Nature[]
      */
     protected $affectingNatures;
 

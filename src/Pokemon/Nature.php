@@ -51,6 +51,11 @@ class Nature
     protected $likedFlavor;
 
     /**
+     * @var ArrayCollection|NatureStatChange[]
+     */
+    protected $pokeathlonStatChanges;
+
+    /**
      * @var ArrayCollection|MoveBattleStylePreference[]
      */
     protected $moveBattleStylePreferences;
@@ -66,6 +71,7 @@ class Nature
     public function __construct()
     {
         $this->moveBattleStylePreferences = new ArrayCollection();
+        $this->pokeathlonStatChanges = new ArrayCollection();
     }
 
     /**
@@ -114,6 +120,14 @@ class Nature
     public function getLikedFlavor(): BerryFlavor
     {
         return $this->likedFlavor;
+    }
+
+    /**
+     * @return ArrayCollection|NatureStatChange[]
+     */
+    public function getPokeathlonStatChanges(): ArrayCollection
+    {
+        return $this->pokeathlonStatChanges;
     }
 
     /**

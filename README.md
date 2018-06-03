@@ -5,7 +5,6 @@ A PHP7.1+ wrapper for PokéAPI. This package offers the possibility to query the
 What is missing:
 
 - Contests
-- Pokéathlons
 
 ## Installation
 

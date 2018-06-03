@@ -15,6 +15,8 @@ PokeAPI\Pokemon\Nature:
     likedFlavor:
       type: PokeProxy<'PokeAPI\Pokemon\BerryFlavor'>
       serialized_name: likes_flavor
+    pokeathlonStatChanges:
+      type: ArrayCollection<PokeAPI\Pokemon\NatureStatChange>
     moveBattleStylePreferences:
       type: ArrayCollection<PokeAPI\Pokemon\MoveBattleStylePreference>
     names:
