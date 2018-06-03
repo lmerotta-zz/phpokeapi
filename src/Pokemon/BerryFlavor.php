@@ -36,6 +36,11 @@ class BerryFlavor
     protected $berries;
 
     /**
+     * @var ContestType
+     */
+    protected $contestType;
+
+    /**
      * @var Translations
      */
     protected $names;
@@ -70,6 +75,14 @@ class BerryFlavor
     public function getBerries(): ArrayCollection
     {
         return $this->berries;
+    }
+
+    /**
+     * @return ContestType
+     */
+    public function getContestType(): ContestType
+    {
+        return $this->contestType;
     }
 
     /**

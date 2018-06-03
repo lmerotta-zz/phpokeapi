@@ -13,6 +13,8 @@ use PokeAPI\Pokemon\BerryFirmness;
 use PokeAPI\Pokemon\BerryFlavor;
 use PokeAPI\Pokemon\Characteristic;
 use PokeAPI\Pokemon\Color;
+use PokeAPI\Pokemon\ContestEffect;
+use PokeAPI\Pokemon\ContestType;
 use PokeAPI\Pokemon\EggGroup;
 use PokeAPI\Pokemon\EncounterCondition;
 use PokeAPI\Pokemon\EncounterConditionValue;
@@ -47,6 +49,7 @@ use PokeAPI\Pokemon\Region;
 use PokeAPI\Pokemon\Shape;
 use PokeAPI\Pokemon\Species;
 use PokeAPI\Pokemon\Stat;
+use PokeAPI\Pokemon\SuperContestEffect;
 use PokeAPI\Pokemon\Type;
 use PokeAPI\Pokemon\VersionGroup;
 use ProxyManager\Factory\LazyLoadingValueHolderFactory;
@@ -81,7 +84,7 @@ class Client
      * @param CacheInterface $cache
      * @param SerializerInterface $serializer
      */
-    public function __construct(string $url = 'http://pokeapi.co/api/v2/', CacheInterface $cache = null, SerializerInterface $serializer = null)
+    public function __construct(string $url = 'https://pokeapi.co/api/v2/', CacheInterface $cache = null, SerializerInterface $serializer = null)
     {
         $this->baseUrl = $url;
         $this->cache = $cache ?: new FilesystemCache('pokeapi');
@@ -166,6 +169,28 @@ class Client
     public function color($idOrName) : Color
     {
         return $this->sendRequest(Color::class, $idOrName);
+    }
+
+    /**
+     * @param int|string $idOrName
+     * @return ContestEffect
+     * @throws NetworkException
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     */
+    public function contestEffect($idOrName) : ContestEffect
+    {
+        return $this->sendRequest(ContestEffect::class, $idOrName);
+    }
+
+    /**
+     * @param int|string $idOrName
+     * @return ContestType
+     * @throws NetworkException
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     */
+    public function contestType($idOrName) : ContestType
+    {
+        return $this->sendRequest(ContestType::class, $idOrName);
     }
 
     /**
@@ -544,6 +569,17 @@ class Client
 
     /**
      * @param int|string $idOrName
+     * @return SuperContestEffect
+     * @throws NetworkException
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     */
+    public function superContestEffect($idOrName) : SuperContestEffect
+    {
+        return $this->sendRequest(SuperContestEffect::class, $idOrName);
+    }
+
+    /**
+     * @param int|string $idOrName
      * @return Type
      * @throws NetworkException
      * @throws \Psr\SimpleCache\InvalidArgumentException
@@ -586,6 +622,7 @@ class Client
     {
 
         $uri = $className::POKEAPI_ENDPOINT;
+        $uri = str_replace($this->baseUrl, '', $uri);
         
         $url = sprintf(
             "%s%s/",

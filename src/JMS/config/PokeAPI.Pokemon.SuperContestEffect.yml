@@ -1,0 +1,12 @@
+PokeAPI\Pokemon\SuperContestEffect:
+  exclusion_policy: ALL
+  properties:
+    id:
+      type: integer
+    appeal:
+      type: integer
+    flavorTexts:
+      type: PokeTranslation<'flavor_text'>
+      serialized_name: flavor_text_entries
+    moves:
+      type: ArrayCollection<PokeProxy<'PokeAPI\Pokemon\Move'>>

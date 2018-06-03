@@ -1,0 +1,7 @@
+PokeAPI\Pokemon\ContestComboDetail:
+  exclusion_policy: ALL
+  properties:
+    useBefore:
+      type: ArrayCollection<PokeProxy<'PokeAPI\Pokemon\Move'>>
+    useAfter:
+      type: ArrayCollection<PokeProxy<'PokeAPI\Pokemon\Move'>>

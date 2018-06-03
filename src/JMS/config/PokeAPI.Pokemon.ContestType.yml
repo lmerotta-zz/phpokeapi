@@ -1,0 +1,14 @@
+PokeAPI\Pokemon\ContestType:
+  exclusion_policy: ALL
+  properties:
+    id:
+      type: integer
+    name:
+      type: string
+    berryFlavor:
+      type: PokeProxy<'PokeAPI\Pokemon\BerryFlavor'>
+    names:
+      type: PokeTranslation<'name'>
+    colorNames:
+      type: PokeTranslation<'color'>
+      serialized_name: names

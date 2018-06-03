@@ -1,0 +1,15 @@
+PokeAPI\Pokemon\ContestEffect:
+  exclusion_policy: ALL
+  properties:
+    id:
+      type: integer
+    appeal:
+      type: integer
+    jam:
+      type: integer
+    effects:
+      type: PokeTranslation<'effect'>
+      serialized_name: effect_entries
+    flavorTexts:
+      type: PokeTranslation<'flavor_text'>
+      serialized_name: flavor_text_entries

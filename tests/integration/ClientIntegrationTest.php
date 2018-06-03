@@ -34,7 +34,7 @@ class ClientIntegrationTest extends TestCase
         // we want to avoid caching results
         $cache = new NullCache();
         $this->client = new Client(
-            'http://pokeapi.co/api/v2/',
+            'https://pokeapi.co/api/v2/',
             $cache
         );
     }

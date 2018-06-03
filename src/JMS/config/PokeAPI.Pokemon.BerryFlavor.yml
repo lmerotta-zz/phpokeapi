@@ -7,5 +7,7 @@ PokeAPI\Pokemon\BerryFlavor:
       type: string
     berries:
       type: ArrayCollection<PokeAPI\Pokemon\FlavorBerryMap>
+    contestType:
+      type: PokeProxy<'PokeAPI\Pokemon\ContestType'>
     names:
       type: PokeTranslation<'name'>

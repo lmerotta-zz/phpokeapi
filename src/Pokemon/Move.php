@@ -55,6 +55,21 @@ class Move
     protected $power;
 
     /**
+     * @var ArrayCollection|ContestComboDetail[]
+     */
+    protected $contestCombos;
+
+    /**
+     * @var ContestType
+     */
+    protected $contestType;
+
+    /**
+     * @var ContestEffect
+     */
+    protected $contestEffect;
+
+    /**
      * @var MoveDamageClass
      */
     protected $damageClass;
@@ -110,6 +125,11 @@ class Move
     protected $statChanges;
 
     /**
+     * @var SuperContestEffect
+     */
+    protected $superContestEffect;
+
+    /**
      * @var MoveTarget
      */
     protected $target;
@@ -129,6 +149,7 @@ class Move
         $this->machines = new ArrayCollection();
         $this->pastValues = new ArrayCollection();
         $this->statChanges = new ArrayCollection();
+        $this->contestCombos = new ArrayCollection();
     }
 
     /**
@@ -185,6 +206,30 @@ class Move
     public function getPower(): ?int
     {
         return $this->power;
+    }
+
+    /**
+     * @return ArrayCollection|ContestComboDetail[]
+     */
+    public function getContestCombos(): ArrayCollection
+    {
+        return $this->contestCombos;
+    }
+
+    /**
+     * @return ContestType
+     */
+    public function getContestType(): ContestType
+    {
+        return $this->contestType;
+    }
+
+    /**
+     * @return ContestEffect
+     */
+    public function getContestEffect(): ContestEffect
+    {
+        return $this->contestEffect;
     }
 
     /**
@@ -273,6 +318,14 @@ class Move
     public function getStatChanges(): ArrayCollection
     {
         return $this->statChanges;
+    }
+
+    /**
+     * @return SuperContestEffect
+     */
+    public function getSuperContestEffect(): SuperContestEffect
+    {
+        return $this->superContestEffect;
     }
 
     /**

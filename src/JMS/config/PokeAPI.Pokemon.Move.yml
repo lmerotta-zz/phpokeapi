@@ -15,6 +15,12 @@ PokeAPI\Pokemon\Move:
       type: integer
     power:
       type: integer
+    contestCombos:
+      type: ArrayCollection<string, PokeAPI\Pokemon\ContestComboDetail>
+    contestType:
+      type: PokeProxy<'PokeAPI\Pokemon\ContestType'>
+    contestEffect:
+      type: PokeProxy<'PokeAPI\Pokemon\ContestEffect'>
     damageClass:
       type: PokeProxy<'PokeAPI\Pokemon\MoveDamageClass'>
     effects:
@@ -38,6 +44,8 @@ PokeAPI\Pokemon\Move:
       type: ArrayCollection<PokeAPI\Pokemon\PastMoveStatValues>
     statChanges:
       type: ArrayCollection<PokeAPI\Pokemon\MoveStatChange>
+    superContestEffect:
+      type: PokeProxy<'PokeAPI\Pokemon\SuperContestEffect'>
     target:
       type: PokeProxy<'PokeAPI\Pokemon\MoveTarget'>
     type:
