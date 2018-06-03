@@ -604,6 +604,13 @@ class Client
             throw new NetworkException($url, $data);
         }
 
+        // TODO: Remove this ugly hack once PokéAPI is fixed
+        if ($uri === Pokemon::POKEAPI_ENDPOINT) {
+            $data = json_decode($data, true);
+            $data['location_area_encounters'] = $this->fixEncounters($data['location_area_encounters']);
+            $data = json_encode($data);
+        }
+
         $this->cache->set($cache_key, $data);
 
         return $this->deserialize($className, $data);
@@ -618,5 +625,18 @@ class Client
     protected function deserialize(string $className, string $data)
     {
         return $this->serializer->deserialize($data, $className, 'json');
+    }
+
+    /**
+     * TODO: Remove when nasty bug in PokéAPI is fixed.
+     * Currently pokemon encounters are inconsistent with the rest of the API. this method fixes this incompatibility.
+     * @param string $uri
+     * @return array
+     */
+    private function fixEncounters(string $uri): array
+    {
+        $fixedUri = str_replace('/api/v2/', '', $uri);
+
+        return json_decode(file_get_contents($this->baseUrl.$fixedUri), true);
     }
 }

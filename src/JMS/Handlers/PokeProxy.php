@@ -60,6 +60,7 @@ class PokeProxy implements SubscribingHandlerInterface
     public function deserializeProxyToJson(JsonDeserializationVisitor $visitor, $data, array $type, Context $context)
     {
         $class = $type['params'][0];
+
         $identifier = empty($data['name']) ? $data['url'] : $data['name'];
         return $this->createProxy($class, $identifier);
     }
