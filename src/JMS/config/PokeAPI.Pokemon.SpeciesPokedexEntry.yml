@@ -3,5 +3,6 @@ PokeAPI\Pokemon\SpeciesPokedexEntry:
   properties:
     number:
       type: integer
+      serialized_name: entry_number
     pokedex:
       type: PokeProxy<'PokeAPI\Pokemon\Pokedex'>

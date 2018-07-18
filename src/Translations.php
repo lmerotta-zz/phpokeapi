@@ -2,6 +2,7 @@
 
 namespace PokeAPI;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use PokeAPI\Exception\TranslationNotFoundException;
 
 /**
@@ -42,5 +43,10 @@ class Translations
         }
 
         return $this->translations[$languageCode];
+    }
+
+    public function getTranslations(): ArrayCollection
+    {
+        return new ArrayCollection($this->translations);
     }
 }
