@@ -40,7 +40,7 @@ PokeAPI\Pokemon\Species:
       type: PokeProxy<'PokeAPI\Pokemon\Species'>
       serialized_name: evolves_from_species
     evolutionChain:
-      type: PokeAPI\Pokemon\EvolutionChain
+      type: PokeProxy<'PokeAPI\Pokemon\EvolutionChain'>
     habitat:
       type: PokeProxy<'PokeAPI\Pokemon\Habitat'>
     generation:
