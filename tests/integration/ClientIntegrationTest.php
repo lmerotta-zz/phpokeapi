@@ -45,9 +45,11 @@ class ClientIntegrationTest extends TestCase
         $this->assertInstanceOf(Species::class, $species);
         $this->assertEquals('unown', $species->getName());
 
+        /** @var Variety $variety */
         $variety = $species->getVarieties()->first();
         $this->assertInstanceOf(Variety::class, $variety);
 
+        /** @var Pokemon $pokemon */
         $pokemon = $variety->getPokemon();
 
         $this->assertInstanceOf(Pokemon::class, $pokemon);

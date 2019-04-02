@@ -61,6 +61,9 @@ class PokeProxy implements SubscribingHandlerInterface
     {
         $class = $type['params'][0];
 
+        if(empty($data['name']) && empty($data['url'])){
+            var_dump($data);
+        }
         $identifier = empty($data['name']) ? $data['url'] : $data['name'];
         return $this->createProxy($class, $identifier);
     }
