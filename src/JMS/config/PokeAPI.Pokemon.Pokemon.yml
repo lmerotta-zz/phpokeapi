@@ -17,7 +17,7 @@ PokeAPI\Pokemon\Pokemon:
     weight:
       type: integer
     abilities:
-      type: ArrayCollection<PokeProxy<'PokeAPI\Pokemon\AbilityItem'>>
+      type: ArrayCollection<PokeAPI\Pokemon\AbilityItem>
     forms:
       type: ArrayCollection<PokeProxy<'PokeAPI\Pokemon\PokemonForm'>>
     gameIndices:

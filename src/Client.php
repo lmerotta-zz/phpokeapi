@@ -684,7 +684,6 @@ class Client
     private function getDefaultCallback(): callable
     {
         return function ($url) {
-            var_dump($url);
             $ch = curl_init();
             $timeout = 5;
 
