@@ -79,16 +79,22 @@ class Client
     private $serializer;
 
     /**
+     * @var callable
+     */
+    private $callback;
+
+    /**
      * Client constructor.
      * @param string $url
      * @param CacheInterface $cache
      * @param SerializerInterface $serializer
      */
-    public function __construct(string $url = 'https://pokeapi.co/api/v2/', CacheInterface $cache = null, SerializerInterface $serializer = null)
+    public function __construct(string $url = 'https://pokeapi.co/api/v2/', CacheInterface $cache = null, SerializerInterface $serializer = null, callable $callback = null)
     {
         $this->baseUrl = $url;
         $this->cache = $cache ?: new FilesystemCache('pokeapi');
         $this->serializer = $serializer ?: PokeApiJmsSerializerBuilder::build($this);
+        $this->callback = is_callable($callback) ? $callback : $this->getDefaultCallback();
     }
 
     /**
@@ -620,7 +626,6 @@ class Client
      */
     public function sendRequest(string $className, $identifier)
     {
-
         $uri = $className::POKEAPI_ENDPOINT;
         $uri = str_replace($this->baseUrl, '', $uri);
         
@@ -637,33 +642,19 @@ class Client
             return $this->deserialize($className, $this->cache->get($cache_key));
         }
 
-        $ch = curl_init();
-        $timeout = 5;
-
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
-
-        $data = curl_exec($ch);
-        $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        curl_close($ch);
-
-        if ($http_code != 200) {
-            throw new NetworkException($url, $data);
-        }
+        $callback = $this->callback;
+        $data = $callback($url);
 
         // TODO: Remove this ugly hack once PokéAPI is fixed
         if ($uri === Pokemon::POKEAPI_ENDPOINT) {
-            $data = json_decode($data, true);
             $data['location_area_encounters'] = $this->fixEncounters($data['location_area_encounters']);
-            $data = json_encode($data);
         }
+
+        $data = json_encode($data);
 
         $this->cache->set($cache_key, $data);
 
         return $this->deserialize($className, $data);
-
     }
 
     /**
@@ -684,8 +675,31 @@ class Client
      */
     private function fixEncounters(string $uri): array
     {
-        $fixedUri = str_replace('/api/v2/', '', $uri);
+        $callback = $this->callback;
 
-        return json_decode(file_get_contents($this->baseUrl.$fixedUri), true);
+        return $callback($uri);
+    }
+
+    private function getDefaultCallback(): callable
+    {
+        return function ($url) {
+            $ch = curl_init();
+            $timeout = 5;
+
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+
+            $data = curl_exec($ch);
+            $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+            curl_close($ch);
+
+            if ($http_code != 200) {
+                throw new NetworkException($url, $data);
+            }
+
+            return json_decode($data, true);
+        };
     }
 }
