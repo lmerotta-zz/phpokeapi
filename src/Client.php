@@ -647,15 +647,14 @@ class Client
 
         // TODO: Remove this ugly hack once PokéAPI is fixed
         if ($uri === Pokemon::POKEAPI_ENDPOINT) {
-            $data = json_decode($data, true);
             $data['location_area_encounters'] = $this->fixEncounters($data['location_area_encounters']);
-            $data = json_encode($data);
         }
+
+        $data = json_encode($data);
 
         $this->cache->set($cache_key, $data);
 
         return $this->deserialize($className, $data);
-
     }
 
     /**
@@ -678,7 +677,7 @@ class Client
     {
         $callback = $this->callback;
 
-        return json_decode($callback($uri), true);
+        return $callback($uri);
     }
 
     private function getDefaultCallback(): callable
@@ -700,7 +699,7 @@ class Client
                 throw new NetworkException($url, $data);
             }
 
-            return $data;
+            return json_decode($data, true);
         };
     }
 }
