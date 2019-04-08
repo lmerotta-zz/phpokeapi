@@ -1,4 +1,4 @@
-PokeAPI\Pokemon\AbilityItem:
+PokeAPI\Pokemon\PokemonAbility:
   exclusion_policy: ALL
   properties:
     hidden:

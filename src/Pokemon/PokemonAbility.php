@@ -1,9 +1,9 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: zack
- * Date: 22.12.17
- * Time: 17:20
+ * User: limx
+ * Date: 08.04.19
+ * Time: 14:03
  */
 
 namespace PokeAPI\Pokemon;
@@ -11,10 +11,10 @@ namespace PokeAPI\Pokemon;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * Class AbilityItem
+ * Class PokemonAbility
  * @package PokeAPI\Pokemon
  */
-class AbilityItem
+class PokemonAbility
 {
     /**
      * @var boolean

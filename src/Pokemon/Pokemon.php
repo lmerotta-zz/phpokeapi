@@ -54,7 +54,7 @@ class Pokemon
     protected $weight;
 
     /**
-     * @var ArrayCollection|AbilityItem[]
+     * @var ArrayCollection|PokemonAbility[]
      */
     protected $abilities;
 
