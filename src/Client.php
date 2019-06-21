@@ -646,7 +646,7 @@ class Client
         $data = $callback($url);
 
         // TODO: Remove this ugly hack once PokéAPI is fixed
-        if ($uri === Pokemon::POKEAPI_ENDPOINT) {
+        if ($uri === Pokemon::POKEAPI_ENDPOINT && isset($data['location_area_encounters'])) {
             $data['location_area_encounters'] = $this->fixEncounters($data['location_area_encounters']);
         }
 
