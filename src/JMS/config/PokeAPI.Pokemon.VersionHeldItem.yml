@@ -1,4 +1,4 @@
-PokeAPI\Pokemon\VersionGroup:
+PokeAPI\Pokemon\VersionHeldItem:
   exclusion_policy: ALL
   properties:
     version:
