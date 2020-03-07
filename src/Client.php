@@ -647,7 +647,8 @@ class Client
 
         // TODO: Remove this ugly hack once PokéAPI is fixed
         if ($uri === Pokemon::POKEAPI_ENDPOINT && isset($data['location_area_encounters'])) {
-            $data['location_area_encounters'] = $this->fixEncounters($data['location_area_encounters']);
+            $prepend = str_replace('/api/v2/', '', $this->baseUrl);
+            $data['location_area_encounters'] = $this->fixEncounters($prepend . $data['location_area_encounters']);
         }
 
         $data = json_encode($data);
